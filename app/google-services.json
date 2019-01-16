@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "483764424530",
+    "firebase_url": "https://warungdananew.firebaseio.com",
+    "project_id": "warungdananew",
+    "storage_bucket": "warungdananew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483764424530:android:519bb5d7e9f51d29",
+        "android_client_info": {
+          "package_name": "com.lmu.warungdananew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483764424530-pu7964ugekf21tlp8voumkeoosnfc2pb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lmu.warungdananew",
+            "certificate_hash": "814bb268862f03d4fc22df180ac18647dda970a0"
+          }
+        },
+        {
+          "client_id": "483764424530-nrao7n9uical0rr3kgqdcqmsq71eo3u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjECKE2JhRkh9vbL4MYEwlJVX_o663axc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483764424530-nrao7n9uical0rr3kgqdcqmsq71eo3u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

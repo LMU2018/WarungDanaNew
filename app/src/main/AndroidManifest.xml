@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lmu.warungdananew">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_2_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".DetailLeadActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddLeadLogActivity"
+            android:label="@string/title_activity_add_log"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".AddTargetLogActivity"
+            android:label="@string/title_activity_add_log"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddVisumActivity"
+            android:label="@string/title_activity_add_log"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".AddLeadActivity" />
+        <activity
+            android:name=".DetailJadwalActivity"
+            android:label="Canvassing"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DetailContactActivity"
+            android:label="@string/title_activity_detail_contact"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DetailDealActivity"
+            android:label="@string/title_activity_detail_deal"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DetailTargetActivity"
+            android:label="@string/title_activity_detail_target"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".AddContactActivity" />
+        <activity android:name=".AddOrderActivity" />
+        <activity android:name=".AddAdditionalLeadActivity" />
+        <activity android:name=".AddJadwalReportActivity" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDlSZf-YTqh_rBLyzjzB6VanBVm4xk6VvI" />
+
+        <activity
+            android:name=".ContactOrderActivity"
+            android:label="@string/title_activity_contact_order"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".PrintActivity" />
+        <activity android:name=".RekapActivity" />
+
+        <receiver android:name=".AlarmManager.BootCompletedIntentReceiver" />
+
+        <activity android:name=".UbahPassword"/>
+        <activity android:name=".DocumentActivity" />
+        <activity android:name=".PreviewImageActivity"></activity>
+    </application>
+
+</manifest>

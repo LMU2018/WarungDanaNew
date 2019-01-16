@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/title_home"
+        app:showAsAction="always"/>
+
+    <!--<item-->
+        <!--android:id="@+id/navigation_lead"-->
+        <!--android:icon="@drawable/ic_sync_black_24dp"-->
+        <!--android:title="Notification"-->
+        <!--app:showAsAction="always"/>-->
+
+    <item
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title="@string/title_home"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/tentang"
+                android:title="Tentang"
+                app:showAsAction="always"/>
+            <item
+                android:id="@+id/ubahPassword"
+                android:title="Ubah Password"
+                app:showAsAction="always"/>
+            <item
+                android:id="@+id/navigation_target"
+                android:title="Logout"
+                app:showAsAction="always"/>
+
+        </menu>
+
+    </item>
+
+
+</menu>

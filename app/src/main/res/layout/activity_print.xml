@@ -1,0 +1,1887 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:src="@drawable/logo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/btnScreenShot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:text="Scrrenshot"
+                    android:textColor="#ffffff"
+                    android:textSize="10sp"
+                    app:srcCompat="@drawable/ic_print_black_24dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginBottom="5dp"
+             android:text="POOLING WARUNG DANA"
+             android:textColor="#000000"
+             android:textSize="18sp"
+             android:textStyle="bold" />  -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp">
+
+            <View
+                android:id="@+id/tengah"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/tengah"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="Pooling CFA"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nama_cfa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Nama CFA"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_nama_cfa"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_tgl_pooling"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tanggal Pooling"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_tgl_pooling"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_jam_pooling"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Jam Pooling"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_jam_pooling"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_sumber_order"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Sumber Order"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_sumber_order"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_status_konsumen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Status Konsumen"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_status_konsumen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nama_outlet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Nama Outlet"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_nama_outlet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_cabang_fif"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Cabang FIF"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_cabang_fif"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_pos_fif"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="POS FIF"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_pos_fif"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_tgl_survey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tanggal Survey"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_tgl_survey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_jam_survey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Jam Survey"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_jam_survey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="Data Pemohon"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nama_pemohon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Nama Pemohon"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_nama_pemohon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_no_hp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No Hp 1"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_no_hp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_no_hp_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No Hp 2"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_no_hp_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_tempat_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Tempat Lahir"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_tempat_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_tgl_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tanggal Lahir"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_tgl_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nama_penjamin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Nama Penjamin / Pasangan"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_nama_penjamin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_ptempat_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Tempat Lahir Penjamin / Pasangan"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_ptempat_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_ptgl_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Tanggal Lahir Penjamin / Pasangan"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_ptgl_lahir"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_ibu_kandung"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Nama Ibu Kandung"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_ibu_kandung"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_jml_tanggungan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Jumlah Tanggungan"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_jml_tanggungan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tengah"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="Alamat Pemohon"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/alamat_textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Alamat Survey"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_alamat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_hsl_alamat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_rtrw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="RT/RW"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_rtrw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_kelurahan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kelurahan"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_kelurahan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/et_kecamatan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kecamatan"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_kecamatan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Kota/ Kabupaten"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_kabupaten"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/et_provinsi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Provinsi"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_provinsi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_stts_rumah"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Status Rumah "
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_sts_rumah"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_stts_alamat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sesuai KTP"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_sts_alamat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#ffd7d7"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_no_rangka"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="No Rangka           "-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_hsl_no_rangka"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="end"-->
+                <!--android:text=""-->
+                <!--android:textAlignment="textEnd"-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_no_mesin"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="No Mesin  "-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_hsl_no_mesin"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="end"-->
+                <!--android:text=""-->
+                <!--android:textAlignment="textEnd"-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#ffd7d7"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_no_bpkb"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="No BPKB "-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_hsl_no_bpkb"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="end"-->
+                <!--android:text=""-->
+                <!--android:textAlignment="textEnd"-->
+                <!--android:textColor="#000"-->
+                <!--android:textSize="10sp" />-->
+
+                <!--</LinearLayout>-->
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="Data Unit"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_merk_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Merk"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_merk_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_type_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Type"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_type_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_vehicle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Vehicle Code"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_vehicle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_thn_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tahun"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_thn_kendaraan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_nopol"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nomor Polisi"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_nopol"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_pajak"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Status Pajak "
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_pajak"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_owner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Atas nama BPKB"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_owner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tengah"
+                    android:layout_toRightOf="@id/text_tengah"
+                    android:layout_toStartOf="@+id/tengah"
+                    android:background="@color/colorAccent"
+                    android:text="Data Pinjaman"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_otr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="OTR"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_otr"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_plafond"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Plafond"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_plafond"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="DP "
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_angsuran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Angsuran "
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_angsuran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_tenor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tenor "
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_tenor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_keperluan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Keperluan"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_keperluan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="Data Penghasilan"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/tengahbawah"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="#000000" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_toStartOf="@+id/tengahbawah"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="Penghasilan Pemohon"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_pekerjaan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Pekerjaan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_pekerjaan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_status_karyawan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Status Karyawan "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_status_karyawan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_jabatan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Jabatan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_jabatan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_lama_kerja"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Lama Bekerja "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_lama_kerja"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_perusahaan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Nama Perusahaan "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_perusahaan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_penghasilan"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Penghasilan / bulan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_penghasilan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_pengeluaran"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Pengeluaran / bulan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_pengeluaran"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_toEndOf="@+id/tengahbawah"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorAccent"
+                            android:text="Penghasilan Pasangan / Penjamin"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_pekerjaan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Pekerjaan "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_pekerjaan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_status_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Status Karyawan "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_status_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_jabatan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Jabatan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_jabatan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_lama_kerja_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Lama Bekerja "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_lama_kerja_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_perusahaan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:text="Nama Perusahaan "
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_perusahaan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_penghasilan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Penghasilan / bulan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_penghasilan_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffd7d7"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_pengeluaran_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Pengeluaran / bulan"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hsl_pengeluaran_pasangan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text=""
+                                android:textAlignment="textEnd"
+                                android:textColor="#000000"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

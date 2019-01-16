@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#303a4c</color>
+    <color name="colorPrimaryDark">#262e3d</color>
+    <color name="colorAccent">#a63131</color>
+    <color name="pencarianText">#FFFF</color>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <ImageView
+               android:id="@+id/imgThum"
+               android:layout_marginTop="10dp"
+               android:layout_gravity="center"
+               android:layout_width="150dp"
+               android:layout_height="150dp" />
+
+           <TextView
+               android:id="@+id/tvDesc"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:background="@drawable/textview_rounded_dialog"
+               android:textColor="#FFFF"
+               android:gravity="center"
+               android:textSize="25dp"
+               android:text="Desktipsi"
+               android:layout_marginBottom="5dp"
+               android:layout_marginTop="5dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
+
+           <LinearLayout
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <Button
+                   android:id="@+id/btnLihat"
+                   android:textColor="#FFFF"
+                   android:textSize="10dp"
+                   android:layout_marginRight="2dp"
+                   android:layout_marginLeft="2dp"
+                   android:background="@drawable/button_rounded"
+                   android:text="Lihat Gambar"
+                   android:textAllCaps="false"
+                   android:drawableTop="@drawable/ic_eye"
+                   android:layout_weight="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+
+               <Button
+                   android:id="@+id/btnUpdate"
+                   android:textColor="#FFFF"
+                   android:textSize="10dp"
+                   android:layout_marginRight="2dp"
+                   android:layout_marginLeft="2dp"
+                   android:background="@drawable/button_rounded"
+                   android:text="Edit"
+                   android:textAllCaps="false"
+                   android:drawableTop="@drawable/ic_edit"
+                   android:layout_weight="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+
+               <Button
+                   android:id="@+id/btnDelete"
+                   android:textColor="#FFFF"
+                   android:textSize="10dp"
+                   android:layout_marginRight="2dp"
+                   android:layout_marginLeft="2dp"
+                   android:background="@drawable/button_rounded"
+                   android:text="Hapus"
+                   android:textAllCaps="false"
+                   android:drawableTop="@drawable/ic_delete"
+                   android:layout_weight="1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+
+
+           </LinearLayout>
+       </LinearLayout>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

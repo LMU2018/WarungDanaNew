@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_lead"
+        android:icon="@drawable/ic_play_for_work_black_24dp"
+        android:title="Lead" />
+
+    <item
+        android:id="@+id/navigation_target"
+        android:icon="@drawable/ic_radio_button_checked_black_24dp"
+        android:title="Target" />
+
+    <item
+        android:id="@+id/navigation_contact"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="Contact" />
+
+    <item
+        android:id="@+id/navigation_order"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:title="Deal" />
+
+</menu>
