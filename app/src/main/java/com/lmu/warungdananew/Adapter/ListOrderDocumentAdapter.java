@@ -157,24 +157,8 @@ public class ListOrderDocumentAdapter extends RecyclerView.Adapter<ListOrderDocu
             @Override
             public void onClick(View v) {
 
-                apiEndPoint.deleteOrderPhoto(listDocument.get(position).getId()).enqueue(new retrofit2.Callback<RespPost>() {
-                    @Override
-                    public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+                showDialogDelete(viewA , listDocument.get(position).getDescription() ,position);
 
-                        if (response.isSuccessful()){
-
-                            if (response.body() != null){
-
-                                showDialog(viewA , response.body().getApiMessage());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RespPost> call, Throwable t) {
-
-                    }
-                });
             }
         });
 
@@ -194,6 +178,59 @@ public class ListOrderDocumentAdapter extends RecyclerView.Adapter<ListOrderDocu
             }
         });
         dialog.show();
+    }
+
+    private void showDialogDelete(View viewA, String description, final int position) {
+
+        final int positionA = position;
+        final View viewB = viewA;
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(viewA.getContext());
+        builder1.setMessage("Yakin ingin menghapus "+description+ "?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogA, int id) {
+
+                        apiEndPoint.deleteOrderPhoto(listDocument.get(positionA).getId()).enqueue(new retrofit2.Callback<RespPost>() {
+                            @Override
+                            public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+
+                                if (response.isSuccessful()){
+
+                                    if (response.body() != null){
+
+                                        showDialog(viewB , response.body().getApiMessage());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<RespPost> call, Throwable t) {
+
+                            }
+                        });
+
+
+                    }
+                });
+
+        builder1.setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialog.dismiss();
+                dialogInterface.cancel();
+
+            }
+        });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
     }
 
     @Override
