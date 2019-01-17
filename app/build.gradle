@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     compile 'id.zelory:compressor:2.1.0'
-    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    compile 'com.bogdwellers:pinchtozoom:0.1'
 
 }
 
