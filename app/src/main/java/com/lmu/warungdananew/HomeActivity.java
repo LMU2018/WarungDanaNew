@@ -228,6 +228,8 @@ public class HomeActivity extends AppCompatActivity {
         int telpon = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
         int location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int storage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int storageRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int camera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         List<String> listPermissionsNeeded = new ArrayList<>();
 
         if (telpon != PackageManager.PERMISSION_GRANTED) {
@@ -238,6 +240,12 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (location != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (storageRead != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (camera != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
         }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
