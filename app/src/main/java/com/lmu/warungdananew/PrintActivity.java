@@ -2,8 +2,10 @@ package com.lmu.warungdananew;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -58,6 +60,7 @@ public class PrintActivity extends AppCompatActivity {
     String model, tahun;
     NumberFormat formatter = new DecimalFormat("#,###");
     SharedPrefManager sharedPrefManager;
+    String lokasiGambar;
 
     /*String nik, get_nama, get_noTlp, get_alamat, get_rt, get_rw, get_prov, get_kec, get_pendidikan, get_pekerjaan, get_perusahaan,
             get_gaji, get_tanggungan, get_pengeluaran, get_agama,
@@ -686,6 +689,14 @@ public class PrintActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
+
+
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/jpeg");
+                share.putExtra(Intent.EXTRA_STREAM, Uri.parse(lokasiGambar));
+//                share.setPackage("com.whatsapp");//package name of the app
+                startActivity(Intent.createChooser(share, "Share Image"));
+
                 finish();
                 Toast.makeText(getApplicationContext(), "Berhasil screenshot data pooling !", Toast.LENGTH_LONG).show();
             }
@@ -710,6 +721,7 @@ public class PrintActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
+            lokasiGambar = imagePath.getPath();
         } catch (FileNotFoundException e) {
             Log.e("GREC", e.getMessage(), e);
         } catch (IOException e) {
