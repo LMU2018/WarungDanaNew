@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.lmu.warungdananew.Adapter.ListTargetAdapter;
@@ -44,7 +45,7 @@ public class VisitTargetFragment extends Fragment {
     ProgressBar progress;
     private Integer offset = 15, limit;
     private boolean itShouldLoadMore = true;
-
+    LinearLayout iconKosong;
 
     public VisitTargetFragment() {
         // Required empty public constructor
@@ -69,6 +70,7 @@ public class VisitTargetFragment extends Fragment {
         mApiService = UtilsApi.getAPIService();
         progress = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.recyclerView);
+        iconKosong = view.findViewById(R.id.iconKosong);
 
         listTargetAdapter = new ListTargetAdapter(getContext(), listTargets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -152,6 +154,13 @@ public class VisitTargetFragment extends Fragment {
                         }
 
                         listTargetAdapter.notifyDataSetChanged();
+
+                        if (listTargets.size() >= 1) {
+                            iconKosong.setVisibility(LinearLayout.INVISIBLE);
+                        } else {
+                            iconKosong.setVisibility(LinearLayout.VISIBLE);
+                        }
+
                         progress.setVisibility(View.GONE);
                     }
                 }
