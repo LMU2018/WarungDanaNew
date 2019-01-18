@@ -695,10 +695,12 @@ public class PrintActivity extends AppCompatActivity {
                 share.setType("image/jpeg");
                 share.putExtra(Intent.EXTRA_STREAM, Uri.parse(lokasiGambar));
 //                share.setPackage("com.whatsapp");//package name of the app
-                startActivity(Intent.createChooser(share, "Share Image"));
+//                startActivity(Intent.createChooser(share, "Share Image"));
 
-                finish();
-                Toast.makeText(getApplicationContext(), "Berhasil screenshot data pooling !", Toast.LENGTH_LONG).show();
+                startActivityForResult(Intent.createChooser(share,"Share Image"),10);
+
+//                finish();
+//                Toast.makeText(getApplicationContext(), "Berhasil screenshot data pooling !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -729,4 +731,15 @@ public class PrintActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 10){
+
+            File file = new File(lokasiGambar);
+            file.delete();
+            finish();
+        }
+    }
 }

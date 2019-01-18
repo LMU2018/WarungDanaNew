@@ -50,7 +50,7 @@
                     android:text="Scrrenshot"
                     android:textColor="#ffffff"
                     android:textSize="10sp"
-                    app:srcCompat="@drawable/ic_print_black_24dp" />
+                    app:srcCompat="@drawable/ic_share" />
             </LinearLayout>
 
         </LinearLayout>
