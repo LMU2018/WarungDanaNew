@@ -5,7 +5,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -701,33 +704,47 @@ public class PrintActivity extends AppCompatActivity {
     }
 
     public Bitmap takeScreenshot() {
-        View rootView = findViewById(android.R.id.content).getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        return rootView.getDrawingCache();
+        View v = findViewById(android.R.id.content).getRootView();
+
+        v.setDrawingCacheEnabled(true);
+
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(b);
+        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
+        v.draw(c);
+        v.setDrawingCacheEnabled(false); // clear drawing cache
+
+        return b;
+
     }
 
     public void saveBitmap(Bitmap bitmap) {
-        File imagePath = new File(Environment.getExternalStorageDirectory() +"/" + model + tahun + ".png");
+        File imagePath = new File(Environment.getExternalStorageDirectory() +"/" + model.toLowerCase() + tahun.toLowerCase() + ".jpg");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imagePath);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
             lokasiGambar = imagePath.getPath();
             Log.d("Lokasi image",lokasiGambar);
 
-            File file = new File(lokasiGambar);
-            Uri uri = FileProvider.getUriForFile(PrintActivity.this,BuildConfig.APPLICATION_ID+".provider",file);
 
-            Intent shareIntent = ShareCompat.IntentBuilder.from(PrintActivity.this)
-                    .setStream(uri)
-                    .getIntent();
+                File file = new File(lokasiGambar);
+                Uri uri = FileProvider.getUriForFile(PrintActivity.this,BuildConfig.APPLICATION_ID+".provider",file);
 
-            shareIntent.setData(uri);
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setAction(Intent.ACTION_SEND)
+                        .setDataAndTypeAndNormalize(uri, "image/jpeg")
+                        .putExtra(Intent.EXTRA_STREAM, uri);
 
-            startActivityForResult(Intent.createChooser(shareIntent,"Share Image"),10);
+
+                startActivityForResult(Intent.createChooser(shareIntent,"Share Image"),10);
+
+
+
+
         } catch (FileNotFoundException e) {
             Log.e("GREC", e.getMessage(), e);
         } catch (IOException e) {
