@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class WonOrderFragment extends Fragment {
     ProgressBar progress;
     private Integer offset = 15, limit;
     private boolean itShouldLoadMore = true;
+    LinearLayout iconKosong;
 
     public WonOrderFragment() {
         // Required empty public constructor
@@ -68,6 +70,7 @@ public class WonOrderFragment extends Fragment {
         mApiService = UtilsApi.getAPIService();
         progress = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.recyclerView);
+        iconKosong = view.findViewById(R.id.iconKosong);
 
         /*progress.setVisibility(View.VISIBLE);
         firstLoad();*/
@@ -149,6 +152,13 @@ public class WonOrderFragment extends Fragment {
                         }
 
                         listOrderAdapter.notifyDataSetChanged();
+
+                        if (listOrders.size() >= 1) {
+                            iconKosong.setVisibility(LinearLayout.INVISIBLE);
+                        } else {
+                            iconKosong.setVisibility(LinearLayout.VISIBLE);
+                        }
+
                         progress.setVisibility(View.GONE);
                     }
                 }
