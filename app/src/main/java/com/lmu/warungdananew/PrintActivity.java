@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ShareCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -690,17 +692,6 @@ public class PrintActivity extends AppCompatActivity {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
 
-
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("image/jpeg");
-                share.putExtra(Intent.EXTRA_STREAM, Uri.parse(lokasiGambar));
-//                share.setPackage("com.whatsapp");//package name of the app
-//                startActivity(Intent.createChooser(share, "Share Image"));
-
-                startActivityForResult(Intent.createChooser(share,"Share Image"),10);
-
-//                finish();
-//                Toast.makeText(getApplicationContext(), "Berhasil screenshot data pooling !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -716,7 +707,7 @@ public class PrintActivity extends AppCompatActivity {
     }
 
     public void saveBitmap(Bitmap bitmap) {
-        File imagePath = new File(Environment.getExternalStorageDirectory() + "/" + model + tahun + ".png");
+        File imagePath = new File(Environment.getExternalStorageDirectory() +"/" + model + tahun + ".png");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imagePath);
@@ -724,6 +715,19 @@ public class PrintActivity extends AppCompatActivity {
             fos.flush();
             fos.close();
             lokasiGambar = imagePath.getPath();
+            Log.d("Lokasi image",lokasiGambar);
+
+            File file = new File(lokasiGambar);
+            Uri uri = FileProvider.getUriForFile(PrintActivity.this,BuildConfig.APPLICATION_ID+".provider",file);
+
+            Intent shareIntent = ShareCompat.IntentBuilder.from(PrintActivity.this)
+                    .setStream(uri)
+                    .getIntent();
+
+            shareIntent.setData(uri);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            startActivityForResult(Intent.createChooser(shareIntent,"Share Image"),10);
         } catch (FileNotFoundException e) {
             Log.e("GREC", e.getMessage(), e);
         } catch (IOException e) {

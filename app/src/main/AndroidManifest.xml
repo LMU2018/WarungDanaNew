@@ -23,6 +23,20 @@
         android:roundIcon="@mipmap/ic_launcher_2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/file_paths" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -42,7 +56,7 @@
         <activity
             android:name=".AddLeadLogActivity"
             android:label="@string/title_activity_add_log"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AddTargetLogActivity"
             android:label="@string/title_activity_add_log"
@@ -86,9 +100,9 @@
 
         <receiver android:name=".AlarmManager.BootCompletedIntentReceiver" />
 
-        <activity android:name=".UbahPassword"/>
+        <activity android:name=".UbahPassword" />
         <activity android:name=".DocumentActivity" />
-        <activity android:name=".PreviewImageActivity"></activity>
+        <activity android:name=".PreviewImageActivity" />
     </application>
 
 </manifest>
