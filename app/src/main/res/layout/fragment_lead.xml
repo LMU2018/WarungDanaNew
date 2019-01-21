@@ -35,6 +35,25 @@
                     android:background="@drawable/ic_add_black_24dp" />
             </android.support.v7.widget.Toolbar>
 
+            <TextView
+                android:id="@+id/tvPencarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFF"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Sedang Mencari"
+                android:visibility="invisible" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffff"
+                android:scrollbars="vertical"
+                android:visibility="invisible" />
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabsHome"
                 android:layout_width="match_parent"
@@ -47,7 +66,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <AutoCompleteTextView
+        <!--<AutoCompleteTextView
             android:id="@+id/filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +78,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#4b4b4b" />
+            android:background="#4b4b4b" />-->
 
 
         <android.support.v4.view.ViewPager
