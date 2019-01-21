@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +69,7 @@ public class PrintActivity extends AppCompatActivity {
     NumberFormat formatter = new DecimalFormat("#,###");
     SharedPrefManager sharedPrefManager;
     String lokasiGambar;
+    ScrollView scrollView;
 
     /*String nik, get_nama, get_noTlp, get_alamat, get_rt, get_rw, get_prov, get_kec, get_pendidikan, get_pekerjaan, get_perusahaan,
             get_gaji, get_tanggungan, get_pengeluaran, get_agama,
@@ -141,6 +145,8 @@ public class PrintActivity extends AppCompatActivity {
         sAlamat = findViewById(R.id.tv_hsl_sts_alamat);
 
         btnScrrenShot = findViewById(R.id.btnScreenShot);
+
+        scrollView = findViewById(R.id.scrlPrint);
 
         mApiService = UtilsApi.getAPIService();
         idContact = getIntent().getIntExtra("idContact", 0);
@@ -692,7 +698,7 @@ public class PrintActivity extends AppCompatActivity {
         btnScrrenShot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = takeScreenshot();
+                Bitmap bitmap = takeScreenshot(scrollView,scrollView.getChildAt(0).getHeight(),scrollView.getChildAt(0).getWidth());
                 saveBitmap(bitmap);
 
             }
@@ -703,17 +709,22 @@ public class PrintActivity extends AppCompatActivity {
 
     }
 
-    public Bitmap takeScreenshot() {
-        View v = findViewById(android.R.id.content).getRootView();
+    public Bitmap takeScreenshot(ScrollView scrollView, int height, int width) {
 
-        v.setDrawingCacheEnabled(true);
-
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
-        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
-        v.draw(c);
-        v.setDrawingCacheEnabled(false); // clear drawing cache
+
+        Drawable drawable = scrollView.getBackground();
+
+        if (drawable != null){
+
+            drawable.draw(c);
+        }else {
+
+            c.drawColor(Color.WHITE);
+        }
+
+        scrollView.draw(c);
 
         return b;
 
