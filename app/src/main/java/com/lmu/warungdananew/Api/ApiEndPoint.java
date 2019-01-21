@@ -69,6 +69,10 @@ import retrofit2.http.Query;
 
 public interface ApiEndPoint {
 
+    @GET("lead_search")
+    Call<RespListLead> leadSearch(@Query("first_name") String firstName,
+                                   @Query("id_cms_users") Integer idUser);
+
     @Multipart
     @POST("order_photo_update")
     Call<RespPost> updateOrderPhoto(@Part("id") RequestBody id,

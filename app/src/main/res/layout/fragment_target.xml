@@ -32,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:background="#FFFF"
                 android:gravity="center"
-                android:paddingBottom="3dp"
                 android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:text="Sedang Mencari"
                 android:visibility="invisible" />
 

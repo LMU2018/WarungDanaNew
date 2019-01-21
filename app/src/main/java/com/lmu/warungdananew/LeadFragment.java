@@ -10,16 +10,28 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lmu.warungdananew.Adapter.ListLeadAdapter;
 import com.lmu.warungdananew.BottomSheet.BottomSheetLeadAvail;
 import com.lmu.warungdananew.FragmentLead.CollabLeadFragment;
 import com.lmu.warungdananew.FragmentLead.FavoriteLeadFragment;
@@ -55,10 +67,16 @@ public class LeadFragment extends Fragment {
     private ArrayAdapter<String> mAdapter;
     Context context;
     private ApiEndPoint mApiService;
-    private AutoCompleteTextView filter;
+    //    private AutoCompleteTextView filter;
     private Integer idUser, idLead;
     private int hot, newData, working, unqualified;
     SharedPrefManager sharedPrefManager;
+
+    ListLeadAdapter listLeadAdapter;
+    ArrayList<ListLead> listLeads;
+    RecyclerView recyclerView;
+    Call<RespListLead> call = null;
+    TextView tvPencarian;
 
     public LeadFragment() {
         // Required empty public constructor
@@ -73,6 +91,17 @@ public class LeadFragment extends Fragment {
         idUser = sharedPrefManager.getSpId();
 
         toolbar = view.findViewById(R.id.toolbar);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        tvPencarian = view.findViewById(R.id.tvPencarian);
+
+        listLeads = new ArrayList<>();
+        listLeadAdapter = new ListLeadAdapter(getContext(), listLeads);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(listLeadAdapter);
+
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("Lead");
         toolbar.setSubtitle("New Database");
 //        toolbar.inflateMenu(R.menu.menu_list_data);
@@ -83,7 +112,7 @@ public class LeadFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tabsHome);
         tabLayout.setupWithViewPager(viewPager);
         fab = view.findViewById(R.id.btnCheck);
-        filter = view.findViewById(R.id.filter);
+//        filter = view.findViewById(R.id.filter);
 
         initAdapter();
         setupTabIcons();
@@ -97,69 +126,67 @@ public class LeadFragment extends Fragment {
         super.onResume();
         fab.setOnClickListener(
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.dialog_add_lead, null);
-                final MaterialEditText nohp = view.findViewById(R.id.phoneNumber);
+                    @Override
+                    public void onClick(View v) {
+                        final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                        LayoutInflater inflater = LayoutInflater.from(context);
+                        View view = inflater.inflate(R.layout.dialog_add_lead, null);
+                        final MaterialEditText nohp = view.findViewById(R.id.phoneNumber);
 
-                alert.setTitle("Tambah Lead Baru");
-                alert.setView(view);
-                alert.setPositiveButton("Check", new DialogInterface.OnClickListener() {
+                        alert.setTitle("Tambah Lead Baru");
+                        alert.setView(view);
+                        alert.setPositiveButton("Check", new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String nope;
-                        if (nohp.length() < 10) {
-                            Toast.makeText(context, "Nomor HP kurang dari 10 Angka!", Toast.LENGTH_LONG).show();
-                        } else {
-                            nope = nohp.getText().toString();
-                            mApiService.checkNewDB(nope).enqueue(new Callback<CheckNewDB>() {
-                                @Override
-                                public void onResponse(Call<CheckNewDB> call, Response<CheckNewDB> response) {
-                                    if (response.isSuccessful()) {
-                                        if (response.body().getApiStatus() == 0) {
-                                            Intent intent = new Intent(context, AddLeadActivity.class);
-                                            intent.putExtra("noHP", nohp.getText().toString());
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(context, "Data Sudah Ada!", Toast.LENGTH_LONG).show();
-                                            BottomSheetLeadAvail bottomSheet = new BottomSheetLeadAvail();
-                                            Bundle bundle = new Bundle();
-                                            bundle.putInt("idLead", response.body().getIdLead());
-                                            bottomSheet.setArguments(bundle);
-                                            bottomSheet.show(getFragmentManager(), bottomSheet.getTag());
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                String nope;
+                                if (nohp.length() < 10) {
+                                    Toast.makeText(context, "Nomor HP kurang dari 10 Angka!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    nope = nohp.getText().toString();
+                                    mApiService.checkNewDB(nope).enqueue(new Callback<CheckNewDB>() {
+                                        @Override
+                                        public void onResponse(Call<CheckNewDB> call, Response<CheckNewDB> response) {
+                                            if (response.isSuccessful()) {
+                                                if (response.body().getApiStatus() == 0) {
+                                                    Intent intent = new Intent(context, AddLeadActivity.class);
+                                                    intent.putExtra("noHP", nohp.getText().toString());
+                                                    startActivity(intent);
+                                                } else {
+                                                    Toast.makeText(context, "Data Sudah Ada!", Toast.LENGTH_LONG).show();
+                                                    BottomSheetLeadAvail bottomSheet = new BottomSheetLeadAvail();
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putInt("idLead", response.body().getIdLead());
+                                                    bottomSheet.setArguments(bundle);
+                                                    bottomSheet.show(getFragmentManager(), bottomSheet.getTag());
+                                                }
+                                            } else {
+                                                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    } else {
-                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                    }
+
+                                        @Override
+                                        public void onFailure(Call<CheckNewDB> call, Throwable t) {
+                                            Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
 
-                                @Override
-                                public void onFailure(Call<CheckNewDB> call, Throwable t) {
-                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+                            }
+                        });
+
+
+                        alert.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // what ever you want to do with No option.
+                            }
+                        });
+
+                        alert.show();
 
                     }
                 });
 
-
-                alert.setNegativeButton("Batal", new DialogInterface.OnClickListener()
-
-                {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // what ever you want to do with No option.
-                    }
-                });
-
-                alert.show();
-
-            }
-        });
-
-        initFilter();
+//        initFilter();
 
     }
 
@@ -176,8 +203,143 @@ public class LeadFragment extends Fragment {
 
     }
 
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_lead, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        final SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Cari nama target");
+
+        EditText searchEt = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEt.setTextColor(getResources().getColor(R.color.pencarianText));
+        searchEt.setHintTextColor(getResources().getColor(R.color.pencarianText));
+
+        MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                searchView.setQuery("", false);
+                tvPencarian.setVisibility(TextView.INVISIBLE);
+                recyclerView.setVisibility(RecyclerView.INVISIBLE);
+                listLeads.clear();
+                listLeadAdapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvPencarian.setText("Minimal 3 Huruf");
+                tvPencarian.setVisibility(TextView.VISIBLE);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if (call != null) {
+                    call.cancel();
+                }
+
+                if (newText.length() >= 3) {
+                    tvPencarian.setVisibility(TextView.INVISIBLE);
+                    callFilter(newText);
+                } else {
+                    tvPencarian.setText("Minimal 3 Huruf");
+                    tvPencarian.setVisibility(TextView.VISIBLE);
+                    listLeads.clear();
+                    listLeadAdapter.notifyDataSetChanged();
+                }
+
+                /*if (newText.equalsIgnoreCase("") || newText == null || newText.isEmpty()) {
+                    listTargets.clear();
+                    listTargetAdapter.notifyDataSetChanged();
+                } else {
+                    callFilter(newText);
+                }*/
+
+                return true;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void callFilter(String newText) {
+
+        tvPencarian.setVisibility(TextView.VISIBLE);
+        tvPencarian.setText("Sedang Mencari . . .");
+
+        call = mApiService.leadSearch(newText, idUser);
+
+        call.enqueue(new Callback<RespListLead>() {
+            @Override
+            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getData() != null) {
+
+                        tvPencarian.setText("Hasil Pencarian");
+                        listLeads.clear();
+                        listLeadAdapter.notifyDataSetChanged();
+                        recyclerView.setVisibility(RecyclerView.VISIBLE);
+
+                        List<ListLead> list = response.body().getData();
+
+                        if (list.size() <= 0) {
+                            tvPencarian.setText("Pencarian Tidak Ditemukan");
+                        }
+
+                        for (int i = 0; i < list.size(); i++) {
+                            String firstName, lastName, recall, description, status;
+                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
+                            id = list.get(i).getId();
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
+                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
+                            recall = list.get(i).getRecall();
+                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+                            description = list.get(i).getDescription();
+                            status = list.get(i).getStatus();
+                            favorite = list.get(i).getFavorite();
+
+                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite));
+                        }
+
+                        listLeadAdapter.notifyDataSetChanged();
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespListLead> call, Throwable t) {
+                if (call.isCanceled()) {
+
+                } else {
+                    tvPencarian.setText("Gagal Mencari");
+                }
+            }
+        });
+
+
+    }
+
     private void initFilter() {
-        mApiService.listLead(idUser, null).enqueue(new Callback<RespListLead>() {
+/*        mApiService.listLead(idUser, null).enqueue(new Callback<RespListLead>() {
             @Override
             public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
                 if (response.isSuccessful()) {
@@ -230,7 +392,7 @@ public class LeadFragment extends Fragment {
             public void onFailure(Call<RespListLead> call, Throwable t) {
                 Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private void setupTabIcons() {
