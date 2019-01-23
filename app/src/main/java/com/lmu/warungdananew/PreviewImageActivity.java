@@ -56,6 +56,8 @@ public class PreviewImageActivity extends AppCompatActivity {
         Picasso.get()
                 .load(a.getStringExtra("photo"))
                 .error(R.drawable.no_image)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(imageView);
 
 

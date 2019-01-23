@@ -26,6 +26,8 @@ import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListOrderDocument;
 import com.lmu.warungdananew.Response.RespPost;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -78,6 +80,8 @@ public class ListOrderDocumentAdapter extends RecyclerView.Adapter<ListOrderDocu
         Picasso.get()
                 .load(listOrder.getPhoto())
                 .error(R.drawable.no_image)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
                 .resize(600,400)
                 .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
                 .into(holder.imageView, new Callback() {
@@ -128,6 +132,8 @@ public class ListOrderDocumentAdapter extends RecyclerView.Adapter<ListOrderDocu
         Picasso.get()
                 .load(listDocument.get(position).getPhoto())
                 .transform(new CircleTransform())
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
                 .error(R.drawable.no_image)
                 .resize(600,400)
                 .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
