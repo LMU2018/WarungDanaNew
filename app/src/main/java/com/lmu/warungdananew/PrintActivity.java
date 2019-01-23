@@ -2,6 +2,9 @@ package com.lmu.warungdananew;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -70,6 +73,7 @@ public class PrintActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     String lokasiGambar;
     ScrollView scrollView;
+    ProgressDialog progressDialog;
 
     /*String nik, get_nama, get_noTlp, get_alamat, get_rt, get_rw, get_prov, get_kec, get_pendidikan, get_pekerjaan, get_perusahaan,
             get_gaji, get_tanggungan, get_pengeluaran, get_agama,
@@ -156,6 +160,7 @@ public class PrintActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
+        progressDialog = new ProgressDialog(this);
         getDataPrint();
 
     }
@@ -187,6 +192,9 @@ public class PrintActivity extends AppCompatActivity {
     }
 
     private void getDataPrint() {
+
+        progressDialog.setMessage("Proses Pengamnilan Data Print");
+        progressDialog.show();
 
         mApiService.orderDetail(idOrder).enqueue(new Callback<DetailOrder>() {
             @Override
@@ -252,19 +260,54 @@ public class PrintActivity extends AppCompatActivity {
                             sAlamat.setText("Empty");
                         }
 
+                        getDetailContact();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
             }
 
             @Override
             public void onFailure(Call<DetailOrder> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
+
+    }
+
+    private void showDialogGagal(String message) {
+
+        progressDialog.dismiss();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Iya",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        getDataPrint();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Tidak",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    private void getDetailContact(){
 
         mApiService.detailContact(idContact).enqueue(new Callback<DetailContact>() {
             @Override
@@ -300,21 +343,26 @@ public class PrintActivity extends AppCompatActivity {
                             pekerjaan.setText("Empty");
                         }
 
+                        getDetailAdditional();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
 
             }
 
             @Override
             public void onFailure(Call<DetailContact> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
 
+
+    }
+    private void getDetailAdditional(){
         mApiService.detailAdditionalContact(idContact).enqueue(new Callback<DetailAdditionalContact>() {
             @Override
             public void onResponse(Call<DetailAdditionalContact> call, Response<DetailAdditionalContact> response) {
@@ -375,21 +423,24 @@ public class PrintActivity extends AppCompatActivity {
                             sRumah.setText("Empty");
                         }
 
+                        getOrderSurvey();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
 
             }
 
             @Override
             public void onFailure(Call<DetailAdditionalContact> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
+    }
+    private void getOrderSurvey(){
         mApiService.orderSuretyDetail(idOrder).enqueue(new Callback<DetailOrderSurety>() {
             @Override
             public void onResponse(Call<DetailOrderSurety> call, Response<DetailOrderSurety> response) {
@@ -456,20 +507,23 @@ public class PrintActivity extends AppCompatActivity {
                             pPengeluaran.setText("Empty");
                         }
 
+                        getProductDetail();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
             }
 
             @Override
             public void onFailure(Call<DetailOrderSurety> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
+    }
+    private void getProductDetail(){
         mApiService.productUfiDetail(idOrder).enqueue(new Callback<DetailProductUFI>() {
             @Override
             public void onResponse(Call<DetailProductUFI> call, Response<DetailProductUFI> response) {
@@ -531,20 +585,23 @@ public class PrintActivity extends AppCompatActivity {
                             owner.setText("Empty");
                         }
 
+                        getOrderRoanDetail();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
             }
 
             @Override
             public void onFailure(Call<DetailProductUFI> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
+    }
+    private void getOrderRoanDetail(){
         mApiService.orderLoanDetail(idOrder).enqueue(new Callback<DetailOrderLoan>() {
             @Override
             public void onResponse(Call<DetailOrderLoan> call, Response<DetailOrderLoan> response) {
@@ -581,21 +638,24 @@ public class PrintActivity extends AppCompatActivity {
                             keperluan.setText("Empty");
                         }
 
+                        getListAddressContact();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
 
             }
 
             @Override
             public void onFailure(Call<DetailOrderLoan> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
+    }
+    private void getListAddressContact(){
         mApiService.listAddressContact(idContact).enqueue(new Callback<RespListAddress>() {
             @Override
             public void onResponse(Call<RespListAddress> call, Response<RespListAddress> response) {
@@ -643,20 +703,23 @@ public class PrintActivity extends AppCompatActivity {
                             prov.setText("Empty");
                         }
 
+                        getListPhoneContact();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
             }
 
             @Override
             public void onFailure(Call<RespListAddress> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
+    }
+    private void getListPhoneContact(){
         mApiService.listPhoneContact(idContact).enqueue(new Callback<RespListPhone>() {
             @Override
             public void onResponse(Call<RespListPhone> call, Response<RespListPhone> response) {
@@ -676,21 +739,23 @@ public class PrintActivity extends AppCompatActivity {
                             noHp2.setText("Empty");
                         }
 
+                        progressDialog.dismiss();
+
                     } else {
-                        Toast.makeText(PrintActivity.this, "Checking", Toast.LENGTH_SHORT).show();
+                        showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                     }
                 } else {
-                    Toast.makeText(PrintActivity.this, "Not Responding", Toast.LENGTH_SHORT).show();
+                    showDialogGagal("Data tidak ditemukan , apakah ingin mengambil data ulang");
                 }
             }
 
             @Override
             public void onFailure(Call<RespListPhone> call, Throwable t) {
-                Toast.makeText(PrintActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                showDialogGagal("Koneksi Bermasalah , apakah ingin mengambil data ulang");
             }
         });
-
     }
+
 
     @Override
     protected void onResume() {
