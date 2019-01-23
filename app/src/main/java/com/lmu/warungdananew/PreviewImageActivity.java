@@ -39,7 +39,6 @@ public class PreviewImageActivity extends AppCompatActivity {
 
 //    ImageView imageView;
     ImageView imageView;
-    Button btn;
 
     boolean isImageFitToScreen;
 
@@ -49,7 +48,6 @@ public class PreviewImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preview_image);
 
         imageView = findViewById(R.id.imgView);
-        btn = findViewById(R.id.btnShare);
 
 
         final Intent a = getIntent();
