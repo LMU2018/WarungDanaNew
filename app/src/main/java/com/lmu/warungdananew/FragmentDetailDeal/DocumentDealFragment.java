@@ -93,7 +93,9 @@ public class DocumentDealFragment extends Fragment implements ListOrderDocumentA
 
     public void getOrderDocList() {
 
+        iconKosong.setVisibility(LinearLayout.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setAdapter(null);
 
         mApiService.orderPhotoListing(idOrder).enqueue(new Callback<RespOrderDocument>() {
             @Override

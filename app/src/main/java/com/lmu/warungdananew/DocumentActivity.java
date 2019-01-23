@@ -1,11 +1,13 @@
 package com.lmu.warungdananew;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.lmu.warungdananew.Api.ApiEndPoint;
 import com.lmu.warungdananew.Api.SharedPrefManager;
@@ -69,6 +72,16 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
 
         apiEndPoint = UtilsApi.getAPIService();
 
@@ -476,5 +489,11 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
 
         progressDialog.setProgress(100);
         progressDialog.dismiss();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
