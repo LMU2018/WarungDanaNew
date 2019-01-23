@@ -193,7 +193,7 @@ public class PrintActivity extends AppCompatActivity {
 
     private void getDataPrint() {
 
-        progressDialog.setMessage("Proses Pengamnilan Data Print");
+        progressDialog.setMessage("Proses Pengambilan Data Print");
         progressDialog.show();
 
         mApiService.orderDetail(idOrder).enqueue(new Callback<DetailOrder>() {
@@ -282,9 +282,9 @@ public class PrintActivity extends AppCompatActivity {
     private void showDialogGagal(String message) {
 
         progressDialog.dismiss();
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(PrintActivity.this);
         builder1.setMessage(message);
-        builder1.setCancelable(true);
+        builder1.setCancelable(false);
 
         builder1.setPositiveButton(
                 "Iya",
@@ -300,11 +300,11 @@ public class PrintActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                        finish();
                     }
                 });
 
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
+        builder1.show();
     }
 
     private void getDetailContact(){
