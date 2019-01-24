@@ -194,6 +194,7 @@ public class PrintActivity extends AppCompatActivity {
     private void getDataPrint() {
 
         progressDialog.setMessage("Proses Pengambilan Data Print");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         mApiService.orderDetail(idOrder).enqueue(new Callback<DetailOrder>() {
