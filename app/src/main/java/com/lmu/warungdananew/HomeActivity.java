@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                         builder.setCancelable(false);
-                        builder.setMessage("Akun anda login di HP lain , silahkan login ulang")
+                        builder.setMessage("Aplikasi mendeteksi akun anda login lebih dari 1 device , silahkan login kembali")
                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
