@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import com.lmu.warungdananew.Response.Login;
 import com.lmu.warungdananew.Api.ApiEndPoint;
 import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Api.UtilsApi;
+import com.lmu.warungdananew.Response.RespPost;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,11 +49,14 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<String> spAlamat;
     String userAgent;
     Integer uId, time;
+    String android_id,nama,roleName,npmX,outletName;
+    int roleId,outletId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         npm = findViewById(R.id.loginNpm);
         password = findViewById(R.id.loginPassword);
         login = findViewById(R.id.btnLogin);
@@ -110,28 +115,19 @@ public class LoginActivity extends AppCompatActivity {
                                 if (response.body().getStatus() == null || response.body().getStatus().equalsIgnoreCase("N")) {
                                     Toast.makeText(mContext, "Username Anda Tidak Aktif !!!", Toast.LENGTH_SHORT).show();
                                 } else {
+
                                     Integer userId = response.body().getId();
                                     uId = userId;
                                     eula();
                                     userLogs();
-                                    String nama = response.body().getName();
-                                    String roleName = response.body().getCmsPrivilegesName();
-                                    Integer roleId = response.body().getIdCmsPrivileges();
-                                    String npm = response.body().getNpm();
-                                    Integer outletId = response.body().getIdMstOutlet();
-                                    String outletName = response.body().getMstOutletOutletName();
-
-                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, userId);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
-                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_ROLES, roleId);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npm);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
-                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
-                                    sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
-                                    startActivity(new Intent(mContext, HomeActivity.class)
-                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    finish();
+                                    nama = response.body().getName();
+                                    roleName = response.body().getCmsPrivilegesName();
+                                    roleId = response.body().getIdCmsPrivileges();
+                                    npmX = response.body().getNpm();
+                                    outletId = response.body().getIdMstOutlet();
+                                    outletName = response.body().getMstOutletOutletName();
+                                    Log.d("User ID",""+uId);
+                                    updateAndroidID();
                                 }
 
                             } else {
@@ -217,6 +213,59 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.e("Logout", "Auto Logout set at..!" + calendar.getTime());
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
+
+    private void updateAndroidID(){
+
+        mApiService.updateAndroidID(uId,android_id).enqueue(new Callback<RespPost>() {
+            @Override
+            public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+
+                if (response.isSuccessful()){
+
+                    Log.d("Api Status",""+response.body().getApiStatus());
+                    Log.d("Message",""+response.body().getApiMessage());
+                    Log.d("Android ID",""+android_id);
+
+                    if (response.body().getApiStatus() == 1){
+
+                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, uId);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
+                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ROLES, roleId);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npmX);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
+                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
+                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+
+                        startActivity(new Intent(mContext, HomeActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        finish();
+
+                    }else{
+
+                        loading.dismiss();
+                        Toast.makeText(mContext, "Gagal login", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }else {
+
+                    loading.dismiss();
+                    Toast.makeText(mContext, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespPost> call, Throwable t) {
+
+                loading.dismiss();
+                Toast.makeText(mContext, "Not Respond", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 

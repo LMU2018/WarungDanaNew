@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,8 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Helper.BottomNavigationViewHelper;
 import com.lmu.warungdananew.Response.DetailUpdateVersion;
+import com.lmu.warungdananew.Response.RespDeviceID;
+import com.lmu.warungdananew.Response.RespPost;
 import com.lmu.warungdananew.SQLite.DatabaseHelper;
 import com.lmu.warungdananew.Utils.UtilsConnected;
 import com.lmu.warungdananew.Api.ApiEndPoint;
@@ -51,12 +56,20 @@ public class HomeActivity extends AppCompatActivity {
     private Integer intVersion = 0, xmlVersion;
     private FirebaseRemoteConfig remoteConfig = null;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    String android_id = "";
+    int uId = 0;
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context = this;
+
+        sharedPrefManager = new SharedPrefManager(getApplicationContext());
+        android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        uId = sharedPrefManager.getSpId();
         mApiService = UtilsApi.getAPIService();
 //        FirebaseApp.initializeApp(this);
         remoteConfig = FirebaseRemoteConfig.getInstance();
@@ -106,7 +119,10 @@ public class HomeActivity extends AppCompatActivity {
         boolean isConn = UtilsConnected.isNetworkConnected(context);
         if (isConn) {
 
+            checkDeviceID();
             updateVersion();
+
+            checkLogin();
 
             remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder()
                     .setDeveloperModeEnabled(true)
@@ -143,6 +159,51 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void checkDeviceID() {
+
+        mApiService.checkAndroidID(uId,android_id).enqueue(new Callback<RespDeviceID>() {
+            @Override
+            public void onResponse(Call<RespDeviceID> call, Response<RespDeviceID> response) {
+
+                if (response.isSuccessful()){
+
+                    if (response.body().getApiStatus() == 1){
+
+
+                    }else{
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                        builder.setCancelable(false);
+                        builder.setMessage("Akun anda login di HP lain , silahkan login ulang")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        builder.show();
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RespDeviceID> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void checkLogin() {
+
+        Log.d("Android ID = ",android_id);
+
     }
 
     @Override

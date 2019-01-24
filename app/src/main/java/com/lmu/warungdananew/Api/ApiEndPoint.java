@@ -19,6 +19,7 @@ import com.lmu.warungdananew.Response.Login;
 import com.lmu.warungdananew.Response.OrderReasonDetail;
 import com.lmu.warungdananew.Response.RespCounterBrosur;
 import com.lmu.warungdananew.Response.RespCounterLead;
+import com.lmu.warungdananew.Response.RespDeviceID;
 import com.lmu.warungdananew.Response.RespKPICfa;
 import com.lmu.warungdananew.Response.RespListAddress;
 import com.lmu.warungdananew.Response.RespListAlamat;
@@ -68,6 +69,15 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiEndPoint {
+
+    @GET("check_android_id")
+    Call<RespDeviceID> checkAndroidID(@Query("id") int uID,
+                                      @Query("device_id") String device_id);
+
+    @FormUrlEncoded
+    @POST("update_android_id")
+    Call<RespPost> updateAndroidID(@Field("id") Integer id_cms,
+                                          @Field("device_id") String device_id);
 
     @GET("lead_search")
     Call<RespListLead> leadSearch(@Query("first_name") String firstName,
