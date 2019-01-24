@@ -371,7 +371,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
                 if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+
+                    if (Integer.parseInt(d3)-1 == 0){
+                        d3 = "12";
+                    }
+
                     List<CounterBrosur> list = response.body().getData();
                     List<CounterBrosur> baru = new ArrayList<>();
                     List<Integer> jumbros = new ArrayList<>();
@@ -408,7 +413,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+
+                    if (Integer.parseInt(d3)-1 == 0){
+                        d3 = "12";
+                    }
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -437,7 +447,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+
+                    if (Integer.parseInt(d3)-1 == 0){
+                        d3 = "12";
+                    }
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -466,7 +481,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+
+                    if (Integer.parseInt(d3)-1 == 0){
+                        d3 = "12";
+                    }
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -495,7 +515,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+
+                    if (Integer.parseInt(d3)-1 == 0){
+                        d3 = "12";
+                    }
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
