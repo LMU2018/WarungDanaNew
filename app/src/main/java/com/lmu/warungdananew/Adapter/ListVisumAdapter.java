@@ -6,11 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lmu.warungdananew.Picasso.CircleTransform;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListLog;
 import com.lmu.warungdananew.Response.ListVisum;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,6 +80,26 @@ public class ListVisumAdapter extends RecyclerView.Adapter<ListVisumAdapter.List
         holder.deskripsi.setText(deskripsi);
         holder.recall.setText(convertTime(listLead.getRevisit()));
         holder.created.setText(created);
+
+        if (listLead.getPhoto() == null){
+
+            holder.imageFoto.setVisibility(View.GONE);
+
+        }else{
+
+            Picasso.get()
+                    .load(listLead.getPhoto())
+                    .error(R.drawable.no_image)
+                    .transform(new CircleTransform())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .error(R.drawable.no_image)
+                    .resize(150,150)
+                    .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
+                    .into(holder.imageFoto);
+
+        }
+
     }
 
     @Override
@@ -89,6 +114,7 @@ public class ListVisumAdapter extends RecyclerView.Adapter<ListVisumAdapter.List
 
     public class ListLeadHolder extends RecyclerView.ViewHolder {
         TextView deskripsi, recall, created, namacfa, konsumen;
+        ImageView imageFoto;
 
         public ListLeadHolder(View itemView) {
             super(itemView);
@@ -97,6 +123,7 @@ public class ListVisumAdapter extends RecyclerView.Adapter<ListVisumAdapter.List
             created = itemView.findViewById(R.id.tvLogCreated);
             namacfa = itemView.findViewById(R.id.tvItemCFA);
             konsumen = itemView.findViewById(R.id.tvItemCustomer);
+            imageFoto = itemView.findViewById(R.id.imgFoto);
 
         }
     }

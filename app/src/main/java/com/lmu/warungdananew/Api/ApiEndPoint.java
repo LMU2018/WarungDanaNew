@@ -70,6 +70,15 @@ import retrofit2.http.Query;
 
 public interface ApiEndPoint {
 
+    @Multipart
+    @POST("visum_upload_photo")
+    Call<RespPost> uploadVisumPhoto(@Part("id_target") RequestBody idTarget,
+                                         @Part("id_target_visum") RequestBody udTargetVisum,
+                                         @Part MultipartBody.Part photo,
+                                         @Part("id_cms_users") RequestBody idUser);
+
+
+
     @GET("check_android_id")
     Call<RespDeviceID> checkAndroidID(@Query("id") int uID,
                                       @Query("device_id") String device_id);
@@ -580,6 +589,11 @@ public interface ApiEndPoint {
                                         @Query("limit") Integer limit,
                                         @Query("offset") Integer offset);
 
+    @GET("target_listing")
+    Call<RespListTarget> listVisit(@Query("id_cms_users") Integer id,
+                                        @Query("limit") Integer limit,
+                                   @Query("offset") Integer offset);
+
     @GET("target_detail")
     Call<DetailTarget> targetDetail(@Query("id") Integer id);
 
@@ -601,7 +615,7 @@ public interface ApiEndPoint {
 
     @FormUrlEncoded
     @POST("target_visum_create")
-    Call<ResponseBody> targetVisumCreate(@Field("id_target") Integer idTarget,
+    Call<RespPost> targetVisumCreate(@Field("id_target") Integer idTarget,
                                          @Field("id_cms_users") Integer idUser,
                                          @Field("revisit") String revisit,
                                          @Field("id_mst_visum_status") Integer idVisum);

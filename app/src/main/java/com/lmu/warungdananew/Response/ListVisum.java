@@ -25,6 +25,21 @@ public class ListVisum {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("photo")
+    @Expose
+    private String photo;
+
+
+    public ListVisum(Integer id, String targetFirstName, Object targetLastName, String mstVisumStatusStatus, String revisit, String cmsUsersName, String createdAt, String photo) {
+        this.id = id;
+        this.targetFirstName = targetFirstName;
+        this.targetLastName = targetLastName;
+        this.mstVisumStatusStatus = mstVisumStatusStatus;
+        this.revisit = revisit;
+        this.cmsUsersName = cmsUsersName;
+        this.createdAt = createdAt;
+        this.photo = photo;
+    }
 
     public Integer getId() {
         return id;
@@ -80,5 +95,13 @@ public class ListVisum {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

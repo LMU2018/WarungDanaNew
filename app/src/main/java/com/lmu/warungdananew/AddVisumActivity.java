@@ -3,10 +3,20 @@ package com.lmu.warungdananew;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,26 +30,41 @@ import android.widget.Toast;
 import com.lmu.warungdananew.Response.DetailTarget;
 import com.lmu.warungdananew.Response.ListLogDesc;
 import com.lmu.warungdananew.Response.ListLogStatus;
+import com.lmu.warungdananew.Response.ProgressRequestBody;
 import com.lmu.warungdananew.Response.RespListLogStatus;
 import com.lmu.warungdananew.Api.ApiEndPoint;
 import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Api.UtilsApi;
+import com.lmu.warungdananew.Response.RespPost;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddVisumActivity extends AppCompatActivity {
+import static android.provider.CalendarContract.CalendarCache.URI;
+
+public class AddVisumActivity extends AppCompatActivity implements ProgressRequestBody.UploadCallbacks {
     private Integer idData, idSource, idUser;
     private ApiEndPoint mApiService;
-    private TextView nama, status, tanggal;
+    private TextView nama, status, tanggal,tvPhoto;
     private Context context;
     private Spinner spLogStatus;
     List<ListLogStatus> listLogStatuses;
@@ -49,8 +74,17 @@ public class AddVisumActivity extends AppCompatActivity {
     private ImageView imgList;
     private Button btnCheck;
     private String tglPilih, statusLead;
-    ProgressDialog loading;
+    ProgressDialog loading ,progressDialogUploadPhoto;
     SharedPrefManager sharedPrefManager;
+    String pathImage = "";
+    File actualImage;
+    File compressedImage;
+    ImageView imageView;
+    String[] value = new String[]{
+            "Gallery",
+            "Kamera"
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +111,8 @@ public class AddVisumActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         imgList = findViewById(R.id.imgList);
         btnCheck = findViewById(R.id.btnCheck);
+        tvPhoto = findViewById(R.id.tvPhoto);
+        imageView = findViewById(R.id.imgPhoto);
     }
 
     @Override
@@ -151,28 +187,147 @@ public class AddVisumActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(tanggal.getText())) {
-                    tanggal.setError("Wajib Diisi");
+                if (TextUtils.isEmpty(tanggal.getText()) || pathImage.equals("")) {
+//                    tanggal.setError("Wajib Diisi Semua");
+                    Toast.makeText(getApplicationContext(),"Wajib diisi semua",Toast.LENGTH_LONG).show();
                     return;
                 } else {
                     loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
-                    mApiService.targetVisumCreate(idData, idUser, tglPilih, idStatus).enqueue(new Callback<ResponseBody>() {
+                    mApiService.targetVisumCreate(idData, idUser, tglPilih, idStatus).enqueue(new Callback<RespPost>() {
                         @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            finish();
-                            loading.dismiss();
-                            Toast.makeText(context, "Berhasil menambah visum!", Toast.LENGTH_LONG).show();
+                        public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+
+                            if(response.isSuccessful()){
+
+                                if (response.body().getApiStatus() == 1){
+
+                                    loading.dismiss();
+                                    uploadPhoto(response.body().getId());
+
+                                }else{
+
+                                    Toast.makeText(context, "Gagal Menyimpan Visum", Toast.LENGTH_LONG).show();
+                                }
+                            }else {
+
+                                Toast.makeText(context, "Gagal Menyimpan Visum", Toast.LENGTH_LONG).show();
+
+                            }
+//                            finish();
+//                            loading.dismiss();
+//                            Toast.makeText(context, "Berhasil menambah visum!", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        public void onFailure(Call<RespPost> call, Throwable t) {
                             loading.dismiss();
                             Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
+
+            private void uploadPhoto(Integer idTargetVisumX) {
+
+                progressDialogUploadPhoto = new ProgressDialog(AddVisumActivity.this);
+                progressDialogUploadPhoto.setMax(100);
+                progressDialogUploadPhoto.setMessage("Sedang Menunggah Foto");
+                progressDialogUploadPhoto.setTitle("Mohon tunggu");
+                progressDialogUploadPhoto.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialogUploadPhoto.show();
+
+
+                MultipartBody.Part fotoUpload = null;
+                File file = new File(pathImage);
+
+                ProgressRequestBody fileBody = new ProgressRequestBody(file, "multipart/form-data", AddVisumActivity.this);
+
+//                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+
+                fotoUpload = MultipartBody.Part.createFormData("photo", file.getName(), fileBody);
+                RequestBody idTarget = MultipartBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idData));
+                RequestBody idTargetVisum = MultipartBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idTargetVisumX));
+                RequestBody reqIdCms = MultipartBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idUser));
+
+                mApiService.uploadVisumPhoto(idTarget,idTargetVisum,fotoUpload,reqIdCms).enqueue(new Callback<RespPost>() {
+                    @Override
+                    public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+                        if (response.isSuccessful()) {
+
+                            if (response.body() != null) {
+
+                                if (response.body().getApiStatus() == 1){
+
+                                    finish();
+                                    progressDialogUploadPhoto.dismiss();
+                                    Toast.makeText(context, "Berhasil menambah visum!", Toast.LENGTH_LONG).show();
+
+                                }else{
+
+                                    progressDialogUploadPhoto.dismiss();
+                                    Toast.makeText(context, "Gagal menambah visum!", Toast.LENGTH_LONG).show();
+                                }
+
+
+                            } else {
+
+                                progressDialogUploadPhoto.dismiss();
+                                Toast.makeText(context, "Gagal menambah visum!", Toast.LENGTH_LONG).show();
+
+                            }
+
+                        } else {
+
+                            progressDialogUploadPhoto.dismiss();
+                            Toast.makeText(context, "Error , gagal menambahkan visum!", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RespPost> call, Throwable t) {
+
+                        progressDialogUploadPhoto.dismiss();
+                        Toast.makeText(context, "Periksa koneksi anda", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
+
+            }
+
+
         });
+
+        tvPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alerdialogbuilder = new AlertDialog.Builder(AddVisumActivity.this);
+                alerdialogbuilder.setTitle("Ambil Gambar Menggunakan");
+                alerdialogbuilder.setItems(value, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String selected = Arrays.asList(value).get(i);
+
+                        if (selected == "Gallery") {
+
+                            getImageGallery();
+
+                        } else if (selected == "Kamera") {
+
+                            captureImage();
+                        }
+                    }
+                });
+                AlertDialog dialog = alerdialogbuilder.create();
+                dialog.show();
+
+            }
+        });
+
+
     }
 
     private void getDetailDataLead() {
@@ -216,5 +371,171 @@ public class AddVisumActivity extends AppCompatActivity {
                 Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getImageGallery() {
+
+        final Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+
+        galleryIntent.setAction(Intent.ACTION_PICK);
+        Intent intentChoose = Intent.createChooser(galleryIntent, "Pilih Gambar Untuk Di upload");
+        startActivityForResult(intentChoose, 10);
+    }
+
+    private void captureImage() {
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            actualImage = getMediaFileName();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, URI.fromFile(actualImage));
+            startActivityForResult(takePictureIntent, 100);
+        }
+    }
+
+    private static File getMediaFileName() {
+// Lokasi External sdcard
+        File mediaStorageDir = new
+                File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "WarungDana");
+
+
+// Buat directori tidak direktori tidak eksis
+        if (!mediaStorageDir.exists()) {
+
+
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("WarungDana", "Gagal membuat directory" + "WarungDana");
+                return null;
+            }
+        }
+// Membuat nama file
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File mediaFile = null;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp
+                + ".jpg");
+        return mediaFile;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+
+            try {
+                compressedImage = new Compressor(this)
+                        .setMaxWidth(600)
+                        .setMaxHeight(400)
+                        .setQuality(60)
+                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                        .compressToFile(actualImage);
+
+                pathImage = compressedImage.getAbsolutePath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+//            Picasso.get()
+//                    .load(new File(pathImage)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .networkPolicy(NetworkPolicy.NO_CACHE)
+//                    .resize(600,400)
+//                    .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
+//                    .into(imageView);
+
+            Picasso.get()
+                    .load(new File(pathImage))
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .resize(600, 400)
+                    .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
+                    .into(imageView);
+
+        } else if (requestCode == 10) {
+
+            if (data == null) {
+                Toast.makeText(getApplicationContext(), "Gambar Gagal Di load",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,
+                    null, null, null);
+
+            if (cursor != null) {
+
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+
+                pathImage = cursor.getString(columnIndex);
+
+                actualImage = new File(pathImage);
+
+                try {
+                    compressedImage = new Compressor(this)
+                            .setMaxWidth(600)
+                            .setMaxHeight(400)
+                            .setQuality(60)
+                            .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                            .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                                    Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                            .compressToFile(actualImage);
+
+                    pathImage = compressedImage.getAbsolutePath();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                Picasso.get()
+                        .load(new File(pathImage))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .resize(600, 400)
+                        .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
+                        .into(imageView);
+
+                cursor.close();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Gambar Gagal Di load",
+                        Toast.LENGTH_LONG).show();
+
+
+            }
+
+        }
+
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+
+        progressDialogUploadPhoto.setProgress(percentage);
+
+    }
+
+    @Override
+    public void onError() {
+
+        progressDialogUploadPhoto.dismiss();
+
+    }
+
+    @Override
+    public void onFinish() {
+
+        progressDialogUploadPhoto.setProgress(100);
+        progressDialogUploadPhoto.dismiss();
+
     }
 }
