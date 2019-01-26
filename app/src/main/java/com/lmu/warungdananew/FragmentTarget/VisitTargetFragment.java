@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.lmu.warungdananew.Adapter.ListTargetAdapter;
+import com.lmu.warungdananew.Adapter.ListTargetVisitAdapter;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListTarget;
 import com.lmu.warungdananew.Response.RespListTarget;
@@ -41,11 +42,12 @@ public class VisitTargetFragment extends Fragment {
     Integer idUser;
     private Context context;
     ArrayList<ListTarget> listTargets;
-    ListTargetAdapter listTargetAdapter;
+    ListTargetVisitAdapter listTargetAdapter;
     ProgressBar progress;
     private Integer offset = 15, limit;
-    private boolean itShouldLoadMore = true;
+    private boolean itShouldLoadMore = false;
     LinearLayout iconKosong;
+    ArrayList<Integer> saveFirst;
 
     public VisitTargetFragment() {
         // Required empty public constructor
@@ -63,6 +65,8 @@ public class VisitTargetFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        saveFirst = new ArrayList<>();
         limit = Integer.parseInt(getResources().getString(R.string.limit));
         listTargets = new ArrayList<>();
         sharedPrefManager = new SharedPrefManager(getContext());
@@ -72,14 +76,12 @@ public class VisitTargetFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         iconKosong = view.findViewById(R.id.iconKosong);
 
-        listTargetAdapter = new ListTargetAdapter(getContext(), listTargets);
+        listTargetAdapter = new ListTargetVisitAdapter(getContext(), listTargets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(listTargetAdapter);
 
-       /* progress.setVisibility(View.VISIBLE);
-        firstLoad();*/
-
+        progress.setVisibility(View.VISIBLE);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -105,7 +107,7 @@ public class VisitTargetFragment extends Fragment {
         super.onStart();
         listTargets.clear();
         progress.setVisibility(View.VISIBLE);
-        firstLoad();
+
 //        mApiService.listTarget(idUser, 4).enqueue(new Callback<RespListTarget>() {
 //            @Override
 //            public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
@@ -125,16 +127,28 @@ public class VisitTargetFragment extends Fragment {
     }
 
     private void firstLoad() {
+
+        if (listTargets.size() >= 1){
+
+            recyclerView.setAdapter(null);
+        }else{
+
+            recyclerView.setAdapter(listTargetAdapter);
+
+        }
+        saveFirst.clear();
         itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 4, limit, 0).enqueue(new Callback<RespListTarget>() {
+        mApiService.listVisit(idUser, limit,0).enqueue(new Callback<RespListTarget>() {
             @Override
             public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
                 if (response.isSuccessful()) {
-                    itShouldLoadMore = true;
+
                     if (response.body().getData() != null) {
+                        recyclerView.setAdapter(listTargetAdapter);
+
                         List<ListTarget> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "";
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
                             category = list.get(i).getCategory();
                             firstName = list.get(i).getFirstName();
@@ -144,13 +158,25 @@ public class VisitTargetFragment extends Fragment {
                             status = list.get(i).getStatus();
                             revisit = list.get(i).getRevisit();
                             visitStatus = list.get(i).getVisitStatus();
+
+//                            Log.d("Visit Status",visitStatus);
                             id = list.get(i).getId();
                             idTargetMstStatus = list.get(i).getIdTargetMstStatus();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+
+                            if (visitStatus != null){
+
+                                saveFirst.add(id);
+
+                                listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+
+                            }else{
+
+                            }
+
                         }
 
                         listTargetAdapter.notifyDataSetChanged();
@@ -160,6 +186,8 @@ public class VisitTargetFragment extends Fragment {
                         } else {
                             iconKosong.setVisibility(LinearLayout.VISIBLE);
                         }
+
+                        itShouldLoadMore = true;
 
                         progress.setVisibility(View.GONE);
                     }
@@ -177,7 +205,7 @@ public class VisitTargetFragment extends Fragment {
 
     private void loadMore() {
         itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 4, limit, offset).enqueue(new Callback<RespListTarget>() {
+        mApiService.listVisit(idUser, limit,offset).enqueue(new Callback<RespListTarget>() {
             @Override
             public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
                 if (response.isSuccessful()) {
@@ -185,7 +213,7 @@ public class VisitTargetFragment extends Fragment {
                     if (response.body().getData() != null) {
                         List<ListTarget> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus ="";
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
                             category = list.get(i).getCategory();
                             firstName = list.get(i).getFirstName();
@@ -200,8 +228,36 @@ public class VisitTargetFragment extends Fragment {
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+
+                            if (visitStatus != null){
+
+                                boolean cek = false;
+
+                                for (int a = 0; a < saveFirst.size(); a++){
+
+                                    if (saveFirst.get(a) == id){
+
+                                        cek = true;
+
+                                        break;
+                                    }
+                                }
+
+                                if (!cek){
+
+                                    saveFirst.add(id);
+
+                                    listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+                                            idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+
+
+                                }
+
+
+                            }else{
+
+                            }
+
                         }
                         listTargetAdapter.notifyDataSetChanged();
 
@@ -223,4 +279,9 @@ public class VisitTargetFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        firstLoad();
+    }
 }

@@ -23,6 +23,8 @@ import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Api.UtilsApi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +36,7 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkingTargetFragment extends Fragment {
+public class WorkingTargetFragment extends Fragment implements Comparator<ListTarget> {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -43,7 +45,7 @@ public class WorkingTargetFragment extends Fragment {
     ArrayList<ListTarget> listTargets;
     ListTargetAdapter listTargetAdapter;
     ProgressBar progress;
-    private Integer offset = 15, limit;
+    private Integer offset = 50, limit;
     private boolean itShouldLoadMore = true;
     LinearLayout iconKosong;
 
@@ -64,7 +66,8 @@ public class WorkingTargetFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        limit = Integer.parseInt(getResources().getString(R.string.limit));
+//        limit = Integer.parseInt(getResources().getString(R.string.limit));
+        limit = 50;
         listTargets = new ArrayList<>();
         sharedPrefManager = new SharedPrefManager(getContext());
         idUser = sharedPrefManager.getSpId();
@@ -153,6 +156,7 @@ public class WorkingTargetFragment extends Fragment {
                                     idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
                         }
 
+                        Collections.sort(listTargets,Collections.reverseOrder(WorkingTargetFragment.this));
                         listTargetAdapter.notifyDataSetChanged();
 
                         if (listTargets.size() >= 1) {
@@ -160,6 +164,8 @@ public class WorkingTargetFragment extends Fragment {
                         } else {
                             iconKosong.setVisibility(LinearLayout.VISIBLE);
                         }
+
+
 
                         progress.setVisibility(View.GONE);
                     }
@@ -203,6 +209,8 @@ public class WorkingTargetFragment extends Fragment {
                             listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
                                     idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
                         }
+
+                        Collections.sort(listTargets,Collections.reverseOrder(WorkingTargetFragment.this));
                         listTargetAdapter.notifyDataSetChanged();
 
                         int index = listTargets.size();
@@ -223,4 +231,8 @@ public class WorkingTargetFragment extends Fragment {
 
     }
 
+    @Override
+    public int compare(ListTarget listTarget, ListTarget t1) {
+        return listTarget.getRecall().compareTo(t1.getRecall());
+    }
 }
