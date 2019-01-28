@@ -25,12 +25,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisitAdapter.ListTargetHolder> {
+public class ListTargetAdapterWorking extends RecyclerView.Adapter<ListTargetAdapterWorking.ListTargetHolder> {
     ArrayList<ListTarget> listTargets;
     Integer idTarget;
     Context context;
     public int num = 1;
-    public ListTargetVisitAdapter(Context context, ArrayList<ListTarget> list) {
+
+    public ListTargetAdapterWorking(Context context, ArrayList<ListTarget> list) {
         this.context = context;
         this.listTargets = list;
     }
@@ -53,26 +54,26 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
         } else {
             holder.nama.setText(listTarget.getFirstName() + " " + listTarget.getLastName());
         }
+        if (listTarget.getDescription() == null || listTarget.getIdTargetMstStatus() == 1) {
+            holder.deskripsi.setText("Belum di Follow Up");
+        } else if (listTarget.getIdTargetMstStatus() != 4) {
+            holder.deskripsi.setText(listTarget.getDescription());
+        }
 
-            holder.deskripsi.setText(listTarget.getVisitStatus());
+        if (listTarget.getRecall() == null || listTarget.getIdTargetMstStatus() == 1) {
+            holder.tanggal.setText("");
+        } else if (listTarget.getIdTargetMstStatus() != 4) {
+            holder.tanggal.setText(convertTime(listTarget.getRecall()));
+        }
+        if (listTarget.getIdTargetMstStatus() == 4) {
+            if (listTarget.getRevisit() == null) {
+                holder.tanggal.setText("");
+            } else {
+                holder.tanggal.setText(convertTime2(listTarget.getRevisit()));
+                holder.deskripsi.setText(listTarget.getVisitStatus());
+            }
 
-
-//        if (listTarget.getRecall() == null || listTarget.getIdTargetMstStatus() == 1) {
-//            holder.tanggal.setText("");
-//        } else if (listTarget.getIdTargetMstStatus() != 4) {
-//            holder.tanggal.setText(convertTime(listTarget.getRecall()));
-//        }
-//        if (listTarget.getIdTargetMstStatus() == 4) {
-//            if (listTarget.getRevisit() == null) {
-//                holder.tanggal.setText("");
-//            } else {
-//                holder.tanggal.setText(convertTime2(listTarget.getRevisit()));
-//                holder.deskripsi.setText(listTarget.getVisitStatus());
-//            }
-//
-//        }
-
-        holder.tanggal.setText(convertTime2(listTarget.getRevisit()));
+        }
 
         holder.status.setText(listTarget.getCategory());
         holder.kotak.setOnClickListener(new View.OnClickListener() {
@@ -95,10 +96,9 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
 
     }
 
-
     @Override
     public int getItemCount() {
-
+//        return listTargets == null ? 0 : listTargets.size();
         if (num*20 > listTargets.size()){
 
             return listTargets.size();
@@ -106,7 +106,7 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
 
             return num *20;
         }
-//        return listTargets == null ? 0 : listTargets.size();
+
     }
 
     public class ListTargetHolder extends RecyclerView.ViewHolder {

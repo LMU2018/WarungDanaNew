@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.lmu.warungdananew.Adapter.ListTargetAdapter;
+import com.lmu.warungdananew.Adapter.ListTargetAdapterWorking;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListTarget;
 import com.lmu.warungdananew.Response.RespListTarget;
@@ -43,7 +44,7 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
     Integer idUser;
     private Context context;
     ArrayList<ListTarget> listTargets;
-    ListTargetAdapter listTargetAdapter;
+    ListTargetAdapterWorking listTargetAdapter;
     ProgressBar progress;
     private Integer offset = 50, limit;
     private boolean itShouldLoadMore = true;
@@ -75,7 +76,7 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
         progress = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        listTargetAdapter = new ListTargetAdapter(getContext(), listTargets);
+        listTargetAdapter = new ListTargetAdapterWorking(getContext(), listTargets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(listTargetAdapter);
@@ -94,7 +95,13 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
 
                         if (itShouldLoadMore) {
                             progress.setVisibility(View.VISIBLE);
-                            loadMore();
+//                            loadMore();
+                            if ((listTargetAdapter.num)*20 < listTargets.size()){
+                                listTargetAdapter.num = listTargetAdapter.num + 1;
+                                listTargetAdapter.notifyDataSetChanged();
+                            }
+
+                            progress.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
@@ -129,7 +136,7 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
 
     private void firstLoad() {
         itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 3, limit, 0).enqueue(new Callback<RespListTarget>() {
+        mApiService.listTargetPaggWorking(idUser, 3).enqueue(new Callback<RespListTarget>() {
             @Override
             public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
                 if (response.isSuccessful()) {
@@ -181,55 +188,55 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
 
     }
 
-    private void loadMore() {
-        itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 3, limit, offset).enqueue(new Callback<RespListTarget>() {
-            @Override
-            public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
-                if (response.isSuccessful()) {
-                    itShouldLoadMore = true;
-                    if (response.body().getData() != null) {
-                        List<ListTarget> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
-                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
-                            category = list.get(i).getCategory();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            revisit = list.get(i).getRevisit();
-                            visitStatus = list.get(i).getVisitStatus();
-                            id = list.get(i).getId();
-                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
-                        }
-
-                        Collections.sort(listTargets,Collections.reverseOrder(WorkingTargetFragment.this));
-                        listTargetAdapter.notifyDataSetChanged();
-
-                        int index = listTargets.size();
-                        Log.d(TAG, "indexOff: " + index);
-                        offset = index;
-                        Log.d(TAG, "offset: " + offset);
-                        progress.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespListTarget> call, Throwable t) {
-                itShouldLoadMore = true;
-                progress.setVisibility(View.GONE);
-            }
-        });
-
-    }
+//    private void loadMore() {
+//        itShouldLoadMore = false;
+//        mApiService.listTargetPagg(idUser, 3, limit, offset).enqueue(new Callback<RespListTarget>() {
+//            @Override
+//            public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
+//                if (response.isSuccessful()) {
+//                    itShouldLoadMore = true;
+//                    if (response.body().getData() != null) {
+//                        List<ListTarget> list = response.body().getData();
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
+//                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
+//                            category = list.get(i).getCategory();
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            revisit = list.get(i).getRevisit();
+//                            visitStatus = list.get(i).getVisitStatus();
+//                            id = list.get(i).getId();
+//                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+//                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+//                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+//                        }
+//
+//                        Collections.sort(listTargets,Collections.reverseOrder(WorkingTargetFragment.this));
+//                        listTargetAdapter.notifyDataSetChanged();
+//
+//                        int index = listTargets.size();
+//                        Log.d(TAG, "indexOff: " + index);
+//                        offset = index;
+//                        Log.d(TAG, "offset: " + offset);
+//                        progress.setVisibility(View.GONE);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespListTarget> call, Throwable t) {
+//                itShouldLoadMore = true;
+//                progress.setVisibility(View.GONE);
+//            }
+//        });
+//
+//    }
 
     @Override
     public int compare(ListTarget listTarget, ListTarget t1) {

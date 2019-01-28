@@ -590,6 +590,11 @@ public interface ApiEndPoint {
                                         @Query("offset") Integer offset);
 
     @GET("target_listing")
+    Call<RespListTarget> listTargetPaggWorking(@Query("id_cms_users") Integer id,
+                                        @Query("id_target_mst_status") Integer idStatus);
+
+
+    @GET("target_listing")
     Call<RespListTarget> listVisit(@Query("id_cms_users") Integer id,
                                         @Query("limit") Integer limit,
                                    @Query("offset") Integer offset);

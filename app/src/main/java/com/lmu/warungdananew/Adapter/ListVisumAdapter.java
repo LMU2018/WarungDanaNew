@@ -2,6 +2,7 @@ package com.lmu.warungdananew.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lmu.warungdananew.Picasso.CircleTransform;
+import com.lmu.warungdananew.PreviewImageActivity;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListLog;
 import com.lmu.warungdananew.Response.ListVisum;
@@ -98,7 +100,19 @@ public class ListVisumAdapter extends RecyclerView.Adapter<ListVisumAdapter.List
                     .centerInside()// this cropping technique scales the image so that it fills the requested bounds and then crops the extra.
                     .into(holder.imageFoto);
 
+            holder.imageFoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent previewImage = new Intent(context,PreviewImageActivity.class);
+                    previewImage.putExtra("photo",listLead.getPhoto());
+                    context.startActivity(previewImage);
+                }
+            });
+
         }
+
+
 
     }
 
