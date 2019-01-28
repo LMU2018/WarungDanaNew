@@ -18,10 +18,12 @@ import com.lmu.warungdananew.Adapter.ListTargetAdapter;
 import com.lmu.warungdananew.Adapter.ListTargetVisitAdapter;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListTarget;
+import com.lmu.warungdananew.Response.ListTargetVisit;
 import com.lmu.warungdananew.Response.RespListTarget;
 import com.lmu.warungdananew.Api.ApiEndPoint;
 import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Api.UtilsApi;
+import com.lmu.warungdananew.Response.RespListTargetVisit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,13 +39,13 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VisitTargetFragment extends Fragment implements Comparator<ListTarget> {
+public class VisitTargetFragment extends Fragment implements Comparator<ListTargetVisit> {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
     Integer idUser;
     private Context context;
-    ArrayList<ListTarget> listTargets;
+    ArrayList<ListTargetVisit> listTargets;
     ListTargetVisitAdapter listTargetAdapter;
     ProgressBar progress;
     private Integer offset = 15, limit;
@@ -146,17 +148,17 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
         }
         saveFirst.clear();
         itShouldLoadMore = false;
-        mApiService.listVisit(idUser, limit,0).enqueue(new Callback<RespListTarget>() {
+        mApiService.listVisit(idUser).enqueue(new Callback<RespListTargetVisit>() {
             @Override
-            public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
+            public void onResponse(Call<RespListTargetVisit> call, Response<RespListTargetVisit> response) {
                 if (response.isSuccessful()) {
 
                     if (response.body().getData() != null) {
                         recyclerView.setAdapter(listTargetAdapter);
 
-                        List<ListTarget> list = response.body().getData();
+                        List<ListTargetVisit> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "";
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum;
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
                             category = list.get(i).getCategory();
                             firstName = list.get(i).getFirstName();
@@ -173,13 +175,15 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+                            created_at_target_visum = list.get(i).getCreated_at_target_visum();
+
 
                             if (visitStatus != null){
 
                                 saveFirst.add(id);
 
-                                listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+                                listTargets.add(new ListTargetVisit(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_visum));
 
                             }else{
 
@@ -205,7 +209,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
             }
 
             @Override
-            public void onFailure(Call<RespListTarget> call, Throwable t) {
+            public void onFailure(Call<RespListTargetVisit> call, Throwable t) {
                 itShouldLoadMore = true;
                 progress.setVisibility(View.GONE);
             }
@@ -296,7 +300,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
     }
 
     @Override
-    public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getRevisit().compareTo(t1.getRevisit());
+    public int compare(ListTargetVisit listTarget, ListTargetVisit t1) {
+        return listTarget.getCreated_at_target_visum().compareTo(t1.getCreated_at_target_visum());
     }
 }

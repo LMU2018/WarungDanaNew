@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.lmu.warungdananew.DetailTargetActivity;
 import com.lmu.warungdananew.R;
 import com.lmu.warungdananew.Response.ListTarget;
+import com.lmu.warungdananew.Response.ListTargetVisit;
 import com.lmu.warungdananew.Utils.UtilsConnected;
 
 import java.text.ParseException;
@@ -26,11 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisitAdapter.ListTargetHolder> {
-    ArrayList<ListTarget> listTargets;
+    ArrayList<ListTargetVisit> listTargets;
     Integer idTarget;
     Context context;
     public int num = 1;
-    public ListTargetVisitAdapter(Context context, ArrayList<ListTarget> list) {
+    public ListTargetVisitAdapter(Context context, ArrayList<ListTargetVisit> list) {
         this.context = context;
         this.listTargets = list;
     }
@@ -45,7 +46,7 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
 
     @Override
     public void onBindViewHolder(ListTargetHolder holder, int position) {
-        final ListTarget listTarget = listTargets.get(position);
+        final ListTargetVisit listTarget = listTargets.get(position);
         idTarget = listTarget.getId();
         final Context mcontext;
         if (listTarget.getLastName() == null) {

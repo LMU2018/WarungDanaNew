@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class RespListLogTarget {
-
+public class RespListTargetVisit {
     @SerializedName("api_status")
     @Expose
     private Integer apiStatus;
@@ -18,11 +17,10 @@ public class RespListLogTarget {
     private String apiAuthorization;
     @SerializedName("data")
     @Expose
-    private List<ListLogTarget> data = null;
+    private List<ListTargetVisit> data = null;
     @SerializedName("api_http")
     @Expose
     private Integer apiHttp;
-
 
     public Integer getApiStatus() {
         return apiStatus;
@@ -48,11 +46,11 @@ public class RespListLogTarget {
         this.apiAuthorization = apiAuthorization;
     }
 
-    public List<ListLogTarget> getData() {
+    public List<ListTargetVisit> getData() {
         return data;
     }
 
-    public void setData(List<ListLogTarget> data) {
+    public void setData(List<ListTargetVisit> data) {
         this.data = data;
     }
 

@@ -152,8 +152,13 @@ public class NewTargetFragment extends Fragment {
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
 
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+                            if (visitStatus == null){
+
+                                listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+                            }
+
+
                         }
 
                         listTargetAdapter.notifyDataSetChanged();

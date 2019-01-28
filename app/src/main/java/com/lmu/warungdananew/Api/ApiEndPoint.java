@@ -47,6 +47,7 @@ import com.lmu.warungdananew.Response.RespListProduct;
 import com.lmu.warungdananew.Response.RespListReligion;
 import com.lmu.warungdananew.Response.RespListReportJadwal;
 import com.lmu.warungdananew.Response.RespListTarget;
+import com.lmu.warungdananew.Response.RespListTargetVisit;
 import com.lmu.warungdananew.Response.RespListUnit;
 import com.lmu.warungdananew.Response.RespListUnitList;
 import com.lmu.warungdananew.Response.RespListUnitUfi;
@@ -595,12 +596,14 @@ public interface ApiEndPoint {
 
 
     @GET("target_listing")
-    Call<RespListTarget> listVisit(@Query("id_cms_users") Integer id,
-                                        @Query("limit") Integer limit,
-                                   @Query("offset") Integer offset);
+    Call<RespListTargetVisit> listVisit(@Query("id_cms_users") Integer id);
 
     @GET("target_detail")
     Call<DetailTarget> targetDetail(@Query("id") Integer id);
+
+    @GET("target_detail")
+    Call<DetailTarget> targetDetailTotal(@Query("id") Integer id,
+                                    @Query("id_cms_users") Integer idCmsUsers);
 
     @GET("target_log_listing")
     Call<RespListLogTarget> listLogTarget(@Query("id_target") Integer id);

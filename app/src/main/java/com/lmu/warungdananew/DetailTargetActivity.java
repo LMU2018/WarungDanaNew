@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.BottomSheet.BottomSheetTarget;
 import com.lmu.warungdananew.FragmentDetailTarget.InfoTargetFragment;
 import com.lmu.warungdananew.FragmentDetailTarget.LogTargetFragment;
@@ -37,6 +38,7 @@ public class DetailTargetActivity extends AppCompatActivity {
     public Integer idTarget;
     Context context;
     private String noteTotal, logTotal, visumTotal;
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,9 @@ public class DetailTargetActivity extends AppCompatActivity {
         context = this;
         tabLayout.setupWithViewPager(viewPager);
         mApiService = UtilsApi.getAPIService();
+        sharedPrefManager = new SharedPrefManager(getApplicationContext());
         idTarget = getIntent().getIntExtra("idTarget", 0);
+
         getDetail();
 
 
@@ -71,7 +75,7 @@ public class DetailTargetActivity extends AppCompatActivity {
 
     private void getDetail() {
 
-        mApiService.targetDetail(idTarget).enqueue(new Callback<DetailTarget>() {
+        mApiService.targetDetailTotal(idTarget,sharedPrefManager.getSpId()).enqueue(new Callback<DetailTarget>() {
             @Override
             public void onResponse(Call<DetailTarget> call, Response<DetailTarget> response) {
                 if (response.isSuccessful()) {
