@@ -144,7 +144,7 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
                     if (response.body().getData() != null) {
                         List<ListTarget> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,created_at_target_log,updated_by;
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
                             category = list.get(i).getCategory();
                             firstName = list.get(i).getFirstName();
@@ -159,8 +159,12 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+                            created_at_target_log = list.get(i).getCreated_at_target_log();
+                            updated_by = list.get(i).getUpdated_by();
+
+                            Log.d("Created at log",created_at_target_log);
+                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, updated_by,recall, idMstLogDesc,
+                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_log));
                         }
 
                         Collections.sort(listTargets,Collections.reverseOrder(WorkingTargetFragment.this));
@@ -240,6 +244,6 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
 
     @Override
     public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getRecall().compareTo(t1.getRecall());
+        return listTarget.getCreated_at_target_log().compareTo(t1.getCreated_at_target_log());
     }
 }

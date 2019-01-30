@@ -23,11 +23,11 @@
         android:roundIcon="@mipmap/ic_launcher_2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TentangApp"></activity>
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
-
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/file_paths" />
@@ -108,6 +108,7 @@
         <activity android:name=".UbahPassword" />
         <activity android:name=".DocumentActivity" />
         <activity android:name=".PreviewImageActivity" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c75e934525c142f72dbfcbb4dccbf75744c77b13" />

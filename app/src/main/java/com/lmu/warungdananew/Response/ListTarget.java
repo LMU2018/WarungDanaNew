@@ -5,14 +5,50 @@ import com.google.gson.annotations.SerializedName;
 
 public class ListTarget {
 
-    public ListTarget(Integer id, Integer idTargetMstStatus, String category, String firstName, String lastName,
-                      String recall, Integer idMstLogDesc, Integer idMstLogStatus, String description, String status,
-                      Integer idMstVisumStatus, String revisit, String visitStatus) {
+//    public ListTarget(Integer id, Integer idTargetMstStatus, String category, String firstName, String lastName, String recall, Integer idMstLogDesc, Integer idMstLogStatus, String description, String status, Integer idMstVisumStatus, String revisit, String visitStatus, String created_at_target_log) {
+//        this.id = id;
+//        this.idTargetMstStatus = idTargetMstStatus;
+//        this.category = category;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.recall = recall;
+//        this.idMstLogDesc = idMstLogDesc;
+//        this.idMstLogStatus = idMstLogStatus;
+//        this.description = description;
+//        this.status = status;
+//        this.idMstVisumStatus = idMstVisumStatus;
+//        this.revisit = revisit;
+//        this.visitStatus = visitStatus;
+//        this.created_at_target_log = created_at_target_log;
+//    }
+//
+//    public ListTarget(Integer id, Integer idTargetMstStatus, String category, String firstName, String lastName,
+//                      String recall, Integer idMstLogDesc, Integer idMstLogStatus, String description, String status,
+//                      Integer idMstVisumStatus, String revisit, String visitStatus) {
+//        this.id = id;
+//        this.idTargetMstStatus = idTargetMstStatus;
+//        this.category = category;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.recall = recall;
+//        this.idMstLogDesc = idMstLogDesc;
+//        this.idMstLogStatus = idMstLogStatus;
+//        this.description = description;
+//        this.status = status;
+//        this.idMstVisumStatus = idMstVisumStatus;
+//        this.revisit = revisit;
+//        this.visitStatus = visitStatus;
+//
+//    }
+
+
+    public ListTarget(Integer id, Integer idTargetMstStatus, String category, String firstName, String lastName, String updated_by, String recall, Integer idMstLogDesc, Integer idMstLogStatus, String description, String status, Integer idMstVisumStatus, String revisit, String visitStatus, String created_at_target_log) {
         this.id = id;
         this.idTargetMstStatus = idTargetMstStatus;
         this.category = category;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.updated_by = updated_by;
         this.recall = recall;
         this.idMstLogDesc = idMstLogDesc;
         this.idMstLogStatus = idMstLogStatus;
@@ -21,7 +57,7 @@ public class ListTarget {
         this.idMstVisumStatus = idMstVisumStatus;
         this.revisit = revisit;
         this.visitStatus = visitStatus;
-
+        this.created_at_target_log = created_at_target_log;
     }
 
     @SerializedName("id")
@@ -39,6 +75,9 @@ public class ListTarget {
     @SerializedName("last_name")
     @Expose
     private String lastName;
+    @SerializedName("updated_by")
+    @Expose
+    private String updated_by;
     @SerializedName("recall")
     @Expose
     private String recall;
@@ -63,6 +102,25 @@ public class ListTarget {
     @SerializedName("visit_status")
     @Expose
     private String visitStatus;
+    @SerializedName("created_at_target_log")
+    @Expose
+    private String created_at_target_log;
+
+    public String getUpdated_by() {
+        return updated_by;
+    }
+
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
+    }
+
+    public String getCreated_at_target_log() {
+        return created_at_target_log;
+    }
+
+    public void setCreated_at_target_log(String created_at_target_log) {
+        this.created_at_target_log = created_at_target_log;
+    }
 
     public Integer getId() {
         return id;

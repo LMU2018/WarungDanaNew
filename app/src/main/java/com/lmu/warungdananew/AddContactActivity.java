@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -79,7 +80,7 @@ public class AddContactActivity extends AppCompatActivity {
     List<ListPlace> listPlaces;
     List<ListEmployee> listEmployees;
     private Button btnCheck;
-    private Integer idReligion, idmarital, idjob, idContact, idDataSource, idJobs, idContactIntent, idAddressIntent,
+    private Integer idReligion, idmarital, idjob = 0, idContact, idDataSource, idJobs, idContactIntent, idAddressIntent,
             idAddContact, idContactUpdate, idMainPhone, idMobilePhone;
     private CheckBox cbemployeeDetail, cbemployee;
     private ApiEndPoint mApiService;
@@ -262,6 +263,8 @@ public class AddContactActivity extends AppCompatActivity {
         pendapatan.addTextChangedListener(new NumberTextWatcher(pendapatan));
         pengeluaran.addTextChangedListener(new NumberTextWatcher(pengeluaran));
 
+        job.setPrompt("Pilih Pekerjaan");
+
     }
 
     @Override
@@ -340,7 +343,9 @@ public class AddContactActivity extends AppCompatActivity {
                     return;
                 } else if (rgGender.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
-                } else if (TextUtils.isEmpty(mainphone.getText())) {
+                } else if (idJob == 0) {
+                    Toast.makeText(getApplicationContext(),"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(mainphone.getText())) {
                     mainphone.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(mobilephone.getText())) {
                     mobilephone.setError("Wajib Diisi !");
@@ -364,7 +369,7 @@ public class AddContactActivity extends AppCompatActivity {
                     pendapatan.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(pengeluaran.getText())) {
                     pengeluaran.setError("Wajib Diisi !");
-                } else {
+                }  else {
                     loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
                     contactCreate();
                 }
@@ -689,14 +694,21 @@ public class AddContactActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RespListJob> call, Response<RespListJob> response) {
                 if (response.isSuccessful()) {
+
                     if (response.body().getApiStatus() != 0) {
                         listJobs = response.body().getData();
                         final List<String> listJob = new ArrayList<>();
+
+                        listJob.add("Pilih Pekerjaan");
                         for (int i = 0; i < listJobs.size(); i++) {
                             listJob.add(listJobs.get(i).getJob());
                         }
+
                         ArrayAdapter<String> adapterJob = new ArrayAdapter<>(context, R.layout.spinner_item, listJob);
                         job.setAdapter(adapterJob);
+
+
+
 
                         if (pekerjaan != null) {
                             int intJob = adapterJob.getPosition(pekerjaan);
@@ -706,11 +718,21 @@ public class AddContactActivity extends AppCompatActivity {
                         job.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                idjob = listJobs.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Pekerjaan")){
+
+                                    idJob = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    idjob = listJobs.get(position).getId();
+                                }
+
                             }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
+
 
                             }
                         });

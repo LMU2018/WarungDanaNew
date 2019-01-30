@@ -123,8 +123,10 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
                         .show();
                 return true;
             case R.id.tentang:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://lmu2018.github.io/WarungDana/"));
-                startActivity(browserIntent);
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://lmu2018.github.io/WarungDana/"));
+//                startActivity(browserIntent);
+                Intent tentang = new Intent(getActivity(),TentangApp.class);
+                startActivity(tentang);
 
                 return true;
             case R.id.ubahPassword:

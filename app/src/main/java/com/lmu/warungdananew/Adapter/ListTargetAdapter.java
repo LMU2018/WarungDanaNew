@@ -32,6 +32,7 @@ public class ListTargetAdapter extends RecyclerView.Adapter<ListTargetAdapter.Li
     ArrayList<ListTarget> listTargets;
     Integer idTarget;
     Context context;
+    public int num = 1;
 
     public ListTargetAdapter(Context context, ArrayList<ListTarget> list) {
         this.context = context;
@@ -100,7 +101,15 @@ public class ListTargetAdapter extends RecyclerView.Adapter<ListTargetAdapter.Li
 
     @Override
     public int getItemCount() {
-        return listTargets == null ? 0 : listTargets.size();
+//        return listTargets == null ? 0 : listTargets.size();
+
+        if (num*20 > listTargets.size()){
+
+            return listTargets.size();
+        }else {
+
+            return num *20;
+        }
     }
 
     public class ListTargetHolder extends RecyclerView.ViewHolder {

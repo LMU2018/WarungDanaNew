@@ -66,7 +66,7 @@
                         android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="Key Performance Index"
+                        android:text="Key Performance"
                         android:textSize="15sp"
                         android:textStyle="bold|italic"
                         android:textColor="#4b4b4b"/>

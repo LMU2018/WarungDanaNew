@@ -113,11 +113,12 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
         btnCheck = findViewById(R.id.btnCheck);
         tvPhoto = findViewById(R.id.tvPhoto);
         imageView = findViewById(R.id.imgPhoto);
+
+        listener();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void listener() {
+
         mApiService.visumStatus().enqueue(new Callback<RespListLogStatus>() {
             @Override
             public void onResponse(Call<RespListLogStatus> call, Response<RespListLogStatus> response) {
@@ -134,6 +135,7 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 idStatus = listLogStatuses.get(position).getId();
+                                Log.d("IDSTATUS",""+idStatus);
                             }
 
                             @Override
@@ -154,6 +156,11 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
                 Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -193,6 +200,8 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
                     return;
                 } else {
                     loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+
+                    Log.d("IDSTATUSE",""+idStatus);
                     mApiService.targetVisumCreate(idData, idUser, tglPilih, idStatus).enqueue(new Callback<RespPost>() {
                         @Override
                         public void onResponse(Call<RespPost> call, Response<RespPost> response) {

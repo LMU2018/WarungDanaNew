@@ -586,9 +586,7 @@ public interface ApiEndPoint {
 
     @GET("target_listing")
     Call<RespListTarget> listTargetPagg(@Query("id_cms_users") Integer id,
-                                        @Query("id_target_mst_status") Integer idStatus,
-                                        @Query("limit") Integer limit,
-                                        @Query("offset") Integer offset);
+                                        @Query("id_target_mst_status") Integer idStatus);
 
     @GET("target_listing")
     Call<RespListTarget> listTargetPaggWorking(@Query("id_cms_users") Integer id,

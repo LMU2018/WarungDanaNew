@@ -211,7 +211,7 @@ public class TargetFragment extends Fragment {
                         }
 
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus;
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,updated_by,created_at_log;
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
                             category = list.get(i).getCategory();
                             firstName = list.get(i).getFirstName();
@@ -226,9 +226,11 @@ public class TargetFragment extends Fragment {
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+                            updated_by = list.get(i).getUpdated_by();
+                            created_at_log = list.get(i).getCreated_at_target_log();
 
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName,updated_by, recall, idMstLogDesc,
+                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_log));
                         }
 
                         listTargetAdapter.notifyDataSetChanged();

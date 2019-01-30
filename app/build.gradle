@@ -21,10 +21,15 @@ android {
         applicationId "com.lmu.warungdananew"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
-        versionName "2.2.4"
+        versionCode 3
+
+        versionName "2.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        aaptOptions {
+            cruncherEnabled = false
+        }
     }
     buildTypes {
         release {
