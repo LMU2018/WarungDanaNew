@@ -84,16 +84,17 @@
             />
 
         <TextView
+            android:id="@+id/tvVersionX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Warung Dana Mobile 2.2.4"
+            android:text="Versi"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="powered by LMU"
+            android:text="powered by Digital Network Asia"
             android:textSize="12sp" />
 
     </LinearLayout>

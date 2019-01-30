@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.0.5'
+    implementation 'com.github.mirrajabi:search-dialog:1.2.3'
 
 
 }

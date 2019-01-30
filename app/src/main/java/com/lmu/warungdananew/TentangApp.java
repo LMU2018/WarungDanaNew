@@ -24,9 +24,10 @@ public class TentangApp extends AppCompatActivity {
         ImageView a = findViewById(R.id.imageView);
         TextView b = findViewById(R.id.tvVerison);
         TextView btnApp = findViewById(R.id.btnApp);
+        View visitDNA = findViewById(R.id.visitLinkDNA);
 //        Button btnDNA = findViewById(R.id.btnDNA);
 
-        b.setText("Aplikasi Versi ."+BuildConfig.VERSION_NAME);
+        b.setText("Aplikasi Versi "+BuildConfig.VERSION_NAME);
 
         Picasso.get()
                 .load(R.drawable.about_800x600_png)
@@ -43,6 +44,18 @@ public class TentangApp extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+            }
+        });
+
+        visitDNA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url = "http://digitalnetworkasia.com/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
             }
         });
 

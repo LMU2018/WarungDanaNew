@@ -72,7 +72,10 @@ public class LogTargetFragment extends Fragment {
 
                     for (int i = 0 ; i< listLeads.size(); i++ ){
 
-                        if (listLeads.get(i).getId_cms_users() == sharedPrefManager.getSpId()){
+                        int idCMS = listLeads.get(i).getId_cms_users();
+                        int spID = sharedPrefManager.getSpId();
+
+                        if (idCMS == spID){
 
                             Integer id;
                             String targetFirstName;
