@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        link.setText(Html.fromHtml("<a href=https://lmu2018.github.io/WarungDana/> Syarat dan Ketentuan"));
+        link.setText(Html.fromHtml("<a href=http://warungdana.com/eula/> Syarat dan Ketentuan"));
         link.setMovementMethod(LinkMovementMethod.getInstance());
         /*checkAndRequestPermissions();*/
         login.setOnClickListener(new View.OnClickListener() {

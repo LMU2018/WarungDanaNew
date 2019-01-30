@@ -38,15 +38,18 @@ public class ListAddressAdapter extends RecyclerView.Adapter<ListAddressAdapter.
     @Override
     public void onBindViewHolder(ListLeadHolder holder, int position) {
         final ListAddress listLead = listLeads.get(position);
-        String jalan, kelurahan,kecamatan,kota,provinsi,kodepos;
+        String jalan, kelurahan,kecamatan,kota,provinsi,kodepos,rt,rw;
         jalan = listLead.getAddress() + ", ";
         kelurahan = listLead.getMstAddressKelurahan() + ", ";
         kecamatan = listLead.getMstAddressKecamatan()+ ", ";
         kota = listLead.getMstAddressKabupaten()+ ", ";
         provinsi = listLead.getMstAddressProvinsi()+ ", ";
         kodepos = listLead.getMstAddressKodepos();
+        rt = " RT "+listLead.getRt();
+        rw = " RW "+listLead.getRw();
 
-        holder.tvItemAddress.setText(jalan+kelurahan+kecamatan+kota+provinsi+kodepos);
+
+        holder.tvItemAddress.setText(jalan+kelurahan+kecamatan+kota+provinsi+kodepos+rt+rw);
 
         holder.direction.setOnClickListener(new View.OnClickListener() {
             @Override

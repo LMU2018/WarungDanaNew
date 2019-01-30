@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/tvVerison"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:gravity="center"
             android:textColor="#4D4D4D"
             android:text="App Version"
@@ -43,11 +43,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-       <LinearLayout
+        <TextView
+            android:id="@+id/tvEula"
+            android:layout_marginTop="80dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="#CC0000"
+            android:text="Syarat dan Ketentuan"
+            android:layout_below="@+id/tvVerison"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
            android:layout_marginRight="60dp"
            android:layout_marginLeft="60dp"
            android:layout_marginTop="10dp"
-           android:layout_marginBottom="70dp"
+           android:layout_marginBottom="60dp"
           android:layout_above="@id/tvVerison"
            android:orientation="horizontal"
            android:layout_width="match_parent"
