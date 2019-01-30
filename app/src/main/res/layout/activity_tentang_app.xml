@@ -48,7 +48,7 @@
            android:layout_marginRight="60dp"
            android:layout_marginLeft="60dp"
            android:layout_marginTop="10dp"
-           android:layout_marginBottom="20dp"
+           android:layout_marginBottom="70dp"
           android:layout_above="@id/tvVerison"
            android:orientation="horizontal"
            android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                android:paddingBottom="2dp"
                android:textSize="10dp"
                android:textAllCaps="false"
-               android:text="http://warnadana.com"
+               android:text="www.warungdana.com"
                android:layout_width="match_parent"
                android:layout_height="wrap_content" />
 
@@ -73,6 +73,12 @@
 
 
        </LinearLayout>
+
+        <View
+            android:id="@+id/visitLinkDNA"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
 
 
     </RelativeLayout>

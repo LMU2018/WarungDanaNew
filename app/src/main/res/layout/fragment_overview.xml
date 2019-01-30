@@ -269,7 +269,7 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
                 android:background="@drawable/shadow">
-                
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

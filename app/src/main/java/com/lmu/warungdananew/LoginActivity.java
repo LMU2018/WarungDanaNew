@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText npm, password;
     Button login;
-    TextView link;
+    TextView link,version;
     CheckBox eula;
     ProgressDialog loading;
     Context mContext;
@@ -67,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
         spAlamat = new ArrayList<>();
         userAgent = System.getProperty("http.agent");
+        version = findViewById(R.id.tvVersionX);
+
+        version.setText("Warung Dana Mobile versi "+BuildConfig.VERSION_NAME);
 
     }
 
