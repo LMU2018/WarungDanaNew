@@ -36,7 +36,6 @@
         <TextView
             android:id="@+id/tvVerison"
             android:textSize="20dp"
-            android:textStyle="bold"
             android:gravity="center"
             android:textColor="#4D4D4D"
             android:text="App Version"
@@ -63,7 +62,7 @@
                android:textColor="#CC0000"
                android:paddingTop="2dp"
                android:paddingBottom="2dp"
-               android:textSize="10dp"
+               android:textSize="15dp"
                android:textAllCaps="false"
                android:text="www.warungdana.com"
                android:layout_width="match_parent"
