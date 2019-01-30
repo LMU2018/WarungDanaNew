@@ -343,13 +343,21 @@ public class AddContactActivity extends AppCompatActivity {
                     return;
                 } else if (rgGender.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
-                } else if (idJob == 0) {
+                } else if (idReligion == 0) {
+                    Toast.makeText(getApplicationContext(),"Agama wajib diisi",Toast.LENGTH_LONG).show();
+                } else if (idmarital == 0) {
+                    Toast.makeText(getApplicationContext(),"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
+                } else if (idjob == 0) {
                     Toast.makeText(getApplicationContext(),"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (idSource == 0) {
+                    Toast.makeText(getApplicationContext(),"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(mainphone.getText())) {
                     mainphone.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(mobilephone.getText())) {
                     mobilephone.setError("Wajib Diisi !");
-                } else if (TextUtils.isEmpty(address.getText())) {
+                } else if (idCategory== 0) {
+                    Toast.makeText(getApplicationContext(),"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(address.getText())) {
                     address.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(rt.getText())) {
                     rt.setError("Wajib Diisi !");
@@ -359,9 +367,13 @@ public class AddContactActivity extends AppCompatActivity {
                     mother.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(tanggungan.getText())) {
                     tanggungan.setError("Wajib Diisi !");
+                } else if (iRumah == 0) {
+                    Toast.makeText(getApplicationContext(),"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (TextUtils.isEmpty(perusahaan.getText())) {
                     perusahaan.setError("Wajib Diisi !");
-                } else if (TextUtils.isEmpty(jabatan.getText())) {
+                } else if (iKaryawan == 0) {
+                    Toast.makeText(getApplicationContext(),"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(jabatan.getText())) {
                     jabatan.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(lamakerja.getText())) {
                     lamakerja.setError("Wajib Diisi !");
@@ -606,6 +618,8 @@ public class AddContactActivity extends AppCompatActivity {
 
                         listReligions = response.body().getData();
                         final List<String> list = new ArrayList<>();
+
+                        list.add("Pilih Agama");
                         for (int i = 0; i < listReligions.size(); i++) {
                             list.add(listReligions.get(i).getAgama());
                         }
@@ -620,7 +634,16 @@ public class AddContactActivity extends AppCompatActivity {
                         religion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                idReligion = listReligions.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Agama")){
+
+                                    idReligion = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    idReligion = listReligions.get(position-1).getId();
+                                }
+
                             }
 
                             @Override
@@ -652,6 +675,8 @@ public class AddContactActivity extends AppCompatActivity {
                     if (response.body().getApiStatus() != 0) {
                         listMaritals = response.body().getData();
                         List<String> list = new ArrayList<>();
+
+                        list.add("Pilih Status Kawin");
                         for (int i = 0; i < listMaritals.size(); i++) {
                             list.add(listMaritals.get(i).getStatus());
                         }
@@ -666,7 +691,17 @@ public class AddContactActivity extends AppCompatActivity {
                         marital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                idmarital = listMaritals.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Status Kawin")){
+
+                                    idmarital = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    idmarital = listMaritals.get(position-1).getId();
+                                }
+
+
                             }
 
                             @Override
@@ -721,11 +756,11 @@ public class AddContactActivity extends AppCompatActivity {
 
                                 if (parent.getItemAtPosition(position).equals("Pilih Pekerjaan")){
 
-                                    idJob = 0;
+                                    idjob = 0;
 //                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
-                                    idjob = listJobs.get(position).getId();
+                                    idjob = listJobs.get(position-1).getId();
                                 }
 
                             }
@@ -759,6 +794,8 @@ public class AddContactActivity extends AppCompatActivity {
                     if (response.body().getApiStatus() != 0) {
                         listDataSources = response.body().getData();
                         List<String> list = new ArrayList<>();
+
+                        list.add("Pilih Sumber Data");
                         for (int i = 0; i < listDataSources.size(); i++) {
                             list.add(listDataSources.get(i).getDatasource());
                         }
@@ -773,7 +810,17 @@ public class AddContactActivity extends AppCompatActivity {
                         source.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                idSource = listDataSources.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Sumber Data")){
+
+                                    idSource = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    idSource = listDataSources.get(position-1).getId();
+                                }
+
+
                             }
 
                             @Override
@@ -804,6 +851,8 @@ public class AddContactActivity extends AppCompatActivity {
                     if (response.body().getApiStatus() != 0) {
                         listCategoryAddresses = response.body().getData();
                         List<String> listKategori = new ArrayList<>();
+
+                        listKategori.add("Pilih Alamat Tinggal");
                         for (int i = 0; i < listCategoryAddresses.size(); i++) {
                             listKategori.add(listCategoryAddresses.get(i).getCategory());
                         }
@@ -818,7 +867,16 @@ public class AddContactActivity extends AppCompatActivity {
                         addcategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                idCategory = listCategoryAddresses.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Alamat Tinggal")){
+
+                                    idCategory = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    idCategory = listCategoryAddresses.get(position-1).getId();
+                                }
+
                             }
 
                             @Override
@@ -988,6 +1046,8 @@ public class AddContactActivity extends AppCompatActivity {
                     if (response.body().getApiStatus() != 0) {
                         listPlaces = response.body().getData();
                         List<String> list = new ArrayList<>();
+
+                        list.add("Pilih Status Rumah");
                         for (int i = 0; i < listPlaces.size(); i++) {
                             list.add(listPlaces.get(i).getStatus());
                         }
@@ -1002,7 +1062,16 @@ public class AddContactActivity extends AppCompatActivity {
                         rumah.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                iRumah = listPlaces.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Status Rumah")){
+
+                                    iRumah = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    iRumah = listPlaces.get(position-1).getId();
+                                }
+
                             }
 
                             @Override
@@ -1033,6 +1102,8 @@ public class AddContactActivity extends AppCompatActivity {
                     if (response.body().getApiStatus() != 0) {
                         listEmployees = response.body().getData();
                         final List<String> list = new ArrayList<>();
+
+                        list.add("Pilih Status Karyawan");
                         for (int i = 0; i < listEmployees.size(); i++) {
                             list.add(listEmployees.get(i).getStatus());
                         }
@@ -1047,7 +1118,17 @@ public class AddContactActivity extends AppCompatActivity {
                         karyawan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                iKaryawan = listEmployees.get(position).getId();
+
+                                if (parent.getItemAtPosition(position).equals("Pilih Status Karyawan")){
+
+                                    iKaryawan = 0;
+//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+                                }else{
+
+                                    iKaryawan = listEmployees.get(position-1).getId();
+                                }
+
+
                             }
 
                             @Override
