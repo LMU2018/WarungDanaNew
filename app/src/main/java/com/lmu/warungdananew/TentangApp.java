@@ -24,6 +24,7 @@ public class TentangApp extends AppCompatActivity {
         ImageView a = findViewById(R.id.imageView);
         TextView b = findViewById(R.id.tvVerison);
         TextView btnApp = findViewById(R.id.btnApp);
+        TextView eula = findViewById(R.id.tvEula);
         View visitDNA = findViewById(R.id.visitLinkDNA);
 //        Button btnDNA = findViewById(R.id.btnDNA);
 
@@ -41,6 +42,17 @@ public class TentangApp extends AppCompatActivity {
             public void onClick(View view) {
 
                 String url = "http://warungdana.com/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        eula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url = "http://warungdana.com/eula/";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
