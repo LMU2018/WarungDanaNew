@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.hardware.camera" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,11 @@
         android:roundIcon="@mipmap/ic_launcher_2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TentangApp" android:screenOrientation="portrait"></activity>
+        <activity android:name=".DialogUpdateVesion"
+            android:theme="@style/UpdateDialog"/>
+        <activity
+            android:name=".TentangApp"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
@@ -40,7 +44,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity
