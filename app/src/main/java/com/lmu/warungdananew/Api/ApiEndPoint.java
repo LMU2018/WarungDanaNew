@@ -665,7 +665,8 @@ public interface ApiEndPoint {
                                        @Field("down_payment") Integer dp,
                                        @Field("tenor") Integer tenor,
                                        @Field("need") String need,
-                                       @Field("installment") Integer installment);
+                                       @Field("installment") Integer installment,
+                                       @Field("otr_custom") Integer otr_custom);
 
     @FormUrlEncoded
     @POST("order_surety_create")

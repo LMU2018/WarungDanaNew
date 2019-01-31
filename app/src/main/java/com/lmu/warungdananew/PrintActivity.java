@@ -615,6 +615,11 @@ public class PrintActivity extends AppCompatActivity {
                             plafond.setText("Empty");
                         }
 
+                        if (response.body().getOtr_custom() != null){
+
+                            otr.setText(formatter.format(response.body().getOtr_custom()));
+                        }
+
                         if (response.body().getDownPayment() != null) {
                             dp.setText(formatter.format(response.body().getDownPayment()));
                         } else {

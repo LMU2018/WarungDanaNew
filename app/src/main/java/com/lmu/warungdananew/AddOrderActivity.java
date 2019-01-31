@@ -516,7 +516,8 @@ public class AddOrderActivity extends AppCompatActivity {
                         });
 
                 mApiService.orderLoanCreate(idOrder, idUser, Integer.parseInt(tvPlafond.getText().toString().replaceAll(",", "").replaceAll("\\.", "")), Integer.parseInt(tvDP.getText().toString().replaceAll(",", "").replaceAll("\\.", "")),
-                        Integer.parseInt(tvTenor.getText().toString()), strNeed, Integer.parseInt(tvAngsuran.getText().toString().replaceAll(",", "").replaceAll("\\.", ""))).enqueue(new Callback<ResponseBody>() {
+                        Integer.parseInt(tvTenor.getText().toString()), strNeed, Integer.parseInt(tvAngsuran.getText().toString().replaceAll(",", "").replaceAll("\\.", "")),
+                        Integer.parseInt(tvOTR.getText().toString().replaceAll(",", "").replaceAll("\\.", ""))).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 

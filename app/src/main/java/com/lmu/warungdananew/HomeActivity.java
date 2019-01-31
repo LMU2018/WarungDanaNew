@@ -69,6 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
+        checkUpdateVersion();
         uId = sharedPrefManager.getSpId();
         mApiService = UtilsApi.getAPIService();
 //        FirebaseApp.initializeApp(this);
@@ -113,6 +114,11 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private void checkUpdateVersion() {
+
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -121,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
 
             checkDeviceID();
             updateVersion();
+            checkUpdateVersion();
 
             checkLogin();
 
