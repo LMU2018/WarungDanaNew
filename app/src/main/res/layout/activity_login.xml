@@ -75,7 +75,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:background="@color/colorPrimary"
             android:text="Login"
             android:textAllCaps="false"
@@ -87,7 +87,7 @@
             android:id="@+id/tvVersionX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="Versi"
             android:textStyle="bold" />
 
