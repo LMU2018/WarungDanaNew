@@ -19,6 +19,9 @@ public class ListVisum {
     @SerializedName("revisit")
     @Expose
     private String revisit;
+    @SerializedName("id_cms_users")
+    @Expose
+    private int id_cms_users;
     @SerializedName("cms_users_name")
     @Expose
     private String cmsUsersName;
@@ -29,16 +32,24 @@ public class ListVisum {
     @Expose
     private String photo;
 
-
-    public ListVisum(Integer id, String targetFirstName, Object targetLastName, String mstVisumStatusStatus, String revisit, String cmsUsersName, String createdAt, String photo) {
+    public ListVisum(Integer id, String targetFirstName, Object targetLastName, String mstVisumStatusStatus, String revisit, int id_cms_users, String cmsUsersName, String createdAt, String photo) {
         this.id = id;
         this.targetFirstName = targetFirstName;
         this.targetLastName = targetLastName;
         this.mstVisumStatusStatus = mstVisumStatusStatus;
         this.revisit = revisit;
+        this.id_cms_users = id_cms_users;
         this.cmsUsersName = cmsUsersName;
         this.createdAt = createdAt;
         this.photo = photo;
+    }
+
+    public int getId_cms_users() {
+        return id_cms_users;
+    }
+
+    public void setId_cms_users(int id_cms_users) {
+        this.id_cms_users = id_cms_users;
     }
 
     public Integer getId() {

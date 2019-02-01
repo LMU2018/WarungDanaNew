@@ -21,11 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.kcode.lib.UpdateWrapper;
+import com.kcode.lib.bean.VersionModel;
+import com.kcode.lib.net.CheckUpdateTask;
 import com.lmu.warungdananew.Api.SharedPrefManager;
 import com.lmu.warungdananew.Helper.BottomNavigationViewHelper;
 import com.lmu.warungdananew.Response.DetailUpdateVersion;
@@ -69,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
+        checkUpdateVersion();
         uId = sharedPrefManager.getSpId();
         mApiService = UtilsApi.getAPIService();
 //        FirebaseApp.initializeApp(this);
@@ -113,6 +118,39 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private void checkUpdateVersion() {
+
+//        String url = "http://192.168.139.59/warnadev/public/uploads/1/app-debug.apk";
+//
+//        DownloadApk downloadApk = new DownloadApk(HomeActivity.this);
+//
+//        downloadApk.startDownloadingApk(url);
+
+        UpdateWrapper updateWrapper = new UpdateWrapper.Builder(getApplicationContext())
+                .setCustomsActivity(DialogUpdateVesion.class)
+                //set interval Time
+                .setTime(1000)
+                //set notification icon
+                .setNotificationIcon(R.mipmap.ic_launcher_2)
+                //set update file url
+                .setUrl("http://192.168.139.59/warnadev/public/api/check_version")
+                //set customs activity
+                //set showToast. default is true
+                .setIsShowToast(false)
+                //add callback ,return new version info
+                .setCallback(new CheckUpdateTask.Callback() {
+                    @Override
+                    public void callBack(VersionModel versionModel) {
+
+                    }
+                })
+                .build();
+
+        updateWrapper.start();
+
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -121,6 +159,7 @@ public class HomeActivity extends AppCompatActivity {
 
             checkDeviceID();
             updateVersion();
+            checkUpdateVersion();
 
             checkLogin();
 

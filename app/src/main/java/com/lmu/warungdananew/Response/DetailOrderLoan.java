@@ -17,6 +17,9 @@ public class DetailOrderLoan {
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("otr_custom")
+    @Expose
+    private Integer otr_custom;
     @SerializedName("plafond")
     @Expose
     private Integer plafond;
@@ -35,6 +38,14 @@ public class DetailOrderLoan {
     @SerializedName("api_http")
     @Expose
     private Integer apiHttp;
+
+    public Integer getOtr_custom() {
+        return otr_custom;
+    }
+
+    public void setOtr_custom(Integer otr_custom) {
+        this.otr_custom = otr_custom;
+    }
 
     public Integer getApiStatus() {
         return apiStatus;

@@ -89,7 +89,7 @@ public class InfoDealFragment extends Fragment {
         getDetailOrder();
         getDetailProductUFI();
         getDetailSurety();
-        getDetailLoan();
+//        getDetailLoan();
         return view;
     }
 
@@ -249,6 +249,8 @@ public class InfoDealFragment extends Fragment {
                         pemilik.setText("Empty");
                     }
 
+                    getDetailLoan();
+
                 } else {
                     Toast.makeText(getActivity(), "Data Kosong", Toast.LENGTH_SHORT).show();
                 }
@@ -266,6 +268,11 @@ public class InfoDealFragment extends Fragment {
             @Override
             public void onResponse(Call<DetailOrderLoan> call, Response<DetailOrderLoan> response) {
                 if (response.isSuccessful()) {
+
+                    if (response.body().getOtr_custom() != null){
+
+                        otr.setText("IDR " + formatter.format(response.body().getOtr_custom()));
+                    }
 
 
                     if (response.body().getPlafond() != null) {
