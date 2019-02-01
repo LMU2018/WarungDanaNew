@@ -133,7 +133,7 @@ public class HomeActivity extends AppCompatActivity {
                 //set notification icon
                 .setNotificationIcon(R.mipmap.ic_launcher_2)
                 //set update file url
-                .setUrl("http://192.168.139.59/warnadev/public/api/check_version")
+                .setUrl(UtilsApi.BASE_URL_API+"check_version")
                 //set customs activity
                 //set showToast. default is true
                 .setIsShowToast(false)
