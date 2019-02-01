@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,7 +191,7 @@ public class OverviewFragment extends Fragment {
 
     private String convertTime(String time) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format1 = new SimpleDateFormat("M");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format1 = new SimpleDateFormat("yyyy-M");
         java.util.Date date = null;
         try {
             date = format.parse(time);
@@ -211,6 +212,9 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+
+                    d3 = tahun+"-"+d3;
                     List<CounterBrosur> list = response.body().getData();
                     List<CounterBrosur> baru = new ArrayList<>();
                     List<Integer> jumbros = new ArrayList<>();
@@ -249,6 +253,10 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+
+                    d3 = tahun+"-"+d3;
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -278,6 +286,10 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+
+                    d3 = tahun+"-"+d3;
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -307,6 +319,9 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+
+                    d3 = tahun+"-"+d3;
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -336,6 +351,10 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+
+                    d3 = tahun+"-"+d3;
+
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
@@ -372,10 +391,19 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
 
-                    if (Integer.parseInt(d3)-1 == 0){
+                    int blnKemarin = Integer.parseInt(d3) - 1;
+
+                    d3 = String.valueOf(blnKemarin);
+                    if (d3.equals("0")){
                         d3 = "12";
+                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
                     }
+
+                    d3 = ""+tahun+"-"+d3;
+
+                    Log.d("Bulan , Tahun",d3+" "+tahun);
 
                     List<CounterBrosur> list = response.body().getData();
                     List<CounterBrosur> baru = new ArrayList<>();
@@ -383,6 +411,8 @@ public class OverviewFragment extends Fragment {
                     Integer tot = 0;
                     if (response.body().getData() != null) {
                         for (CounterBrosur p : list) {
+
+                            Log.d("Convert , Hasil",convertTime(p.getCreatedAt())+"="+d3);
                             if (convertTime(p.getCreatedAt()).equals(d3)) {
                                 baru.add(p);
                             }
@@ -414,15 +444,23 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
 
-                    if (Integer.parseInt(d3)-1 == 0){
+                    int blnKemarin = Integer.parseInt(d3) - 1;
+
+                    d3 = String.valueOf(blnKemarin);
+                    if (d3.equals("0")){
                         d3 = "12";
+                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
                     }
+
+                    d3 = ""+tahun+"-"+d3;
 
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+                            Log.d("Convert , Hasil",convertTime(response.body().getData().get(i).getCreatedAt())+"="+d3);
                         }
                         int count = 0;
                         for (String cfa : gas) {
@@ -448,10 +486,17 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
 
-                    if (Integer.parseInt(d3)-1 == 0){
+                    int blnKemarin = Integer.parseInt(d3) - 1;
+
+                    d3 = String.valueOf(blnKemarin);
+                    if (d3.equals("0")){
                         d3 = "12";
+                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
                     }
+
+                    d3 = ""+tahun+"-"+d3;
 
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
@@ -482,10 +527,17 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
 
-                    if (Integer.parseInt(d3)-1 == 0){
+                    int blnKemarin = Integer.parseInt(d3) - 1;
+
+                    d3 = String.valueOf(blnKemarin);
+                    if (d3.equals("0")){
                         d3 = "12";
+                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
                     }
+
+                    d3 = ""+tahun+"-"+d3;
 
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
@@ -516,10 +568,17 @@ public class OverviewFragment extends Fragment {
             public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
                 if (response.isSuccessful()) {
                     String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
 
-                    if (Integer.parseInt(d3)-1 == 0){
+                    int blnKemarin = Integer.parseInt(d3) - 1;
+
+                    d3 = String.valueOf(blnKemarin);
+                    if (d3.equals("0")){
                         d3 = "12";
+                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
                     }
+
+                    d3 = ""+tahun+"-"+d3;
 
                     List<String> gas = new ArrayList<String>();
                     if (response.body().getData() != null) {
