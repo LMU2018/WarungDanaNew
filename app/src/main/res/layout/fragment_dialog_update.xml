@@ -2,7 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#29A79C">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_update_dialogi"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -11,30 +18,28 @@
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:gravity="center"
-        android:elevation="6dp"
-        android:background="@color/colorPrimary"/>
+        android:background="#29A79C"/>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:lines="8"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_marginTop="20dp"
-        android:textColor="#525252"
+        android:textColor="#FFFF"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Silahkan download aplikasi terbaru. Anda tidak akan bisa menggunakan aplikasi jika anda belum melakukan update aplikasi."
-        android:padding="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Silahkan download aplikasi terbaru. Anda tidak akan bisa menggunakan aplikasi jika anda belum melakukan update aplikasi."-->
+        <!--android:padding="20dp"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textAlignment="center"-->
+        <!--/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,24 +52,31 @@
 
         <Button
             android:id="@+id/cancel"
+            android:textAllCaps="false"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@drawable/selector_update_lib_button"
-            android:text="Cancel"
+            android:text="@string/update_lib_cancel"
             android:textColor="#4a4a4a"
             android:textSize="18sp"/>
 
         <Button
             android:id="@+id/update"
+            android:textAllCaps="false"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:drawableLeft="@drawable/ic_update"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@drawable/selector_update_lib_button"
-            android:text="Update"
-            android:textColor="#4a4a4a"
+            android:text="@string/update_lib_update"
+            android:textColor="#FFFF"
             android:textSize="18sp"/>
 
     </LinearLayout>

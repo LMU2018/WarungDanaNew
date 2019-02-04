@@ -148,12 +148,15 @@ public class HomeActivity extends AppCompatActivity {
 
         updateWrapper.start();
 
+        Log.d("link",UtilsApi.BASE_URL_API+"check_version");
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        checkUpdateVersion();
         boolean isConn = UtilsConnected.isNetworkConnected(context);
         if (isConn) {
 
