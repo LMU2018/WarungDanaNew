@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:483764424530:android:519bb5d7e9f51d29",
         "android_client_info": {
-          "package_name": "com.lmu.warungdananew"
+          "package_name": "com.lmu.warungdana"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "483764424530-pu7964ugekf21tlp8voumkeoosnfc2pb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.lmu.warungdananew",
+            "package_name": "com.lmu.warungdana",
             "certificate_hash": "814bb268862f03d4fc22df180ac18647dda970a0"
           }
         },

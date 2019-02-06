@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lmu.warungdananew">
+    package="com.lmu.warungdana">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -58,7 +58,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name="com.lmu.warungdana.LoginActivity" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
@@ -70,14 +70,14 @@
             android:label="@string/title_activity_add_log"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".AddTargetLogActivity"
+            android:name="com.lmu.warungdana.AddTargetLogActivity"
             android:label="@string/title_activity_add_log"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".AddVisumActivity"
             android:label="@string/title_activity_add_log"
             android:theme="@style/AppTheme" />
-        <activity android:name=".AddLeadActivity" />
+        <activity android:name="com.lmu.warungdana.AddLeadActivity" />
         <activity
             android:name=".DetailJadwalActivity"
             android:label="Canvassing"
@@ -91,26 +91,26 @@
             android:label="@string/title_activity_detail_deal"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".DetailTargetActivity"
+            android:name="com.lmu.warungdana.DetailTargetActivity"
             android:label="@string/title_activity_detail_target"
             android:theme="@style/AppTheme" />
-        <activity android:name=".AddContactActivity" />
+        <activity android:name="com.lmu.warungdana.AddContactActivity" />
         <activity android:name=".AddOrderActivity" />
         <activity android:name=".AddAdditionalLeadActivity" />
-        <activity android:name=".AddJadwalReportActivity" />
+        <activity android:name="com.lmu.warungdana.AddJadwalReportActivity" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDlSZf-YTqh_rBLyzjzB6VanBVm4xk6VvI" />
 
         <activity
-            android:name=".ContactOrderActivity"
+            android:name="com.lmu.warungdana.ContactOrderActivity"
             android:label="@string/title_activity_contact_order"
             android:theme="@style/AppTheme" />
-        <activity android:name=".PrintActivity" />
-        <activity android:name=".RekapActivity" />
+        <activity android:name="com.lmu.warungdana.PrintActivity" />
+        <activity android:name="com.lmu.warungdana.RekapActivity" />
 
-        <receiver android:name=".AlarmManager.BootCompletedIntentReceiver" />
+        <receiver android:name="com.lmu.warungdana.AlarmManager.BootCompletedIntentReceiver" />
 
         <activity android:name=".UbahPassword" />
         <activity android:name=".DocumentActivity" />

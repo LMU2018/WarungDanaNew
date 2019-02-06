@@ -19,7 +19,7 @@ android {
     publishNonDefault true
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.lmu.warungdananew"
+        applicationId "com.lmu.warungdana"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 3
