@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText npm, password;
     Button login;
-    TextView link,version;
+    TextView link, version;
     CheckBox eula;
     ProgressDialog loading;
     Context mContext;
@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<String> spAlamat;
     String userAgent;
     Integer uId, time;
-    String android_id,nama,roleName,npmX,outletName;
-    int roleId,outletId;
+    String android_id, nama, roleName, npmX, outletName;
+    int roleId, outletId, branchId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         userAgent = System.getProperty("http.agent");
         version = findViewById(R.id.tvVersionX);
 
-        version.setText("Warung Dana Mobile versi "+BuildConfig.VERSION_NAME);
+        version.setText("Warung Dana Mobile versi " + BuildConfig.VERSION_NAME);
 
     }
 
@@ -128,8 +128,9 @@ public class LoginActivity extends AppCompatActivity {
                                     roleId = response.body().getIdCmsPrivileges();
                                     npmX = response.body().getNpm();
                                     outletId = response.body().getIdMstOutlet();
+                                    branchId = response.body().getIdMstBranch();
                                     outletName = response.body().getMstOutletOutletName();
-                                    Log.d("User ID",""+uId);
+                                    Log.d("User ID", "" + uId);
                                     updateAndroidID();
                                 }
 
@@ -209,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alaramIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,22);
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
@@ -219,19 +220,19 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateAndroidID(){
+    private void updateAndroidID() {
 
-        mApiService.updateAndroidID(uId,android_id).enqueue(new Callback<RespPost>() {
+        mApiService.updateAndroidID(uId, android_id).enqueue(new Callback<RespPost>() {
             @Override
             public void onResponse(Call<RespPost> call, Response<RespPost> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
-                    Log.d("Api Status",""+response.body().getApiStatus());
-                    Log.d("Message",""+response.body().getApiMessage());
-                    Log.d("Android ID",""+android_id);
+                    Log.d("Api Status", "" + response.body().getApiStatus());
+                    Log.d("Message", "" + response.body().getApiMessage());
+                    Log.d("Android ID", "" + android_id);
 
-                    if (response.body().getApiStatus() == 1){
+                    if (response.body().getApiStatus() == 1) {
 
                         sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, uId);
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
@@ -239,6 +240,7 @@ public class LoginActivity extends AppCompatActivity {
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npmX);
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
                         sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
+                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_BRANCH_ID, branchId);
                         sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
                         sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 
@@ -246,14 +248,14 @@ public class LoginActivity extends AppCompatActivity {
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
 
-                    }else{
+                    } else {
 
                         loading.dismiss();
                         Toast.makeText(mContext, "Gagal login", Toast.LENGTH_SHORT).show();
 
                     }
 
-                }else {
+                } else {
 
                     loading.dismiss();
                     Toast.makeText(mContext, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();

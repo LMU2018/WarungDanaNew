@@ -80,7 +80,7 @@ public class AddLeadActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     DatabaseHelper databaseHelper;
     private Integer idUser, idAlamat, idAlamatKat, idOutlet, idJob,
-            idDataSource, idLead, idStatus, idLeadIntent;
+            idDataSource, idLead, idStatus, idLeadIntent, idBranch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +133,7 @@ public class AddLeadActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
         idUser = sharedPrefManager.getSpId();
         idOutlet = sharedPrefManager.getSpOutletId();
+        idBranch = sharedPrefManager.getSpBranchId();
 
         btnCheck = findViewById(R.id.btnCheck);
 
@@ -816,7 +817,7 @@ public class AddLeadActivity extends AppCompatActivity {
     }
 
     private void initSpinnerMerk() {
-        mApiService.unitUfi(null, null, null).enqueue(new Callback<RespListUnitUfi>() {
+        mApiService.unitUfi(idBranch, null, null).enqueue(new Callback<RespListUnitUfi>() {
             @Override
             public void onResponse(Call<RespListUnitUfi> call, Response<RespListUnitUfi> response) {
                 if (response.isSuccessful()) {
@@ -911,7 +912,7 @@ public class AddLeadActivity extends AppCompatActivity {
     }
 
     private void initSpinnerModel() {
-        mApiService.unitList(null, strMerk, strYear).enqueue(new Callback<RespListUnitList>() {
+        mApiService.unitList(idBranch, strMerk, strYear).enqueue(new Callback<RespListUnitList>() {
             @Override
             public void onResponse(Call<RespListUnitList> call, Response<RespListUnitList> response) {
                 if (response.isSuccessful()) {

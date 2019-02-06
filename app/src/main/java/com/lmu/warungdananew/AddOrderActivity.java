@@ -84,7 +84,7 @@ public class AddOrderActivity extends AppCompatActivity {
     List<ListJob> listJobs;
     List<ListEmployee> listEmployees;
     List<ListCabangFif> listCabangFif;
-    private Integer idContact, idUser, idOrder, idProduct, idStatus, idUnit, idOutlet, idDataSource, count, idJob, idStatusPenjamin, idCabangFif;
+    private Integer idContact, idUser, idOrder, idProduct, idStatus, idUnit, idOutlet, idDataSource, count, idJob, idStatusPenjamin, idCabangFif, idBranch;
     private String nmrOrder, namaContact, strYear, strNeed, strMerk, tglPilih, strNopol, strNoka,
             strNosin, strNoBPKB, strAlamatBPKB, strOTR, strPlafond, strDP, strAngsuran, strTenor,
             strSuretyName, strSuretyBirthPlace, strSuretyBirthDate, tglSurvei = null, jamsurvei, strStatKons,
@@ -133,6 +133,7 @@ public class AddOrderActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         idUser = sharedPrefManager.getSpId();
         idOutlet = sharedPrefManager.getSpOutletId();
+        idBranch = sharedPrefManager.getSpBranchId();
 
         tvContact = findViewById(R.id.tvContact);
         tvStatusKonsumen = findViewById(R.id.tvStatusKonsumen);
@@ -775,7 +776,7 @@ public class AddOrderActivity extends AppCompatActivity {
     }
 
     private void initSpinnerMerk() {
-        mApiService.unitUfi(null, null, null).enqueue(new Callback<RespListUnitUfi>() {
+        mApiService.unitUfi(idBranch, null, null).enqueue(new Callback<RespListUnitUfi>() {
             @Override
             public void onResponse(Call<RespListUnitUfi> call, Response<RespListUnitUfi> response) {
                 if (response.isSuccessful()) {
@@ -823,7 +824,7 @@ public class AddOrderActivity extends AppCompatActivity {
     }
 
     private void initSpinnerYear() {
-        mApiService.unitUfi(null, null, null).enqueue(new Callback<RespListUnitUfi>() {
+        mApiService.unitUfi(idBranch, null, null).enqueue(new Callback<RespListUnitUfi>() {
             @Override
             public void onResponse(Call<RespListUnitUfi> call, Response<RespListUnitUfi> response) {
                 if (response.isSuccessful()) {
@@ -871,7 +872,7 @@ public class AddOrderActivity extends AppCompatActivity {
     }
 
     private void initSpinnerModel() {
-        mApiService.unitList(null, strMerk, strYear).enqueue(new Callback<RespListUnitList>() {
+        mApiService.unitList(idBranch, strMerk, strYear).enqueue(new Callback<RespListUnitList>() {
             @Override
             public void onResponse(Call<RespListUnitList> call, Response<RespListUnitList> response) {
                 if (response.isSuccessful()) {

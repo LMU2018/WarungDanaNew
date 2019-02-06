@@ -48,6 +48,9 @@ public class Login {
     @SerializedName("api_http")
     @Expose
     private Integer apiHttp;
+    @SerializedName("id_mst_branch")
+    @Expose
+    private Integer idMstBranch;
 
     public Integer getApiStatus() {
         return apiStatus;
@@ -151,5 +154,13 @@ public class Login {
 
     public void setApiHttp(Integer apiHttp) {
         this.apiHttp = apiHttp;
+    }
+
+    public Integer getIdMstBranch() {
+        return idMstBranch;
+    }
+
+    public void setIdMstBranch(Integer idMstBranch) {
+        this.idMstBranch = idMstBranch;
     }
 }

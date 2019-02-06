@@ -14,6 +14,7 @@ public class SharedPrefManager {
     public static final String SP_ROLES = "spRole";
     public static final String SP_ROLES_NAMES = "spRoleNames";
     public static final String SP_OUTLET_ID = "spOutletId";
+    public static final String SP_BRANCH_ID = "spBranchId";
     public static final String SP_OUTLET_NAME = "spOutletName";
     public static final String SP_LAST_LOGIN = "spLastLogin";
 
@@ -72,6 +73,10 @@ public class SharedPrefManager {
 
     public Integer getSpOutletId() {
         return sp.getInt(SP_OUTLET_ID, 0);
+    }
+
+    public Integer getSpBranchId() {
+        return sp.getInt(SP_BRANCH_ID, 0);
     }
 
     public String getSPName() {
