@@ -16,6 +16,7 @@ repositories {
 apply plugin: 'io.fabric'
 
 android {
+    publishNonDefault true
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.lmu.warungdananew"

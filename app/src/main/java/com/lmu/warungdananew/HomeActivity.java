@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        checkUpdateVersion();
+//        checkUpdateVersion();
         uId = sharedPrefManager.getSpId();
         mApiService = UtilsApi.getAPIService();
 //        FirebaseApp.initializeApp(this);
@@ -110,7 +110,8 @@ public class HomeActivity extends AppCompatActivity {
         checkAndRequestPermissions();
 
         if (isConn) {
-            updateVersion();
+//            updateVersion();
+            checkUpdateVersion();
             /*Toast.makeText(context, "Ada Jaringan", Toast.LENGTH_SHORT).show();*/
         } else {
             Toast.makeText(context, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
@@ -156,47 +157,47 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkUpdateVersion();
+//        checkUpdateVersion();
         boolean isConn = UtilsConnected.isNetworkConnected(context);
         if (isConn) {
 
             checkDeviceID();
-            updateVersion();
+//            updateVersion();
             checkUpdateVersion();
 
-            checkLogin();
+//            checkLogin();
 
-            remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder()
-                    .setDeveloperModeEnabled(true)
-                    .build());
+//            remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder()
+//                    .setDeveloperModeEnabled(true)
+//                    .build());
 
-            HashMap<String, Object> defaults = new HashMap<>();
-            defaults.put("is_force_update", false);
-            remoteConfig.setDefaults(defaults);
+//            HashMap<String, Object> defaults = new HashMap<>();
+//            defaults.put("is_force_update", false);
+//            remoteConfig.setDefaults(defaults);
 
-            final Task<Void> fetch = remoteConfig.fetch(0);
-            fetch.addOnCompleteListener(this, new OnCompleteListener<Void>() {
-
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        // After config data is successfully fetched, it must be activated before newly fetched
-                        // values are returned.
-                        remoteConfig.activateFetched();
-                        if (intVersion != 0) {
-
-                            if (remoteConfig.getBoolean("is_force_update") && !intVersion.equals(xmlVersion)) {
-
-                                showDialogUpdate();
-
-                            }
-                        }
-
-                    } else {
-                        Toast.makeText(context, "Fetch Failed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            final Task<Void> fetch = remoteConfig.fetch(0);
+//            fetch.addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if (task.isSuccessful()) {
+//                        // After config data is successfully fetched, it must be activated before newly fetched
+//                        // values are returned.
+//                        remoteConfig.activateFetched();
+//                        if (intVersion != 0) {
+//
+//                            if (remoteConfig.getBoolean("is_force_update") && !intVersion.equals(xmlVersion)) {
+//
+//                                showDialogUpdate();
+//
+//                            }
+//                        }
+//
+//                    } else {
+//                        Toast.makeText(context, "Fetch Failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
 
         } else {
             Toast.makeText(context, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
@@ -242,40 +243,34 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void checkLogin() {
-
-        Log.d("Android ID = ",android_id);
-
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
 
-    public void showDialogUpdate() {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("New version available")
-                .setMessage("Please, Update your app to the newest version.")
-                .setPositiveButton("Update",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Uri uri = Uri.parse(strLink);
-                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                startActivity(intent);
-                            }
-                        }).setNegativeButton("No, Thanks",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "Close", Toast.LENGTH_SHORT).show();
-                            }
-                        }).create();
-        dialog.setCancelable(false);
-        dialog.show();
-    }
+//    public void showDialogUpdate() {
+//        AlertDialog dialog = new AlertDialog.Builder(this)
+//                .setTitle("New version available")
+//                .setMessage("Please, Update your app to the newest version.")
+//                .setPositiveButton("Update",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Uri uri = Uri.parse(strLink);
+//                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                                startActivity(intent);
+//                            }
+//                        }).setNegativeButton("No, Thanks",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(context, "Close", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).create();
+//        dialog.setCancelable(false);
+//        dialog.show();
+//    }
 
     private void SyncAlamat() {
 
@@ -357,32 +352,32 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-    private void updateVersion() {
-
-        mApiService.updateVersion(1).enqueue(new Callback<DetailUpdateVersion>() {
-            @Override
-            public void onResponse(Call<DetailUpdateVersion> call, Response<DetailUpdateVersion> response) {
-
-                if (response.isSuccessful()) {
-                    if (response.body().getApiStatus() != 0) {
-
-                        intVersion = response.body().getVersion();
-                        strLink = response.body().getLink();
-
-                    } else {
-                        Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DetailUpdateVersion> call, Throwable t) {
-                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    private void updateVersion() {
+//
+//        mApiService.updateVersion(1).enqueue(new Callback<DetailUpdateVersion>() {
+//            @Override
+//            public void onResponse(Call<DetailUpdateVersion> call, Response<DetailUpdateVersion> response) {
+//
+//                if (response.isSuccessful()) {
+//                    if (response.body().getApiStatus() != 0) {
+//
+//                        intVersion = response.body().getVersion();
+//                        strLink = response.body().getLink();
+//
+//                    } else {
+//                        Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DetailUpdateVersion> call, Throwable t) {
+//                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
 }

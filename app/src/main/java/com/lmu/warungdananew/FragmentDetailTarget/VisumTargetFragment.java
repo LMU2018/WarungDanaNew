@@ -60,6 +60,12 @@ public class VisumTargetFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (listVisums.size() >= 1){
+
+            listVisums.clear();
+            recyclerView.getAdapter().notifyDataSetChanged();
+        }
         mApiService.listVisum(idTarget).enqueue(new Callback<RespListVisum>() {
             @Override
             public void onResponse(Call<RespListVisum> call, Response<RespListVisum> response) {
