@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkingLeadFragment extends Fragment implements Comparator<ListLead> {
+public class WorkingLeadFragment extends Fragment{
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -185,10 +185,6 @@ public class WorkingLeadFragment extends Fragment implements Comparator<ListLead
         });
     }
 
-    @Override
-    public int compare(ListLead listLead, ListLead t1) {
-        return listLead.getCreated_at_lead().compareTo(t1.getCreated_at_lead());
-    }
 
     private void loadMore() {
         itShouldLoadMore = false;

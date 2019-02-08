@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FavoriteLeadFragment extends Fragment implements Comparator<ListLead> {
+public class FavoriteLeadFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     private Integer idUser;
@@ -189,10 +189,7 @@ public class FavoriteLeadFragment extends Fragment implements Comparator<ListLea
         });
     }
 
-    @Override
-    public int compare(ListLead listLead, ListLead t1) {
-        return listLead.getCreated_at_lead().compareTo(t1.getCreated_at_lead());
-    }
+
 
     private void loadMore() {
         itShouldLoadMore = false;

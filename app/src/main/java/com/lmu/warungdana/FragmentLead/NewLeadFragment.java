@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewLeadFragment extends Fragment implements Comparator<ListLead> {
+public class NewLeadFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     Integer idUser;
@@ -165,7 +165,7 @@ public class NewLeadFragment extends Fragment implements Comparator<ListLead> {
                             listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
                         }
 
-                        Collections.sort(listLeads,Collections.reverseOrder(NewLeadFragment.this));
+
                         listLeadAdapter.notifyDataSetChanged();
                         if (listLeads.size() >= 1) {
                             iconKosong.setVisibility(LinearLayout.INVISIBLE);
@@ -186,10 +186,7 @@ public class NewLeadFragment extends Fragment implements Comparator<ListLead> {
         });
     }
 
-    @Override
-    public int compare(ListLead listLead, ListLead t1) {
-        return listLead.getCreated_at_lead().compareTo(t1.getCreated_at_lead());
-    }
+
 
     private void loadMore() {
         itShouldLoadMore = false;

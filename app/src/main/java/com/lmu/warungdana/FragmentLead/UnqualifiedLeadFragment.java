@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UnqualifiedLeadFragment extends Fragment implements Comparator<ListLead> {
+public class UnqualifiedLeadFragment extends Fragment  {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     Integer idUser;
@@ -158,7 +158,7 @@ public class UnqualifiedLeadFragment extends Fragment implements Comparator<List
                             listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
                         }
 
-                        Collections.sort(listLeads,Collections.reverseOrder(UnqualifiedLeadFragment.this));
+
                         listLeadAdapter.notifyDataSetChanged();
 
                         if (listLeads.size() >= 1) {
@@ -180,10 +180,7 @@ public class UnqualifiedLeadFragment extends Fragment implements Comparator<List
         });
     }
 
-    @Override
-    public int compare(ListLead listLead, ListLead t1) {
-        return listLead.getCreated_at_lead().compareTo(t1.getCreated_at_lead());
-    }
+
 
     private void loadMore() {
         itShouldLoadMore = false;
