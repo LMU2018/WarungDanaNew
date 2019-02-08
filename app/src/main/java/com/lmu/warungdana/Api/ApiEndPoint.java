@@ -71,6 +71,11 @@ import retrofit2.http.Query;
 
 public interface ApiEndPoint {
 
+    @GET("target_listing_visit")
+    Call<RespListTargetVisit> listVisitTarget(@Query("id_cms_users") Integer id,
+                                        @Query("limit") Integer limit,
+                                        @Query("offset") Integer offset);
+
     @Multipart
     @POST("visum_upload_photo")
     Call<RespPost> uploadVisumPhoto(@Part("id_target") RequestBody idTarget,

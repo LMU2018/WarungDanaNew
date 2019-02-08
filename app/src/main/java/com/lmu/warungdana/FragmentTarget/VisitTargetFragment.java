@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.lmu.warungdana.Response.ListTargetVisit;
 import com.lmu.warungdana.Api.ApiEndPoint;
 import com.lmu.warungdana.Api.SharedPrefManager;
 import com.lmu.warungdana.Api.UtilsApi;
+import com.lmu.warungdana.Response.RespListLead;
+import com.lmu.warungdana.Response.RespListTarget;
 import com.lmu.warungdana.Response.RespListTargetVisit;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VisitTargetFragment extends Fragment implements Comparator<ListTargetVisit> {
+public class VisitTargetFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -46,6 +49,8 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
     private boolean itShouldLoadMore = false;
     LinearLayout iconKosong;
     ArrayList<Integer> saveFirst;
+    List<ListTargetVisit> list = null;
+    int index = 0;
 
     public VisitTargetFragment() {
         // Required empty public constructor
@@ -117,6 +122,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
         super.onStart();
         listTargets.clear();
         progress.setVisibility(View.VISIBLE);
+        firstLoad();
 
 //        mApiService.listTarget(idUser, 4).enqueue(new Callback<RespListTarget>() {
 //            @Override
@@ -138,6 +144,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
 
     private void firstLoad() {
 
+
         if (listTargets.size() >= 1){
 
             recyclerView.setAdapter(null);
@@ -148,7 +155,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
         }
         saveFirst.clear();
         itShouldLoadMore = false;
-        mApiService.listVisit(idUser,limit,0).enqueue(new Callback<RespListTargetVisit>() {
+       mApiService.listVisitTarget(idUser,limit,0).enqueue(new Callback<RespListTargetVisit>() {
             @Override
             public void onResponse(Call<RespListTargetVisit> call, Response<RespListTargetVisit> response) {
                 if (response.isSuccessful()) {
@@ -158,36 +165,40 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
 
                         List<ListTargetVisit> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum;
-                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
-                            category = list.get(i).getCategory();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log;
+                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus,updated_by;
+                            category = list.get(i).getTargetCategory();
+                            firstName = list.get(i).getTargetFirstName();
+                            lastName = list.get(i).getTargetLastName();
                             recall = list.get(i).getRecall();
                             description = list.get(i).getDescription();
                             status = list.get(i).getStatus();
                             revisit = list.get(i).getRevisit();
                             visitStatus = list.get(i).getVisitStatus();
-
+                            updated_by = list.get(i).getTargetUpdatedBy();
+                            cms_username = list.get(i).getCmsUsersName();
+                            cmsNpm = list.get(i).getCmsUsersNpm();
+                            created_at_target_log = list.get(i).getCreatedAtTargetLog();
 //                            Log.d("Visit Status",visitStatus);
-                            id = list.get(i).getId();
+                            id = list.get(i).getIdTarget();
                             idTargetMstStatus = list.get(i).getIdTargetMstStatus();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            created_at_target_visum = list.get(i).getCreated_at_target_visum();
+                            created_at_target_visum = list.get(i).getCreatedAt();
 
 
                             if (visitStatus != null){
 
                                 saveFirst.add(id);
 
-                                listTargets.add(new ListTargetVisit(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_visum));
+                                listTargets.add(new ListTargetVisit(id,category,firstName,lastName,updated_by,idMstVisumStatus,revisit,cms_username,cmsNpm,idMstLogDesc,
+                                        recall,idMstLogStatus,description,status,visitStatus,created_at_target_visum,created_at_target_log,idTargetMstStatus));
 
                             }else{
 
                             }
+
 
 
                         }
@@ -204,6 +215,7 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
                         itShouldLoadMore = true;
 
                         progress.setVisibility(View.GONE);
+
                     }
                 }
             }
@@ -219,73 +231,109 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
 
     private void loadMore() {
         itShouldLoadMore = false;
-        mApiService.listVisit(idUser, limit,offset).enqueue(new Callback<RespListTargetVisit>() {
+        mApiService.listVisitTarget(idUser, limit,offset).enqueue(new Callback<RespListTargetVisit>() {
             @Override
             public void onResponse(Call<RespListTargetVisit> call, Response<RespListTargetVisit> response) {
                 if (response.isSuccessful()) {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
-                        List<ListTargetVisit> list = response.body().getData();
+                       list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
 
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum;
-                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
-                            category = list.get(i).getCategory();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            revisit = list.get(i).getRevisit();
-                            visitStatus = list.get(i).getVisitStatus();
-
-//                            Log.d("Visit Status",visitStatus);
-                            id = list.get(i).getId();
-                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            created_at_target_visum = list.get(i).getCreated_at_target_visum();
-
-
-//                            if (visitStatus != null){
+//                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum;
+//                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
+//                            category = list.get(i).getCategory();
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            revisit = list.get(i).getRevisit();
+//                            visitStatus = list.get(i).getVisitStatus();
 //
-//                                saveFirst.add(id);
+////                            Log.d("Visit Status",visitStatus);
+//                            id = list.get(i).getId();
+//                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+//                            created_at_target_visum = list.get(i).getCreated_at_target_visum();
+//
+//
+////                            if (visitStatus != null){
+////
+////                                saveFirst.add(id);
+////
+////                                listTargets.add(new ListTargetVisit(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+////                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_visum));
+////
+////                            }else{
+////
+////                            }
+//
+//
+//                            if (visitStatus != null){
 //
 //                                listTargets.add(new ListTargetVisit(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
 //                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_visum));
+//
+////                                boolean cek = false;
+////
+////                                for (int a = 0; a < saveFirst.size(); a++){
+////
+////                                    if (saveFirst.get(a) == id){
+////
+////                                        cek = true;
+////
+////                                        break;
+////                                    }
+////                                }
+////
+////                                if (!cek){
+////
+////                                    saveFirst.add(id);
+////
+//////                                    listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
+//////                                            idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
+//
+////
+////
+////                                }
+//
 //
 //                            }else{
 //
 //                            }
 
+                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log;
+                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus,updated_by;
+                            category = list.get(i).getTargetCategory();
+                            firstName = list.get(i).getTargetFirstName();
+                            lastName = list.get(i).getTargetLastName();
+                            recall = list.get(i).getRecall();
+                            description = list.get(i).getDescription();
+                            status = list.get(i).getStatus();
+                            revisit = list.get(i).getRevisit();
+                            visitStatus = list.get(i).getVisitStatus();
+                            updated_by = list.get(i).getTargetUpdatedBy();
+                            cms_username = list.get(i).getCmsUsersName();
+                            cmsNpm = list.get(i).getCmsUsersNpm();
+                            created_at_target_log = list.get(i).getCreatedAtTargetLog();
+//                            Log.d("Visit Status",visitStatus);
+                            id = list.get(i).getIdTarget();
+                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+                            created_at_target_visum = list.get(i).getCreatedAt();
+
 
                             if (visitStatus != null){
 
-                                boolean cek = false;
+                                saveFirst.add(id);
 
-                                for (int a = 0; a < saveFirst.size(); a++){
-
-                                    if (saveFirst.get(a) == id){
-
-                                        cek = true;
-
-                                        break;
-                                    }
-                                }
-
-                                if (!cek){
-
-                                    saveFirst.add(id);
-
-//                                    listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-//                                            idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus));
-                                    listTargets.add(new ListTargetVisit(id, idTargetMstStatus, category, firstName, lastName, recall, idMstLogDesc,
-                                            idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_target_visum));
-
-
-                                }
-
+                                listTargets.add(new ListTargetVisit(id,category,firstName,lastName,updated_by,idMstVisumStatus,revisit,cms_username,cmsNpm,idMstLogDesc,
+                                        recall,idMstLogStatus,description,status,visitStatus,created_at_target_visum,created_at_target_log,idTargetMstStatus));
 
                             }else{
 
@@ -294,11 +342,12 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
                         }
                         listTargetAdapter.notifyDataSetChanged();
 
-                        int index = listTargets.size();
+                        index = index +list.size();
 //                        Log.d(TAG, "indexOff: " + index);
                         offset = index;
 //                        Log.d(TAG, "offset: " + offset);
                         progress.setVisibility(View.GONE);
+
                     }
                 }
             }
@@ -315,11 +364,11 @@ public class VisitTargetFragment extends Fragment implements Comparator<ListTarg
     @Override
     public void onResume() {
         super.onResume();
-        firstLoad();
+//        firstLoad();
     }
 
-    @Override
-    public int compare(ListTargetVisit listTarget, ListTargetVisit t1) {
-        return listTarget.getCreated_at_target_visum().compareTo(t1.getCreated_at_target_visum());
-    }
+//    @Override
+//    public int compare(ListTargetVisit listTarget, ListTargetVisit t1) {
+//        return listTarget.getCreated_at_target_visum().compareTo(t1.getCreated_at_target_visum());
+//    }
 }

@@ -6,7 +6,7 @@ public class UtilsApi {
     public static final String BASE_URL_API = "http://192.168.139.59/warnadev/public/api/";
 //    public static final String BASE_URL_API = "http://digitalnetworkasia.com:59/warnadev/public/api/";
 //    public static final String BASE_URL_API = "http://116.197.129.148:58/warnaprod/public/api/";
-//    public static final String BASE_URL_API = "http://116.197.129.148:66/warnadev/public/api/";
+//    public static final String BASE_URL_API = "http://116.197.129.148:66/warnatrial/public/api/";
 //    public static final String BASE_URL_API = "http://192.168.139.58/warnaprod2/public/api/";
 
 
