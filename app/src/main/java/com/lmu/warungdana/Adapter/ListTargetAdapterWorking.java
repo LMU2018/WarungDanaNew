@@ -98,14 +98,14 @@ public class ListTargetAdapterWorking extends RecyclerView.Adapter<ListTargetAda
 
     @Override
     public int getItemCount() {
-//        return listTargets == null ? 0 : listTargets.size();
-        if (num*20 > listTargets.size()){
-
-            return listTargets.size();
-        }else {
-
-            return num *20;
-        }
+        return listTargets == null ? 0 : listTargets.size();
+//        if (num*20 > listTargets.size()){
+//
+//            return listTargets.size();
+//        }else {
+//
+//            return num *20;
+//        }
 
     }
 

@@ -99,14 +99,14 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
     @Override
     public int getItemCount() {
 
-        if (num*20 > listTargets.size()){
-
-            return listTargets.size();
-        }else {
-
-            return num *20;
-        }
-//        return listTargets == null ? 0 : listTargets.size();
+//        if (num*20 > listTargets.size()){
+//
+//            return listTargets.size();
+//        }else {
+//
+//            return num *20;
+//        }
+        return listTargets == null ? 0 : listTargets.size();
     }
 
     public class ListTargetHolder extends RecyclerView.ViewHolder {

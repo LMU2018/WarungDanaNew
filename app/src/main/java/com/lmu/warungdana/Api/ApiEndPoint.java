@@ -172,7 +172,9 @@ public interface ApiEndPoint {
 
     @GET("lead_listing")
     Call<RespListLead> listLeadPagg(@Query("id_cms_users") Integer id,
-                                    @Query("id_lead_mst_status") Integer idStatus);
+                                    @Query("id_lead_mst_status") Integer idStatus,
+                                    @Query("limit") Integer limit,
+                                    @Query("offset") Integer offset);
 
     @GET("counter_new_db")
     Call<RespCounterLead> leadCounter(@Query("id_cms_users") Integer id);
@@ -584,7 +586,9 @@ public interface ApiEndPoint {
 
     @GET("target_listing")
     Call<RespListTarget> listTargetPagg(@Query("id_cms_users") Integer id,
-                                        @Query("id_target_mst_status") Integer idStatus);
+                                        @Query("id_target_mst_status") Integer idStatus,
+                                        @Query("limit") Integer limit,
+                                        @Query("offset") Integer offset);
 
     @GET("target_listing")
     Call<RespListTarget> listTargetPaggWorking(@Query("id_cms_users") Integer id,
@@ -592,7 +596,9 @@ public interface ApiEndPoint {
 
 
     @GET("target_listing")
-    Call<RespListTargetVisit> listVisit(@Query("id_cms_users") Integer id);
+    Call<RespListTargetVisit> listVisit(@Query("id_cms_users") Integer id,
+                                        @Query("limit") Integer limit,
+                                        @Query("offset") Integer offset);
 
     @GET("target_detail")
     Call<DetailTarget> targetDetail(@Query("id") Integer id);

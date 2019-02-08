@@ -87,15 +87,20 @@ public class WorkingLeadFragment extends Fragment implements Comparator<ListLead
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
 
+//                    if (itShouldLoadMore) {
+//                        progress.setVisibility(View.VISIBLE);
+////                            loadMore();
+//                        if ((listLeadAdapter.num)*20 < listLeads.size()){
+//                            listLeadAdapter.num = listLeadAdapter.num + 1;
+//                            listLeadAdapter.notifyDataSetChanged();
+//                        }
+//
+//                        progress.setVisibility(View.INVISIBLE);
+//                    }
                     if (itShouldLoadMore) {
                         progress.setVisibility(View.VISIBLE);
-//                            loadMore();
-                        if ((listLeadAdapter.num)*20 < listLeads.size()){
-                            listLeadAdapter.num = listLeadAdapter.num + 1;
-                            listLeadAdapter.notifyDataSetChanged();
-                        }
+                        loadMore();
 
-                        progress.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -133,7 +138,7 @@ public class WorkingLeadFragment extends Fragment implements Comparator<ListLead
 
     private void firstLoad() {
         itShouldLoadMore = false;
-        mApiService.listLeadPagg(idUser, 3).enqueue(new Callback<RespListLead>() {
+        mApiService.listLeadPagg(idUser, 3,limit,0).enqueue(new Callback<RespListLead>() {
             @Override
             public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
                 if (response.isSuccessful()) {
@@ -158,7 +163,7 @@ public class WorkingLeadFragment extends Fragment implements Comparator<ListLead
                             listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
                         }
 
-                        Collections.sort(listLeads,Collections.reverseOrder(WorkingLeadFragment.this));
+//                        Collections.sort(listLeads,Collections.reverseOrder(WorkingLeadFragment.this));
                         listLeadAdapter.notifyDataSetChanged();
 
                         if (listLeads.size() >= 1) {
@@ -185,46 +190,47 @@ public class WorkingLeadFragment extends Fragment implements Comparator<ListLead
         return listLead.getCreated_at_lead().compareTo(t1.getCreated_at_lead());
     }
 
-//    private void loadMore() {
-//        itShouldLoadMore = false;
-//        mApiService.listLeadPagg(idUser, 3, limit, offset).enqueue(new Callback<RespListLead>() {
-//            @Override
-//            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
-//                if (response.isSuccessful()) {
-//                    itShouldLoadMore = true;
-//                    if (response.body().getData() != null) {
-//                        List<ListLead> list = response.body().getData();
-//                        for (int i = 0; i < list.size(); i++) {
-//                            String firstName, lastName, recall, description, status;
-//                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
-//                            id = list.get(i).getId();
-//                            firstName = list.get(i).getFirstName();
-//                            lastName = list.get(i).getLastName();
-//                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-//                            recall = list.get(i).getRecall();
-//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-//                            description = list.get(i).getDescription();
-//                            status = list.get(i).getStatus();
-//                            favorite = list.get(i).getFavorite();
-//
-//                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite));
-//                        }
-//
-//                        listLeadAdapter.notifyDataSetChanged();
-//                        int index = listLeads.size();
-//                        offset = index;
-//                        progress.setVisibility(View.GONE);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<RespListLead> call, Throwable t) {
-//                itShouldLoadMore = true;
-//                progress.setVisibility(View.GONE);
-//            }
-//        });
-//    }
+    private void loadMore() {
+        itShouldLoadMore = false;
+        mApiService.listLeadPagg(idUser, 3, limit, offset).enqueue(new Callback<RespListLead>() {
+            @Override
+            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
+                if (response.isSuccessful()) {
+                    itShouldLoadMore = true;
+                    if (response.body().getData() != null) {
+                        List<ListLead> list = response.body().getData();
+                        for (int i = 0; i < list.size(); i++) {
+                            String firstName, lastName, recall, description, status,created_at;
+                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
+                            id = list.get(i).getId();
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
+                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
+                            recall = list.get(i).getRecall();
+                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+                            description = list.get(i).getDescription();
+                            status = list.get(i).getStatus();
+                            favorite = list.get(i).getFavorite();
+                            created_at = list.get(i).getCreated_at_lead();
+
+                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
+                        }
+
+                        listLeadAdapter.notifyDataSetChanged();
+                        int index = listLeads.size();
+                        offset = index;
+                        progress.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespListLead> call, Throwable t) {
+                itShouldLoadMore = true;
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
 
 }
