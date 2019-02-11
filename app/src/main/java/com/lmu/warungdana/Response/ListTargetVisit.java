@@ -5,39 +5,42 @@ import com.google.gson.annotations.SerializedName;
 
 public class ListTargetVisit {
 
-    @SerializedName("id_target")
+    @SerializedName("id")
     @Expose
-    private Integer idTarget;
-    @SerializedName("target_category")
+    private Integer id;
+    @SerializedName("id_target_mst_status")
     @Expose
-    private String targetCategory;
-    @SerializedName("target_first_name")
+    private Integer idTargetMstStatus;
+    @SerializedName("target_mst_status_status")
     @Expose
-    private String targetFirstName;
-    @SerializedName("target_last_name")
+    private String targetMstStatusStatus;
+    @SerializedName("category")
     @Expose
-    private String targetLastName;
-    @SerializedName("target_updated_by")
+    private String category;
+    @SerializedName("first_name")
     @Expose
-    private Integer targetUpdatedBy;
-    @SerializedName("id_mst_visum_status")
+    private String firstName;
+    @SerializedName("last_name")
     @Expose
-    private Integer idMstVisumStatus;
-    @SerializedName("revisit")
-    @Expose
-    private String revisit;
+    private String lastName;
     @SerializedName("cms_users_npm")
     @Expose
     private String cmsUsersNpm;
     @SerializedName("cms_users_name")
     @Expose
     private String cmsUsersName;
-    @SerializedName("id_mst_log_desc")
+    @SerializedName("updated_by")
     @Expose
-    private Integer idMstLogDesc;
+    private Integer updatedBy;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
     @SerializedName("recall")
     @Expose
     private String recall;
+    @SerializedName("id_mst_log_desc")
+    @Expose
+    private Integer idMstLogDesc;
     @SerializedName("id_mst_log_status")
     @Expose
     private Integer idMstLogStatus;
@@ -47,94 +50,91 @@ public class ListTargetVisit {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("id_mst_visum_status")
+    @Expose
+    private Integer idMstVisumStatus;
+    @SerializedName("revisit")
+    @Expose
+    private String revisit;
     @SerializedName("visit_status")
     @Expose
     private String visitStatus;
-    @SerializedName("created_at")
+    @SerializedName("created_at_target_visum")
     @Expose
-    private String createdAt;
+    private String createdAtTargetVisum;
     @SerializedName("created_at_target_log")
     @Expose
     private String createdAtTargetLog;
-    @SerializedName("id_target_mst_status")
-    @Expose
-    private Integer idTargetMstStatus;
 
-    public ListTargetVisit(Integer idTarget, String targetCategory, String targetFirstName, String targetLastName, Integer targetUpdatedBy, Integer idMstVisumStatus, String revisit, String cmsUsersNpm, String cmsUsersName, Integer idMstLogDesc, String recall, Integer idMstLogStatus, String description, String status, String visitStatus, String createdAt, String createdAtTargetLog, Integer idTargetMstStatus) {
-        this.idTarget = idTarget;
-        this.targetCategory = targetCategory;
-        this.targetFirstName = targetFirstName;
-        this.targetLastName = targetLastName;
-        this.targetUpdatedBy = targetUpdatedBy;
-        this.idMstVisumStatus = idMstVisumStatus;
-        this.revisit = revisit;
+    public ListTargetVisit(Integer id, Integer idTargetMstStatus, String targetMstStatusStatus, String category, String firstName, String lastName, String cmsUsersNpm, String cmsUsersName, Integer updatedBy, String createdAt, String recall, Integer idMstLogDesc, Integer idMstLogStatus, String description, String status, Integer idMstVisumStatus, String revisit, String visitStatus, String createdAtTargetVisum, String createdAtTargetLog) {
+        this.id = id;
+        this.idTargetMstStatus = idTargetMstStatus;
+        this.targetMstStatusStatus = targetMstStatusStatus;
+        this.category = category;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.cmsUsersNpm = cmsUsersNpm;
         this.cmsUsersName = cmsUsersName;
-        this.idMstLogDesc = idMstLogDesc;
+        this.updatedBy = updatedBy;
+        this.createdAt = createdAt;
         this.recall = recall;
+        this.idMstLogDesc = idMstLogDesc;
         this.idMstLogStatus = idMstLogStatus;
         this.description = description;
         this.status = status;
+        this.idMstVisumStatus = idMstVisumStatus;
+        this.revisit = revisit;
         this.visitStatus = visitStatus;
-        this.createdAt = createdAt;
+        this.createdAtTargetVisum = createdAtTargetVisum;
         this.createdAtTargetLog = createdAtTargetLog;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getIdTargetMstStatus() {
+        return idTargetMstStatus;
+    }
+
+    public void setIdTargetMstStatus(Integer idTargetMstStatus) {
         this.idTargetMstStatus = idTargetMstStatus;
     }
 
-    public Integer getIdTarget() {
-        return idTarget;
+    public String getTargetMstStatusStatus() {
+        return targetMstStatusStatus;
     }
 
-    public void setIdTarget(Integer idTarget) {
-        this.idTarget = idTarget;
+    public void setTargetMstStatusStatus(String targetMstStatusStatus) {
+        this.targetMstStatusStatus = targetMstStatusStatus;
     }
 
-    public String getTargetCategory() {
-        return targetCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTargetCategory(String targetCategory) {
-        this.targetCategory = targetCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getTargetFirstName() {
-        return targetFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setTargetFirstName(String targetFirstName) {
-        this.targetFirstName = targetFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getTargetLastName() {
-        return targetLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setTargetLastName(String targetLastName) {
-        this.targetLastName = targetLastName;
-    }
-
-    public Integer getTargetUpdatedBy() {
-        return targetUpdatedBy;
-    }
-
-    public void setTargetUpdatedBy(Integer targetUpdatedBy) {
-        this.targetUpdatedBy = targetUpdatedBy;
-    }
-
-    public Integer getIdMstVisumStatus() {
-        return idMstVisumStatus;
-    }
-
-    public void setIdMstVisumStatus(Integer idMstVisumStatus) {
-        this.idMstVisumStatus = idMstVisumStatus;
-    }
-
-    public String getRevisit() {
-        return revisit;
-    }
-
-    public void setRevisit(String revisit) {
-        this.revisit = revisit;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getCmsUsersNpm() {
@@ -153,12 +153,20 @@ public class ListTargetVisit {
         this.cmsUsersName = cmsUsersName;
     }
 
-    public Integer getIdMstLogDesc() {
-        return idMstLogDesc;
+    public Integer getUpdatedBy() {
+        return updatedBy;
     }
 
-    public void setIdMstLogDesc(Integer idMstLogDesc) {
-        this.idMstLogDesc = idMstLogDesc;
+    public void setUpdatedBy(Integer updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getRecall() {
@@ -167,6 +175,14 @@ public class ListTargetVisit {
 
     public void setRecall(String recall) {
         this.recall = recall;
+    }
+
+    public Integer getIdMstLogDesc() {
+        return idMstLogDesc;
+    }
+
+    public void setIdMstLogDesc(Integer idMstLogDesc) {
+        this.idMstLogDesc = idMstLogDesc;
     }
 
     public Integer getIdMstLogStatus() {
@@ -193,6 +209,22 @@ public class ListTargetVisit {
         this.status = status;
     }
 
+    public Integer getIdMstVisumStatus() {
+        return idMstVisumStatus;
+    }
+
+    public void setIdMstVisumStatus(Integer idMstVisumStatus) {
+        this.idMstVisumStatus = idMstVisumStatus;
+    }
+
+    public String getRevisit() {
+        return revisit;
+    }
+
+    public void setRevisit(String revisit) {
+        this.revisit = revisit;
+    }
+
     public String getVisitStatus() {
         return visitStatus;
     }
@@ -201,12 +233,12 @@ public class ListTargetVisit {
         this.visitStatus = visitStatus;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getCreatedAtTargetVisum() {
+        return createdAtTargetVisum;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedAtTargetVisum(String createdAtTargetVisum) {
+        this.createdAtTargetVisum = createdAtTargetVisum;
     }
 
     public String getCreatedAtTargetLog() {
@@ -215,13 +247,5 @@ public class ListTargetVisit {
 
     public void setCreatedAtTargetLog(String createdAtTargetLog) {
         this.createdAtTargetLog = createdAtTargetLog;
-    }
-
-    public Integer getIdTargetMstStatus() {
-        return idTargetMstStatus;
-    }
-
-    public void setIdTargetMstStatus(Integer idTargetMstStatus) {
-        this.idTargetMstStatus = idTargetMstStatus;
     }
 }

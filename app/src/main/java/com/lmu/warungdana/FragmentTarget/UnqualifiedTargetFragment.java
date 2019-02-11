@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UnqualifiedTargetFragment extends Fragment implements Comparator<ListTarget> {
+public class UnqualifiedTargetFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -189,10 +189,7 @@ public class UnqualifiedTargetFragment extends Fragment implements Comparator<Li
 
     }
 
-    @Override
-    public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getUpdated_by().compareTo(t1.getUpdated_by());
-    }
+
 
     private void loadMore() {
         itShouldLoadMore = false;

@@ -165,39 +165,45 @@ public class VisitTargetFragment extends Fragment {
 
                         List<ListTargetVisit> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log;
+                            String created_at, category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log,targetMastStatus;
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus,updated_by;
-                            category = list.get(i).getTargetCategory();
-                            firstName = list.get(i).getTargetFirstName();
-                            lastName = list.get(i).getTargetLastName();
+                            category = list.get(i).getCategory();
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
                             recall = list.get(i).getRecall();
                             description = list.get(i).getDescription();
                             status = list.get(i).getStatus();
                             revisit = list.get(i).getRevisit();
                             visitStatus = list.get(i).getVisitStatus();
-                            updated_by = list.get(i).getTargetUpdatedBy();
+                            updated_by = list.get(i).getUpdatedBy();
                             cms_username = list.get(i).getCmsUsersName();
                             cmsNpm = list.get(i).getCmsUsersNpm();
                             created_at_target_log = list.get(i).getCreatedAtTargetLog();
 //                            Log.d("Visit Status",visitStatus);
-                            id = list.get(i).getIdTarget();
+                            id = list.get(i).getId();
                             idTargetMstStatus = list.get(i).getIdTargetMstStatus();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
                             created_at_target_visum = list.get(i).getCreatedAt();
+                            targetMastStatus = list.get(i).getTargetMstStatusStatus();
+                            created_at = list.get(i).getCreatedAt();
 
 
-                            if (visitStatus != null){
+//                            if (visitStatus != null){
+//
+//
+//
+//                            }else{
+//
+//                            }
 
-                                saveFirst.add(id);
+                            saveFirst.add(id);
 
-                                listTargets.add(new ListTargetVisit(id,category,firstName,lastName,updated_by,idMstVisumStatus,revisit,cms_username,cmsNpm,idMstLogDesc,
-                                        recall,idMstLogStatus,description,status,visitStatus,created_at_target_visum,created_at_target_log,idTargetMstStatus));
+                            listTargets.add(new ListTargetVisit(id,idTargetMstStatus,targetMastStatus,category,firstName,lastName,cmsNpm,cms_username,updated_by,created_at,recall,idMstLogDesc,idMstLogStatus,
+                                    description,status,idMstVisumStatus,revisit,visitStatus,created_at_target_visum,created_at_target_log));
 
-                            }else{
 
-                            }
 
 
 
@@ -305,39 +311,77 @@ public class VisitTargetFragment extends Fragment {
 //
 //                            }
 
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log;
+//                            String category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log;
+//                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus,updated_by;
+//                            category = list.get(i).getTargetCategory();
+//                            firstName = list.get(i).getTargetFirstName();
+//                            lastName = list.get(i).getTargetLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            revisit = list.get(i).getRevisit();
+//                            visitStatus = list.get(i).getVisitStatus();
+//                            updated_by = list.get(i).getTargetUpdatedBy();
+//                            cms_username = list.get(i).getCmsUsersName();
+//                            cmsNpm = list.get(i).getCmsUsersNpm();
+//                            created_at_target_log = list.get(i).getCreatedAtTargetLog();
+////                            Log.d("Visit Status",visitStatus);
+//                            id = list.get(i).getIdTarget();
+//                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+//                            created_at_target_visum = list.get(i).getCreatedAt();
+//
+//
+//                            if (visitStatus != null){
+//
+//                                saveFirst.add(id);
+//
+//                                listTargets.add(new ListTargetVisit(id,category,firstName,lastName,updated_by,idMstVisumStatus,revisit,cms_username,cmsNpm,idMstLogDesc,
+//                                        recall,idMstLogStatus,description,status,visitStatus,created_at_target_visum,created_at_target_log,idTargetMstStatus));
+//
+//                            }else{
+//
+//                            }
+
+                            String created_at, category, firstName, lastName, recall, description, status, revisit, visitStatus = "",created_at_target_visum,cms_username,cmsNpm,created_at_target_log,targetMastStatus;
                             Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus,updated_by;
-                            category = list.get(i).getTargetCategory();
-                            firstName = list.get(i).getTargetFirstName();
-                            lastName = list.get(i).getTargetLastName();
+                            category = list.get(i).getCategory();
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
                             recall = list.get(i).getRecall();
                             description = list.get(i).getDescription();
                             status = list.get(i).getStatus();
                             revisit = list.get(i).getRevisit();
                             visitStatus = list.get(i).getVisitStatus();
-                            updated_by = list.get(i).getTargetUpdatedBy();
+                            updated_by = list.get(i).getUpdatedBy();
                             cms_username = list.get(i).getCmsUsersName();
                             cmsNpm = list.get(i).getCmsUsersNpm();
                             created_at_target_log = list.get(i).getCreatedAtTargetLog();
 //                            Log.d("Visit Status",visitStatus);
-                            id = list.get(i).getIdTarget();
+                            id = list.get(i).getId();
                             idTargetMstStatus = list.get(i).getIdTargetMstStatus();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
                             idMstVisumStatus = list.get(i).getIdMstVisumStatus();
                             created_at_target_visum = list.get(i).getCreatedAt();
+                            targetMastStatus = list.get(i).getTargetMstStatusStatus();
+                            created_at = list.get(i).getCreatedAt();
 
 
-                            if (visitStatus != null){
+//                            if (visitStatus != null){
+//
+//
+//
+//                            }else{
+//
+//                            }
 
-                                saveFirst.add(id);
+                            saveFirst.add(id);
 
-                                listTargets.add(new ListTargetVisit(id,category,firstName,lastName,updated_by,idMstVisumStatus,revisit,cms_username,cmsNpm,idMstLogDesc,
-                                        recall,idMstLogStatus,description,status,visitStatus,created_at_target_visum,created_at_target_log,idTargetMstStatus));
-
-                            }else{
-
-                            }
+                            listTargets.add(new ListTargetVisit(id,idTargetMstStatus,targetMastStatus,category,firstName,lastName,cmsNpm,cms_username,updated_by,created_at,recall,idMstLogDesc,idMstLogStatus,
+                                    description,status,idMstVisumStatus,revisit,visitStatus,created_at_target_visum,created_at_target_log));
 
                         }
                         listTargetAdapter.notifyDataSetChanged();

@@ -71,7 +71,7 @@ import retrofit2.http.Query;
 
 public interface ApiEndPoint {
 
-    @GET("target_listing_visit")
+    @GET("target_listing_visit_fix")
     Call<RespListTargetVisit> listVisitTarget(@Query("id_cms_users") Integer id,
                                         @Query("limit") Integer limit,
                                         @Query("offset") Integer offset);
@@ -591,6 +591,12 @@ public interface ApiEndPoint {
 
     @GET("target_listing")
     Call<RespListTarget> listTargetPagg(@Query("id_cms_users") Integer id,
+                                        @Query("id_target_mst_status") Integer idStatus,
+                                        @Query("limit") Integer limit,
+                                        @Query("offset") Integer offset);
+
+    @GET("target_listing_new")
+    Call<RespListTarget> listTargetNewPagg(@Query("id_cms_users") Integer id,
                                         @Query("id_target_mst_status") Integer idStatus,
                                         @Query("limit") Integer limit,
                                         @Query("offset") Integer offset);

@@ -46,12 +46,12 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
     @Override
     public void onBindViewHolder(ListTargetHolder holder, int position) {
         final ListTargetVisit listTarget = listTargets.get(position);
-        idTarget = listTarget.getIdTarget();
+        idTarget = listTarget.getId();
         final Context mcontext;
-        if (listTarget.getTargetLastName() == null) {
-            holder.nama.setText(listTarget.getTargetFirstName());
+        if (listTarget.getLastName() == null) {
+            holder.nama.setText(listTarget.getFirstName());
         } else {
-            holder.nama.setText(listTarget.getTargetFirstName() + " " + listTarget.getTargetLastName());
+            holder.nama.setText(listTarget.getFirstName() + " " + listTarget.getLastName());
         }
 
 
@@ -76,14 +76,14 @@ public class ListTargetVisitAdapter extends RecyclerView.Adapter<ListTargetVisit
 
         holder.tanggal.setText(convertTime2(listTarget.getRevisit()));
 
-        holder.status.setText(listTarget.getTargetCategory());
+        holder.status.setText(listTarget.getCategory());
         holder.kotak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isConn = UtilsConnected.isNetworkConnected(context);
                 if (isConn) {
                     Intent intent = new Intent(context, DetailTargetActivity.class);
-                    intent.putExtra("idTarget", listTarget.getIdTarget());
+                    intent.putExtra("idTarget", listTarget.getId());
                     context.startActivity(intent);
                 } else {
                     Toast.makeText(context, "Periksa Koneksi", Toast.LENGTH_LONG).show();

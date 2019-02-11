@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HotTargetFragment extends Fragment implements Comparator<ListTarget> {
+public class HotTargetFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -190,11 +190,6 @@ public class HotTargetFragment extends Fragment implements Comparator<ListTarget
             }
         });
 
-    }
-
-    @Override
-    public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getUpdated_by().compareTo(t1.getUpdated_by());
     }
 
     private void loadMore() {

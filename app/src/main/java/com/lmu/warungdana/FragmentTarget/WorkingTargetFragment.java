@@ -34,7 +34,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WorkingTargetFragment extends Fragment implements Comparator<ListTarget> {
+public class WorkingTargetFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -249,8 +249,5 @@ public class WorkingTargetFragment extends Fragment implements Comparator<ListTa
 
     }
 
-    @Override
-    public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getCreated_at_target_log().compareTo(t1.getCreated_at_target_log());
-    }
+
 }

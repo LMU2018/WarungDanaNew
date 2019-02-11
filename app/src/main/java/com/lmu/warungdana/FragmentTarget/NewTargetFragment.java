@@ -33,7 +33,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewTargetFragment extends Fragment implements Comparator<ListTarget> {
+public class NewTargetFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
@@ -138,7 +138,7 @@ public class NewTargetFragment extends Fragment implements Comparator<ListTarget
 
     private void firstLoad() {
         itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 1,limit,0).enqueue(new Callback<RespListTarget>() {
+        mApiService.listTargetNewPagg(idUser, 1,limit,0).enqueue(new Callback<RespListTarget>() {
             @Override
             public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
                 if (response.isSuccessful()) {
@@ -164,11 +164,13 @@ public class NewTargetFragment extends Fragment implements Comparator<ListTarget
                             updated_by = list.get(i).getUpdated_by();
                             created_at_log = list.get(i).getCreated_at_target_log();
 
-                            if (visitStatus == null){
+//                            if (visitStatus == null){
+//
+//
+//                            }
 
-                                listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, updated_by,recall, idMstLogDesc,
-                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_log));
-                            }
+                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, updated_by,recall, idMstLogDesc,
+                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_log));
 
 
                         }
@@ -196,14 +198,9 @@ public class NewTargetFragment extends Fragment implements Comparator<ListTarget
 
     }
 
-    @Override
-    public int compare(ListTarget listTarget, ListTarget t1) {
-        return listTarget.getUpdated_by().compareTo(t1.getUpdated_by());
-    }
-
     private void loadMore() {
         itShouldLoadMore = false;
-        mApiService.listTargetPagg(idUser, 1, 15, offset).enqueue(new Callback<RespListTarget>() {
+        mApiService.listTargetNewPagg(idUser, 1, 15, offset).enqueue(new Callback<RespListTarget>() {
             @Override
             public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {
                 if (response.isSuccessful()) {
@@ -229,11 +226,13 @@ public class NewTargetFragment extends Fragment implements Comparator<ListTarget
                             updated_by = list.get(i).getUpdated_by();
                             created_at_log = list.get(i).getCreated_at_target_log();
 
-                            if (visitStatus == null){
+//                            if (visitStatus == null){
+//
+//
+//                            }
 
-                                listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, updated_by,recall, idMstLogDesc,
-                                        idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_log));
-                            }
+                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, updated_by,recall, idMstLogDesc,
+                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,created_at_log));
                         }
                         listTargetAdapter.notifyDataSetChanged();
 
