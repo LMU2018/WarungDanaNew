@@ -114,11 +114,20 @@ public class WorkingTargetFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         listTargets.clear();
+        listTargetAdapter.notifyDataSetChanged();
         progress.setVisibility(View.VISIBLE);
         firstLoad();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        listTargets.clear();
+//        progress.setVisibility(View.VISIBLE);
+//        firstLoad();
 //        mApiService.listTarget(idUser, 3).enqueue(new Callback<RespListTarget>() {
 //            @Override
 //            public void onResponse(Call<RespListTarget> call, Response<RespListTarget> response) {

@@ -113,11 +113,18 @@ public class HotTargetFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         listTargets.clear();
+        listTargetAdapter.notifyDataSetChanged();
         progress.setVisibility(View.VISIBLE);
         firstLoad();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
 /*
         mApiService.listTarget(idUser, 2).enqueue(new Callback<RespListTarget>() {
             @Override

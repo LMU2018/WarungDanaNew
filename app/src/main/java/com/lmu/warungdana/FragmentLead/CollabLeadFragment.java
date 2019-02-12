@@ -97,11 +97,20 @@ public class CollabLeadFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         listLeadCollabs.clear();
+        listLeadCollabAdapter.notifyDataSetChanged();
         progress.setVisibility(View.VISIBLE);
         firstLoad();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        listLeadCollabs.clear();
+//        progress.setVisibility(View.VISIBLE);
+//        firstLoad();
 /*
         mApiService.listLeadCollab(idUser).enqueue(new Callback<RespListLeadCollab>() {
             @Override

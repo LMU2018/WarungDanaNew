@@ -112,11 +112,20 @@ public class FavoriteLeadFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         listLeads.clear();
+        listLeadAdapter.notifyDataSetChanged();
         progress.setVisibility(View.VISIBLE);
         firstLoad();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        listLeads.clear();
+//        progress.setVisibility(View.VISIBLE);
+//        firstLoad();
 /*
         mApiService.listLeadFav(idUser, 1).enqueue(new Callback<RespListLead>() {
             @Override
@@ -188,6 +197,8 @@ public class FavoriteLeadFragment extends Fragment {
             }
         });
     }
+
+
 
 
 
