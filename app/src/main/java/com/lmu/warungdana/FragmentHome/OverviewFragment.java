@@ -74,7 +74,7 @@ public class OverviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
         mContext = getContext();
         mApiService = UtilsApi.getAPIService();
-        isConn = UtilsConnected.isNetworkConnected(getContext());
+        isConn = UtilsConnected.isNetworkConnected(mContext);
         tvGreeting = view.findViewById(R.id.tvGreeting);
         tvTanggal = view.findViewById(R.id.tvTanggal);
         sharedPrefManager = new SharedPrefManager(mContext);
@@ -124,32 +124,32 @@ public class OverviewFragment extends Fragment {
                 @Override
                 public void onResponse(Call<RespListJadwal> call, Response<RespListJadwal> response) {
                     if (response.isSuccessful()) {
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
                         rvJadwalAktivitas.setLayoutManager(layoutManager);
                         List<ListJadwal> listLeads = response.body().getData();
                         if (listLeads != null) {
-                            rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(getContext(), listLeads));
+                            rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
                             jadwalAda.setVisibility(View.VISIBLE);
                             jadwalKosong.setVisibility(View.GONE);
                         } else {
-//                        rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(getContext(), listLeads));
+//                        rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
                             jadwalAda.setVisibility(View.GONE);
                             jadwalKosong.setVisibility(View.VISIBLE);
                         }
 
                     } else {
-                        Toast.makeText(getContext(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RespListJadwal> call, Throwable t) {
-                    Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else {
-            Toast.makeText(getContext(), "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
         }
 
         return view;
@@ -162,7 +162,7 @@ public class OverviewFragment extends Fragment {
             getKPISKRG();
             jadwalAktivitas();
         } else {
-            Toast.makeText(getContext(), "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -175,7 +175,7 @@ public class OverviewFragment extends Fragment {
         tvRekap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), RekapActivity.class));
+                startActivity(new Intent(mContext, RekapActivity.class));
             }
         });
 
@@ -244,7 +244,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -277,7 +277,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -310,7 +310,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -342,7 +342,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -375,7 +375,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -435,7 +435,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -477,7 +477,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -518,7 +518,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -559,7 +559,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -600,7 +600,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -638,7 +638,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -661,7 +661,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -683,7 +683,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -706,7 +706,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -728,7 +728,7 @@ public class OverviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -745,15 +745,15 @@ public class OverviewFragment extends Fragment {
                     @Override
                     public void onResponse(Call<RespListJadwal> call, Response<RespListJadwal> response) {
                         if (response.isSuccessful()) {
-                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
                             rvJadwalAktivitas.setLayoutManager(layoutManager);
                             List<ListJadwal> listLeads = response.body().getData();
                             if (listLeads != null) {
-                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(getContext(), listLeads));
+                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
                                 jadwalAda.setVisibility(View.VISIBLE);
                                 jadwalKosong.setVisibility(View.GONE);
                             } else {
-                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(getContext(), listLeads));
+                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
                                 jadwalAda.setVisibility(View.GONE);
                                 jadwalKosong.setVisibility(View.VISIBLE);
                             }
@@ -763,7 +763,7 @@ public class OverviewFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<RespListJadwal> call, Throwable t) {
-                        Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -784,7 +784,7 @@ public class OverviewFragment extends Fragment {
                 if (isConn) {
                     getKPISKRG();
                 } else {
-                    Toast.makeText(getContext(), "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -798,7 +798,7 @@ public class OverviewFragment extends Fragment {
                 if (isConn) {
                     getKPIKMRIN();
                 } else {
-                    Toast.makeText(getContext(), "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -812,7 +812,7 @@ public class OverviewFragment extends Fragment {
                 if (isConn) {
                     getKPITOTAL();
                 } else {
-                    Toast.makeText(getContext(), "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
             }
         });

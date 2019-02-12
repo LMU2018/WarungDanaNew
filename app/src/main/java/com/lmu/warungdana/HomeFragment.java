@@ -2,6 +2,7 @@ package com.lmu.warungdana;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
     ApiEndPoint mApiService;
     String userAgent;
     Integer userId, lastLogin;
+    Context context;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        context = getActivity();
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("Warung Dana");
         toolbar.inflateMenu(R.menu.menu_home);
@@ -104,7 +107,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
 
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -124,7 +127,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
             case R.id.tentang:
 //                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://lmu2018.github.io/WarungDana/"));
 //                startActivity(browserIntent);
-                Intent tentang = new Intent(getActivity(),TentangApp.class);
+                Intent tentang = new Intent(context,TentangApp.class);
                 startActivity(tentang);
 
                 return true;
@@ -154,11 +157,11 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                 }
             });
 
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            Intent intent = new Intent(context, LoginActivity.class);
             startActivity(intent);
             getActivity().finish();
         }
