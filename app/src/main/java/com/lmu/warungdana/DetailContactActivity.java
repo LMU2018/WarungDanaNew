@@ -74,6 +74,7 @@ public class DetailContactActivity extends AppCompatActivity implements Toolbar.
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         idContact = getIntent().getIntExtra("idContact", 0);
+        context = getApplicationContext();
 
         getDetail();
 

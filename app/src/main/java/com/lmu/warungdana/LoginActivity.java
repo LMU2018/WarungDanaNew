@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         version = findViewById(R.id.tvVersionX);
 
         version.setText("Warung Dana Mobile versi " + BuildConfig.VERSION_NAME);
+        loading = new ProgressDialog(LoginActivity.this);
 
     }
 
@@ -91,7 +92,10 @@ public class LoginActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else {
-                    loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
+                    loading.setMessage("Harap Tunggu...");
+//                    loading.setIndeterminate(true);
+                    loading.setCancelable(false);
+                    loading.show();
                     /*Calendar calendar = Calendar.getInstance();
                     time = calendar.get(Calendar.MINUTE);
                     Toast.makeText(mContext, "Time " + time, Toast.LENGTH_SHORT).show();*/
