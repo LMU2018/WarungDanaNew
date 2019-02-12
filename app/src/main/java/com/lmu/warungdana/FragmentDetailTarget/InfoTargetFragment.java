@@ -2,6 +2,7 @@ package com.lmu.warungdana.FragmentDetailTarget;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,6 +46,7 @@ public class InfoTargetFragment extends Fragment {
     private TextView status, job, source, owner, category, priority, contract, nopol, nama, prov1, prov2, address, convert, direction;
     private RelativeLayout phone, phone2, layoutAddress;
     Context context;
+    Activity mActivity;
     private String firstName, lastName, mainPhone, jalan;
     SharedPrefManager sharedPrefManager;
 
@@ -57,8 +59,9 @@ public class InfoTargetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_info_target, container, false);
-        DetailTargetActivity activity = (DetailTargetActivity) getActivity();
         context = getContext();
+        mActivity = getActivity();
+        DetailTargetActivity activity = (DetailTargetActivity) mActivity;
         idTarget = activity.idTarget;
         status = view.findViewById(R.id.tvStatus);
         prov1 = view.findViewById(R.id.tvNoHP1);
@@ -78,7 +81,7 @@ public class InfoTargetFragment extends Fragment {
         convert = view.findViewById(R.id.convert);
         direction = view.findViewById(R.id.tvDirection);
         layoutAddress = view.findViewById(R.id.layoutAddress);
-        sharedPrefManager = new SharedPrefManager(getContext());
+        sharedPrefManager = new SharedPrefManager(context);
         idUser = sharedPrefManager.getSpId();
         return view;
     }
@@ -242,7 +245,7 @@ public class InfoTargetFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailTarget> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -301,7 +304,7 @@ public class InfoTargetFragment extends Fragment {
 
                                                                 @Override
                                                                 public void onFailure(Call<RespPost> call, Throwable t) {
-                                                                    Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(mActivity, "Not Responding", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
                                                         }
@@ -323,7 +326,7 @@ public class InfoTargetFragment extends Fragment {
 
                                             @Override
                                             public void onFailure(Call<CheckContact> call, Throwable t) {
-                                                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(mActivity, "Not Responding", Toast.LENGTH_SHORT).show();
                                             }
                                         });
 
@@ -333,7 +336,7 @@ public class InfoTargetFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<CheckNIK> call, Throwable t) {
-                                    Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mActivity, "Not Responding", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
