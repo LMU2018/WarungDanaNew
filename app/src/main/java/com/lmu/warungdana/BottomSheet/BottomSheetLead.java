@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.lmu.warungdana.AddAdditionalLeadActivity;
+import com.lmu.warungdana.AddLeadVisumActivity;
 import com.lmu.warungdana.DetailLeadActivity;
 import com.lmu.warungdana.R;
 
@@ -18,7 +19,7 @@ import com.lmu.warungdana.R;
  * A simple {@link Fragment} subclass.
  */
 public class BottomSheetLead extends BottomSheetDialogFragment {
-    private LinearLayout bsNote, bsUnit, bsDocument;
+    private LinearLayout bsNote, bsVisum,bsUnit, bsDocument;
     private Integer idLead;
 
     public BottomSheetLead() {
@@ -34,6 +35,7 @@ public class BottomSheetLead extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet_lead, container, false);
         bsNote = view.findViewById(R.id.bsNote);
+        bsVisum = view.findViewById(R.id.bsVisum);
 //        bsUnit = view.findViewById(R.id.bsUnit);
 //        bsDocument = view.findViewById(R.id.bsDocument);
         DetailLeadActivity activity = (DetailLeadActivity) getActivity();
@@ -49,6 +51,16 @@ public class BottomSheetLead extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddAdditionalLeadActivity.class);
+                intent.putExtra("idIndicator", 1);
+                intent.putExtra("idModul", 1);
+                intent.putExtra("idData", idLead);
+                getContext().startActivity(intent);
+            }
+        });
+        bsVisum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddLeadVisumActivity.class);
                 intent.putExtra("idIndicator", 1);
                 intent.putExtra("idModul", 1);
                 intent.putExtra("idData", idLead);

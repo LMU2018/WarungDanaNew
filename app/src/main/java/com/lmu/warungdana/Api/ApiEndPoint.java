@@ -33,6 +33,8 @@ import com.lmu.warungdana.Response.RespListJadwal;
 import com.lmu.warungdana.Response.RespListJob;
 import com.lmu.warungdana.Response.RespListLead;
 import com.lmu.warungdana.Response.RespListLeadCollab;
+import com.lmu.warungdana.Response.RespListLeadVisit;
+import com.lmu.warungdana.Response.RespListLeadVisum;
 import com.lmu.warungdana.Response.RespListLog;
 import com.lmu.warungdana.Response.RespListLogDesc;
 import com.lmu.warungdana.Response.RespListLogStatus;
@@ -70,6 +72,34 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiEndPoint {
+
+    @GET("lead_listing_new")
+    Call<RespListLead> listLeadNewPagg(@Query("id_cms_users") Integer id,
+                                    @Query("id_lead_mst_status") Integer idStatus,
+                                    @Query("limit") Integer limit,
+                                    @Query("offset") Integer offset);
+
+    @GET("listing_lead_visit")
+    Call<RespListLeadVisit> listLeadVisit(@Query("id_cms_users") Integer id,
+                                          @Query("limit") Integer limit,
+                                          @Query("offset") Integer offset);
+
+    @GET("lead_visum_listing")
+    Call<RespListLeadVisum> listLeadVisum(@Query("id_lead") Integer id);
+
+    @FormUrlEncoded
+    @POST("lead_visum_create")
+    Call<RespPost> leadVisumCreate(@Field("id_lead") Integer idTarget,
+                                     @Field("id_cms_users") Integer idUser,
+                                     @Field("revisit") String revisit,
+                                     @Field("id_mst_visum_status") Integer idVisum);
+
+    @Multipart
+    @POST("lead_visum_upload_photo")
+    Call<RespPost> uploadLeadVisumPhoto(@Part("id_lead") RequestBody idLead,
+                                    @Part("id_lead_visum") RequestBody udTargetVisum,
+                                    @Part MultipartBody.Part photo,
+                                    @Part("id_cms_users") RequestBody idUser);
 
     @GET("target_listing_visit_fix")
     Call<RespListTargetVisit> listVisitTarget(@Query("id_cms_users") Integer id,

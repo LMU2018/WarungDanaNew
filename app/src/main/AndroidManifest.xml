@@ -77,6 +77,10 @@
             android:name=".AddVisumActivity"
             android:label="@string/title_activity_add_log"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddLeadVisumActivity"
+            android:label="@string/title_activity_add_log"
+            android:theme="@style/AppTheme" />
         <activity android:name="com.lmu.warungdana.AddLeadActivity" />
         <activity
             android:name=".DetailJadwalActivity"

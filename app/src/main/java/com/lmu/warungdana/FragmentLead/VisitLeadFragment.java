@@ -14,12 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.lmu.warungdana.Adapter.ListLeadAdapter;
-import com.lmu.warungdana.R;
-import com.lmu.warungdana.Response.ListLead;
-import com.lmu.warungdana.Response.RespListLead;
+import com.lmu.warungdana.Adapter.ListLeadVisitAdapter;
+import com.lmu.warungdana.Adapter.ListTargetVisitAdapter;
 import com.lmu.warungdana.Api.ApiEndPoint;
 import com.lmu.warungdana.Api.SharedPrefManager;
 import com.lmu.warungdana.Api.UtilsApi;
+import com.lmu.warungdana.R;
+import com.lmu.warungdana.Response.ListLead;
+import com.lmu.warungdana.Response.ListLeadVisit;
+import com.lmu.warungdana.Response.ListTargetVisit;
+import com.lmu.warungdana.Response.RespListLeadVisit;
+import com.lmu.warungdana.Response.RespListTargetVisit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,21 +38,22 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewLeadFragment extends Fragment {
+public class VisitLeadFragment extends Fragment {
     private RecyclerView recyclerView;
     private ApiEndPoint mApiService;
-    Integer idUser;
     SharedPrefManager sharedPrefManager;
+    Integer idUser;
     private Context context;
 
-    ArrayList<ListLead> listLeads;
-    ListLeadAdapter listLeadAdapter;
+    ArrayList<ListLeadVisit> listLeads;
+    ListLeadVisitAdapter listLeadAdapter;
     ProgressBar progress;
     private Integer offset = 15, limit;
     private boolean itShouldLoadMore = true;
     LinearLayout iconKosong;
+    ArrayList<Integer> saveFirst;
 
-    public NewLeadFragment() {
+    public VisitLeadFragment() {
         // Required empty public constructor
     }
 
@@ -64,6 +70,7 @@ public class NewLeadFragment extends Fragment {
             }
         });
 
+        saveFirst = new ArrayList<>();
         limit = Integer.parseInt(getResources().getString(R.string.limit));
         listLeads = new ArrayList<>();
         sharedPrefManager = new SharedPrefManager(getContext());
@@ -73,14 +80,12 @@ public class NewLeadFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         iconKosong = view.findViewById(R.id.iconKosong);
 
-        /*progress.setVisibility(View.VISIBLE);
-        firstLoad();*/
-
-        listLeadAdapter = new ListLeadAdapter(getContext(), listLeads);
+        listLeadAdapter = new ListLeadVisitAdapter(getContext(), listLeads);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(listLeadAdapter);
 
+        progress.setVisibility(View.VISIBLE);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -88,14 +93,15 @@ public class NewLeadFragment extends Fragment {
                 if (dy > 0) {
 
                     if (!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)) {
+
 //                        if (itShouldLoadMore) {
 //                            progress.setVisibility(View.VISIBLE);
 ////                            loadMore();
+//
 //                            if ((listLeadAdapter.num)*20 < listLeads.size()){
 //                                listLeadAdapter.num = listLeadAdapter.num + 1;
 //                                listLeadAdapter.notifyDataSetChanged();
 //                            }
-//
 //                            progress.setVisibility(View.INVISIBLE);
 //                        }
                         if (itShouldLoadMore) {
@@ -107,128 +113,160 @@ public class NewLeadFragment extends Fragment {
                 }
             }
         });
+
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        listLeads.clear();
-        progress.setVisibility(View.VISIBLE);
-        firstLoad();
-/*
-        mApiService.listLead(idUser, 1).enqueue(new Callback<RespListLead>() {
-            @Override
-            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
-                if (response.isSuccessful()) {
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    recyclerView.setLayoutManager(layoutManager);
-                    List<ListLead> listLeads = response.body().getData();
-                    recyclerView.setAdapter(new ListLeadAdapter(getContext(), listLeads));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespListLead> call, Throwable t) {
-                Toast.makeText(getContext(), "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
+//        listLeads.clear();
+//        listLeadAdapter.notifyDataSetChanged();
+//        progress.setVisibility(View.VISIBLE);
+//        firstLoad();
 
     }
 
     private void firstLoad() {
+
+        if (listLeads.size() >= 1){
+
+            recyclerView.setAdapter(null);
+        }else{
+
+            recyclerView.setAdapter(listLeadAdapter);
+
+        }
+        saveFirst.clear();
         itShouldLoadMore = false;
-        mApiService.listLeadNewPagg(idUser, 1,limit,0).enqueue(new Callback<RespListLead>() {
+        mApiService.listLeadVisit(idUser,limit,0).enqueue(new Callback<RespListLeadVisit>() {
             @Override
-            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
+            public void onResponse(Call<RespListLeadVisit> call, Response<RespListLeadVisit> response) {
                 if (response.isSuccessful()) {
-                    itShouldLoadMore = true;
+
                     if (response.body().getData() != null) {
-                        List<ListLead> list = response.body().getData();
+                        recyclerView.setAdapter(listLeadAdapter);
+
+                        List<ListLeadVisit> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String firstName, lastName, recall, description, status,created_at;
-                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
+
+                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
+                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
+
                             id = list.get(i).getId();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
                             idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-                            recall = list.get(i).getRecall();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
+                            favorite = list.get(i).getFavorite();
+
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
+                            recall = list.get(i).getRecall();
                             description = list.get(i).getDescription();
                             status = list.get(i).getStatus();
-                            favorite = list.get(i).getFavorite();
-                            created_at = list.get(i).getCreated_at_lead();
+                            created_at_lead = list.get(i).getCreated_at_lead();
+                            visitStatus = list.get(i).getVisit_status();
+                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
 
-                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
+                            saveFirst.add(id);
+
+                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
+                                        idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
+
+
+
+
                         }
 
 
                         listLeadAdapter.notifyDataSetChanged();
+
                         if (listLeads.size() >= 1) {
                             iconKosong.setVisibility(LinearLayout.INVISIBLE);
                         } else {
                             iconKosong.setVisibility(LinearLayout.VISIBLE);
                         }
 
+                        itShouldLoadMore = true;
+
                         progress.setVisibility(View.GONE);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<RespListLead> call, Throwable t) {
+            public void onFailure(Call<RespListLeadVisit> call, Throwable t) {
                 itShouldLoadMore = true;
                 progress.setVisibility(View.GONE);
             }
         });
+
     }
-
-
 
     private void loadMore() {
         itShouldLoadMore = false;
-        mApiService.listLeadNewPagg(idUser, 1, limit, offset).enqueue(new Callback<RespListLead>() {
+        mApiService.listLeadVisit(idUser, limit,offset).enqueue(new Callback<RespListLeadVisit>() {
             @Override
-            public void onResponse(Call<RespListLead> call, Response<RespListLead> response) {
+            public void onResponse(Call<RespListLeadVisit> call, Response<RespListLeadVisit> response) {
                 if (response.isSuccessful()) {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
-                        List<ListLead> list = response.body().getData();
+                        List<ListLeadVisit> list = response.body().getData();
                         for (int i = 0; i < list.size(); i++) {
-                            String firstName, lastName, recall, description, status,created_at;
-                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
+                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
+                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
+
                             id = list.get(i).getId();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
                             idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-                            recall = list.get(i).getRecall();
                             idMstLogDesc = list.get(i).getIdMstLogDesc();
                             idMstLogStatus = list.get(i).getIdMstLogStatus();
+                            favorite = list.get(i).getFavorite();
+
+                            firstName = list.get(i).getFirstName();
+                            lastName = list.get(i).getLastName();
+                            recall = list.get(i).getRecall();
                             description = list.get(i).getDescription();
                             status = list.get(i).getStatus();
-                            favorite = list.get(i).getFavorite();
-                            created_at = list.get(i).getCreated_at_lead();
+                            created_at_lead = list.get(i).getCreated_at_lead();
+                            visitStatus = list.get(i).getVisit_status();
+                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
 
-                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
+                            saveFirst.add(id);
+
+                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
+                                    idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
+
+
+
                         }
-
                         listLeadAdapter.notifyDataSetChanged();
+
                         int index = listLeads.size();
+//                        Log.d(TAG, "indexOff: " + index);
                         offset = index;
+//                        Log.d(TAG, "offset: " + offset);
                         progress.setVisibility(View.GONE);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<RespListLead> call, Throwable t) {
+            public void onFailure(Call<RespListLeadVisit> call, Throwable t) {
                 itShouldLoadMore = true;
                 progress.setVisibility(View.GONE);
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        firstLoad();
+        listLeads.clear();
+        listLeadAdapter.notifyDataSetChanged();
+        progress.setVisibility(View.VISIBLE);
+        firstLoad();
     }
 
 }

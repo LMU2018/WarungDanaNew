@@ -65,9 +65,20 @@ public class DetailLead {
     @SerializedName("note_total")
     @Expose
     private String noteTotal;
+    @SerializedName("visum_total")
+    @Expose
+    private String visumTotal;
     @SerializedName("api_http")
     @Expose
     private Integer apiHttp;
+
+    public String getVisumTotal() {
+        return visumTotal;
+    }
+
+    public void setVisumTotal(String visumTotal) {
+        this.visumTotal = visumTotal;
+    }
 
     public Integer getApiStatus() {
         return apiStatus;

@@ -120,9 +120,9 @@ public class VisitTargetFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        listTargets.clear();
-        progress.setVisibility(View.VISIBLE);
-        firstLoad();
+//        listTargets.clear();
+//        progress.setVisibility(View.VISIBLE);
+//        firstLoad();
 
 //        mApiService.listTarget(idUser, 4).enqueue(new Callback<RespListTarget>() {
 //            @Override
@@ -409,6 +409,10 @@ public class VisitTargetFragment extends Fragment {
     public void onResume() {
         super.onResume();
 //        firstLoad();
+        listTargets.clear();
+        listTargetAdapter.notifyDataSetChanged();
+        progress.setVisibility(View.VISIBLE);
+        firstLoad();
     }
 
 //    @Override

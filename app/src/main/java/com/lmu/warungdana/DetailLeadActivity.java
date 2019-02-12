@@ -21,6 +21,7 @@ import com.lmu.warungdana.BottomSheet.BottomSheetLead;
 import com.lmu.warungdana.FragmentDetailLead.InfoLeadFragment;
 import com.lmu.warungdana.FragmentDetailLead.LogLeadFragment;
 import com.lmu.warungdana.FragmentDetailLead.NoteLeadFragment;
+import com.lmu.warungdana.FragmentDetailLead.VisumLeadFragment;
 import com.lmu.warungdana.Response.DetailLead;
 import com.lmu.warungdana.Response.RespListAddress;
 import com.lmu.warungdana.Response.RespListPhone;
@@ -43,7 +44,7 @@ public class DetailLeadActivity extends AppCompatActivity implements Toolbar.OnM
     private ViewPager viewPager;
     private ApiEndPoint mApiService;
     public Integer idLead, idUser, tahun, idAddress, idUnit;
-    private String nama, status, logTotal, NoteTotal, pekerjaan, sumber,
+    private String nama, status, logTotal, NoteTotal, visumTotal, pekerjaan, sumber,
             firstName, lastName, mainPhone, address, prov, kab, kec, kel, postalcode, addressCat,
             merk, model, nopol, pajak, owner;
     private FloatingActionButton fab;
@@ -298,9 +299,15 @@ public class DetailLeadActivity extends AppCompatActivity implements Toolbar.OnM
                         } else {
                             NoteTotal = "0";
                         }
+                        if (response.body().getVisumTotal() != null) {
+                            visumTotal = response.body().getVisumTotal();
+                        } else {
+                            visumTotal = "0";
+                        }
                         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
                         adapter.addFragment(new InfoLeadFragment(), "info");
                         adapter.addFragment(new LogLeadFragment(), "log" + " (" + logTotal + ")");
+                        adapter.addFragment(new VisumLeadFragment(),"Visum" +" ("+visumTotal+")");
                         adapter.addFragment(new NoteLeadFragment(), "note" + " (" + NoteTotal + ")");
                         viewPager.setAdapter(adapter);
 

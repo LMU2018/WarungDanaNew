@@ -35,6 +35,7 @@ import com.lmu.warungdana.FragmentLead.FavoriteLeadFragment;
 import com.lmu.warungdana.FragmentLead.HotLeadFragment;
 import com.lmu.warungdana.FragmentLead.NewLeadFragment;
 import com.lmu.warungdana.FragmentLead.UnqualifiedLeadFragment;
+import com.lmu.warungdana.FragmentLead.VisitLeadFragment;
 import com.lmu.warungdana.FragmentLead.WorkingLeadFragment;
 import com.lmu.warungdana.Response.CheckNewDB;
 import com.lmu.warungdana.Response.ListLead;
@@ -194,6 +195,7 @@ public class LeadFragment extends Fragment {
         adapter.addFragment(new NewLeadFragment(), "New");
         adapter.addFragment(new HotLeadFragment(), "HOT");
         adapter.addFragment(new WorkingLeadFragment(), "working");
+        adapter.addFragment(new VisitLeadFragment(),"Visit");
         adapter.addFragment(new CollabLeadFragment(), "collab");
         adapter.addFragment(new UnqualifiedLeadFragment(), "unqualified");
         viewPager.setAdapter(adapter);
