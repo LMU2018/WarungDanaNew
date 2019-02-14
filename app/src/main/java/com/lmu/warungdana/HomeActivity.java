@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
                 //set notification icon
                 .setNotificationIcon(R.mipmap.ic_launcher_2)
                 //set update file url
-                .setUrl(UtilsApi.BASE_URL_API+"check_version")
+                .setUrl(UtilsApi.BASE_UPDATE_JSON)
                 //set customs activity
                 //set showToast. default is true
                 .setIsShowToast(false)
@@ -138,6 +138,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+
 
         updateWrapper.start();
 
