@@ -1,6 +1,7 @@
 package com.lmu.warungdana.FragmentDetailTarget;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,7 @@ public class LogTargetFragment extends Fragment {
     SharedPrefManager sharedPrefManager;
     private Context context;
     ArrayList<ListLogTarget> listTargets;
+    Activity mActivity;
 
 
     public LogTargetFragment() {
@@ -50,6 +52,7 @@ public class LogTargetFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_log_target, container, false);
         DetailTargetActivity activity = (DetailTargetActivity) getActivity();
+        mActivity = getActivity();
         idTarget = activity.idTarget;
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -128,7 +131,7 @@ public class LogTargetFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListLogTarget> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
     }
