@@ -92,6 +92,8 @@ public class LeadFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         tvPencarian = view.findViewById(R.id.tvPencarian);
 
+        tvPencarian.setVisibility(View.GONE);
+
         listLeads = new ArrayList<>();
         listLeadAdapter = new ListLeadAdapter(getContext(), listLeads);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -222,7 +224,7 @@ public class LeadFragment extends Fragment {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 searchView.setQuery("", false);
-                tvPencarian.setVisibility(TextView.INVISIBLE);
+                tvPencarian.setVisibility(View.GONE);
                 recyclerView.setVisibility(RecyclerView.INVISIBLE);
                 listLeads.clear();
                 listLeadAdapter.notifyDataSetChanged();
@@ -253,7 +255,7 @@ public class LeadFragment extends Fragment {
                 }
 
                 if (newText.length() >= 3) {
-                    tvPencarian.setVisibility(TextView.INVISIBLE);
+                    tvPencarian.setVisibility(View.GONE);
                     callFilter(newText);
                 } else {
                     tvPencarian.setText("Minimal 3 Huruf");
@@ -278,7 +280,7 @@ public class LeadFragment extends Fragment {
 
     private void callFilter(String newText) {
 
-        tvPencarian.setVisibility(TextView.VISIBLE);
+        tvPencarian.setVisibility(View.GONE);
         tvPencarian.setText("Sedang Mencari . . .");
 
         call = mApiService.leadSearch(newText, idUser);

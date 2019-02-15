@@ -79,6 +79,7 @@ public class DealFragment extends Fragment {
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
         tvPencarian = view.findViewById(R.id.tvPencarian);
+        tvPencarian.setVisibility(View.GONE);
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("Deal");
         toolbar.setSubtitle("Order");
@@ -138,7 +139,7 @@ public class DealFragment extends Fragment {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 searchView.setQuery("",false);
-                tvPencarian.setVisibility(TextView.INVISIBLE);
+                tvPencarian.setVisibility(View.GONE);
                 recyclerView.setVisibility(RecyclerView.INVISIBLE);
                 listOrders.clear();
                 listOrderAdapter.notifyDataSetChanged();
@@ -169,7 +170,7 @@ public class DealFragment extends Fragment {
                 }
 
                 if (newText.length() >= 3) {
-                    tvPencarian.setVisibility(TextView.INVISIBLE);
+                    tvPencarian.setVisibility(View.GONE);
                     callFilter(newText);
                 } else {
                     tvPencarian.setText("Minimal 3 Huruf");

@@ -89,6 +89,7 @@ public class ContactFragment extends Fragment {
         fab = view.findViewById(R.id.btnCheck);
         recyclerView = view.findViewById(R.id.recyclerView);
         tvPencarian = view.findViewById(R.id.tvPencarian);
+        tvPencarian.setVisibility(View.GONE);
 
         listContacts = new ArrayList<>();
         listContactAdapter = new ListContactAdapter(getContext(), listContacts);
@@ -231,7 +232,7 @@ public class ContactFragment extends Fragment {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 searchView.setQuery("",false);
-                tvPencarian.setVisibility(TextView.INVISIBLE);
+                tvPencarian.setVisibility(View.GONE);
                 recyclerView.setVisibility(RecyclerView.INVISIBLE);
                 listContacts.clear();
                 listContactAdapter.notifyDataSetChanged();
@@ -262,7 +263,7 @@ public class ContactFragment extends Fragment {
                 }
 
                 if (newText.length() >= 3) {
-                    tvPencarian.setVisibility(TextView.INVISIBLE);
+                    tvPencarian.setVisibility(View.GONE);
                     callFilter(newText);
                 } else {
                     tvPencarian.setText("Minimal 3 Huruf");

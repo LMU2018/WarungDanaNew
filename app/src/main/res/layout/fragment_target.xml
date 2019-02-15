@@ -24,7 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 app:subtitleTextColor="#ffffff"
-                app:titleTextColor="#ffffff"></android.support.v7.widget.Toolbar>
+                app:titleTextColor="#ffffff"/>
 
             <TextView
                 android:id="@+id/tvPencarian"
@@ -34,8 +34,7 @@
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
-                android:text="Sedang Mencari"
-                android:visibility="invisible" />
+                android:text="Sedang Mencari" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

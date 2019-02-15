@@ -77,6 +77,7 @@ public class TargetFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         recyclerView = view.findViewById(R.id.recyclerView);
         tvPencarian = view.findViewById(R.id.tvPencarian);
+        tvPencarian.setVisibility(View.GONE);
 
         listTargets = new ArrayList<>();
         listTargetAdapter = new ListTargetAdapter(getContext(), listTargets);
@@ -132,7 +133,7 @@ public class TargetFragment extends Fragment {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 searchView.setQuery("",false);
-                tvPencarian.setVisibility(TextView.INVISIBLE);
+                tvPencarian.setVisibility(View.GONE);
                 recyclerView.setVisibility(RecyclerView.INVISIBLE);
                 listTargets.clear();
                 listTargetAdapter.notifyDataSetChanged();
@@ -145,7 +146,7 @@ public class TargetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tvPencarian.setText("Minimal 3 Huruf");
-                tvPencarian.setVisibility(TextView.VISIBLE);
+                tvPencarian.setVisibility(View.GONE);
             }
         });
 

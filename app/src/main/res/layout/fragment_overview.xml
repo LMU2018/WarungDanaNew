@@ -208,37 +208,45 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:orientation="horizontal"
                     android:layout_gravity="center">
                     <TextView
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:id="@+id/tvSKRG"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="BULAN INI"
                         android:textSize="14sp"
                         android:textColor="#4b4b4b"
                         android:textStyle="bold"/>
                     <TextView
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:id="@+id/tvKMRN"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="BULAN KMRN"
                         android:textSize="14sp"
                         android:textColor="#4b4b4b"
-                        android:textStyle="bold"
-                        android:layout_marginStart="35dp"/>
+                        android:textStyle="bold"/>
                     <TextView
+                        android:gravity="center"
+                        android:padding="10dp"
                         android:id="@+id/tvSEMUA"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="TOTAL"
                         android:textSize="14sp"
                         android:textColor="#4b4b4b"
-                        android:textStyle="bold"
-                        android:layout_marginStart="35dp"/>
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
                 <View
@@ -253,7 +261,8 @@
                     android:id="@+id/tvRekap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
                     android:background="#ffffff"
                     android:text="LIHAT REKAP"
                     android:textColor="@color/colorAccent"
