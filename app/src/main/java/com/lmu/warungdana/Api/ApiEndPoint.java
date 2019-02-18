@@ -57,6 +57,7 @@ import com.lmu.warungdana.Response.RespListUserJadwal;
 import com.lmu.warungdana.Response.RespListUserLog;
 import com.lmu.warungdana.Response.RespListVisum;
 import com.lmu.warungdana.Response.RespOrderDocument;
+import com.lmu.warungdana.Response.RespPerformaIndicator;
 import com.lmu.warungdana.Response.RespPost;
 
 import okhttp3.MultipartBody;
@@ -72,6 +73,11 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiEndPoint {
+
+    @GET("performa_indicator")
+    Call<RespPerformaIndicator> performaIndicator(@Query("id") Integer id,
+                                               @Query("inputDate") String inputDate,
+                                               @Query("inputDateBulanKemarin") String inputDateBulanKemarin);
 
     @GET("lead_listing_new")
     Call<RespListLead> listLeadNewPagg(@Query("id_cms_users") Integer id,

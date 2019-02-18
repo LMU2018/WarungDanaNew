@@ -141,22 +141,24 @@ public class CollabLeadFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListLeadCollab> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String leadFirstName, leadLastName, cmsUserName, recall, description, status;
-                            Integer id, idLead, idMstLogDesc, idMstLogStatus;
-                            id = list.get(i).getId();
-                            idLead = list.get(i).getIdLead();
-                            leadFirstName = list.get(i).getLeadFirstName();
-                            leadLastName = list.get(i).getLeadLastName();
-                            cmsUserName = list.get(i).getCmsUsersName();
-                            recall = list.get(i).getRecall();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String leadFirstName, leadLastName, cmsUserName, recall, description, status;
+//                            Integer id, idLead, idMstLogDesc, idMstLogStatus;
+//                            id = list.get(i).getId();
+//                            idLead = list.get(i).getIdLead();
+//                            leadFirstName = list.get(i).getLeadFirstName();
+//                            leadLastName = list.get(i).getLeadLastName();
+//                            cmsUserName = list.get(i).getCmsUsersName();
+//                            recall = list.get(i).getRecall();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//
+//                            listLeadCollabs.add(new ListLeadCollab(id, idLead, leadFirstName, leadLastName, cmsUserName, recall, idMstLogDesc, idMstLogStatus, description, status));
+//                        }
 
-                            listLeadCollabs.add(new ListLeadCollab(id, idLead, leadFirstName, leadLastName, cmsUserName, recall, idMstLogDesc, idMstLogStatus, description, status));
-                        }
+                        listLeadCollabs.addAll(list);
 
                         listLeadCollabAdapter.notifyDataSetChanged();
 
@@ -188,22 +190,23 @@ public class CollabLeadFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListLeadCollab> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String leadFirstName, leadLastName, cmsUserName, recall, description, status;
-                            Integer id, idLead, idMstLogDesc, idMstLogStatus;
-                            id = list.get(i).getId();
-                            idLead = list.get(i).getIdLead();
-                            leadFirstName = list.get(i).getLeadFirstName();
-                            leadLastName = list.get(i).getLeadLastName();
-                            cmsUserName = list.get(i).getCmsUsersName();
-                            recall = list.get(i).getRecall();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-
-                            listLeadCollabs.add(new ListLeadCollab(id, idLead, leadFirstName, leadLastName, cmsUserName, recall, idMstLogDesc, idMstLogStatus, description, status));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String leadFirstName, leadLastName, cmsUserName, recall, description, status;
+//                            Integer id, idLead, idMstLogDesc, idMstLogStatus;
+//                            id = list.get(i).getId();
+//                            idLead = list.get(i).getIdLead();
+//                            leadFirstName = list.get(i).getLeadFirstName();
+//                            leadLastName = list.get(i).getLeadLastName();
+//                            cmsUserName = list.get(i).getCmsUsersName();
+//                            recall = list.get(i).getRecall();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//
+//                            listLeadCollabs.add(new ListLeadCollab(id, idLead, leadFirstName, leadLastName, cmsUserName, recall, idMstLogDesc, idMstLogStatus, description, status));
+//                        }
+                        listLeadCollabs.addAll(list);
 
                         listLeadCollabAdapter.notifyDataSetChanged();
                         int index = listLeadCollabs.size();

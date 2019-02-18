@@ -148,35 +148,37 @@ public class VisitLeadFragment extends Fragment {
                         recyclerView.setAdapter(listLeadAdapter);
 
                         List<ListLeadVisit> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
+//                        for (int i = 0; i < list.size(); i++) {
+//
+//                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
+//                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
+//
+//                            id = list.get(i).getId();
+//                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            favorite = list.get(i).getFavorite();
+//
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            created_at_lead = list.get(i).getCreated_at_lead();
+//                            visitStatus = list.get(i).getVisit_status();
+//                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
+//
+//                            saveFirst.add(id);
+//
+//                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
+//                                        idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
+//
+//
+//
+//
+//                        }
 
-                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
-                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
-
-                            id = list.get(i).getId();
-                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            favorite = list.get(i).getFavorite();
-
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            created_at_lead = list.get(i).getCreated_at_lead();
-                            visitStatus = list.get(i).getVisit_status();
-                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
-
-                            saveFirst.add(id);
-
-                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
-                                        idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
-
-
-
-
-                        }
+                        listLeads.addAll(list);
 
 
                         listLeadAdapter.notifyDataSetChanged();
@@ -212,33 +214,34 @@ public class VisitLeadFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListLeadVisit> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
-                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
-
-                            id = list.get(i).getId();
-                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            favorite = list.get(i).getFavorite();
-
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            created_at_lead = list.get(i).getCreated_at_lead();
-                            visitStatus = list.get(i).getVisit_status();
-                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
-
-                            saveFirst.add(id);
-
-                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
-
-
-
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            Integer id , idLeadMstStatus,idMstLogDesc,idMstLogStatus,favorite;
+//                            String firstName , lastName , recall , description , status , created_at_lead , visitStatus , created_at_lead_visum;
+//
+//                            id = list.get(i).getId();
+//                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            favorite = list.get(i).getFavorite();
+//
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            created_at_lead = list.get(i).getCreated_at_lead();
+//                            visitStatus = list.get(i).getVisit_status();
+//                            created_at_lead_visum = list.get(i).getCreated_at_lead_visum();
+//
+//                            saveFirst.add(id);
+//
+//                            listLeads.add(new ListLeadVisit(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc,
+//                                    idMstLogStatus, description, status, favorite, created_at_lead, visitStatus,created_at_lead_visum));
+//
+//
+//
+//                        }
+                        listLeads.addAll(list);
                         listLeadAdapter.notifyDataSetChanged();
 
                         int index = listLeads.size();

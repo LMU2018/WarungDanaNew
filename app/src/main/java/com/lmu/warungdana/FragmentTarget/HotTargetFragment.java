@@ -154,27 +154,29 @@ public class HotTargetFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListTarget> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,update_by,create_at_log;
-                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
-                            category = list.get(i).getCategory();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            revisit = list.get(i).getRevisit();
-                            visitStatus = list.get(i).getVisitStatus();
-                            id = list.get(i).getId();
-                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            update_by = list.get(i).getUpdated_by();
-                            create_at_log = list.get(i).getCreated_at_target_log();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, update_by,recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,create_at_log));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,update_by,create_at_log;
+//                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
+//                            category = list.get(i).getCategory();
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            revisit = list.get(i).getRevisit();
+//                            visitStatus = list.get(i).getVisitStatus();
+//                            id = list.get(i).getId();
+//                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+//                            update_by = list.get(i).getUpdated_by();
+//                            create_at_log = list.get(i).getCreated_at_target_log();
+//                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, update_by,recall, idMstLogDesc,
+//                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,create_at_log));
+//                        }
+
+                        listTargets.addAll(list);
 
 //                        Collections.sort(listTargets,Collections.reverseOrder(HotTargetFragment.this));
                         listTargetAdapter.notifyDataSetChanged();
@@ -208,27 +210,28 @@ public class HotTargetFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListTarget> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,update_by,create_at_log;
-                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
-                            category = list.get(i).getCategory();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            recall = list.get(i).getRecall();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            revisit = list.get(i).getRevisit();
-                            visitStatus = list.get(i).getVisitStatus();
-                            id = list.get(i).getId();
-                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
-                            update_by = list.get(i).getUpdated_by();
-                            create_at_log = list.get(i).getCreated_at_target_log();
-                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, update_by,recall, idMstLogDesc,
-                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,create_at_log));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String category, firstName, lastName, recall, description, status, revisit, visitStatus,update_by,create_at_log;
+//                            Integer id, idTargetMstStatus, idMstLogDesc, idMstLogStatus, idMstVisumStatus;
+//                            category = list.get(i).getCategory();
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            recall = list.get(i).getRecall();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            revisit = list.get(i).getRevisit();
+//                            visitStatus = list.get(i).getVisitStatus();
+//                            id = list.get(i).getId();
+//                            idTargetMstStatus = list.get(i).getIdTargetMstStatus();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            idMstVisumStatus = list.get(i).getIdMstVisumStatus();
+//                            update_by = list.get(i).getUpdated_by();
+//                            create_at_log = list.get(i).getCreated_at_target_log();
+//                            listTargets.add(new ListTarget(id, idTargetMstStatus, category, firstName, lastName, update_by,recall, idMstLogDesc,
+//                                    idMstLogStatus, description, status, idMstVisumStatus, revisit, visitStatus,create_at_log));
+//                        }
+                        listTargets.addAll(list);
                         listTargetAdapter.notifyDataSetChanged();
 
                         int index = listTargets.size();

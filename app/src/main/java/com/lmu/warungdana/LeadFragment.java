@@ -302,23 +302,24 @@ public class LeadFragment extends Fragment {
                             tvPencarian.setText("Pencarian Tidak Ditemukan");
                         }
 
-                        for (int i = 0; i < list.size(); i++) {
-                            String firstName, lastName, recall, description, status,created_at;
-                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
-                            id = list.get(i).getId();
-                            firstName = list.get(i).getFirstName();
-                            lastName = list.get(i).getLastName();
-                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
-                            recall = list.get(i).getRecall();
-                            idMstLogDesc = list.get(i).getIdMstLogDesc();
-                            idMstLogStatus = list.get(i).getIdMstLogStatus();
-                            description = list.get(i).getDescription();
-                            status = list.get(i).getStatus();
-                            favorite = list.get(i).getFavorite();
-                            created_at = list.get(i).getCreated_at_lead();
-
-                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String firstName, lastName, recall, description, status,created_at;
+//                            Integer id, idLeadMstStatus, idMstLogDesc, idMstLogStatus, favorite;
+//                            id = list.get(i).getId();
+//                            firstName = list.get(i).getFirstName();
+//                            lastName = list.get(i).getLastName();
+//                            idLeadMstStatus = list.get(i).getIdLeadMstStatus();
+//                            recall = list.get(i).getRecall();
+//                            idMstLogDesc = list.get(i).getIdMstLogDesc();
+//                            idMstLogStatus = list.get(i).getIdMstLogStatus();
+//                            description = list.get(i).getDescription();
+//                            status = list.get(i).getStatus();
+//                            favorite = list.get(i).getFavorite();
+//                            created_at = list.get(i).getCreated_at_lead();
+//
+//                            listLeads.add(new ListLead(id, firstName, lastName, idLeadMstStatus, recall, idMstLogDesc, idMstLogStatus, description, status, favorite,created_at));
+//                        }
+                        listLeads.addAll(list);
 
                         listLeadAdapter.notifyDataSetChanged();
 

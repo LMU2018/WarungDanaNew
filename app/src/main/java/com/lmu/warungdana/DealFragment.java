@@ -217,22 +217,24 @@ public class DealFragment extends Fragment {
                             tvPencarian.setText("Pencarian Tidak Ditemukan");
                         }
 
-                        for (int i = 0; i < list.size(); i++) {
-                            String firstName, lastName, status, model, createdAt;
-                            Integer id, idContact, plafond, idUnit;
-                            id = list.get(i).getId();
-                            idContact = list.get(i).getIdContact();
-                            firstName = list.get(i).getContactFirstName();
-                            lastName = list.get(i).getContactLastName();
-                            status = list.get(i).getOrderMstStatusStatus();
-                            plafond = list.get(i).getPlafond();
-                            idUnit = list.get(i).getIdMstUnit();
-                            model = list.get(i).getModel();
-                            createdAt = list.get(i).getCreatedAt();
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String firstName, lastName, status, model, createdAt;
+//                            Integer id, idContact, plafond, idUnit;
+//                            id = list.get(i).getId();
+//                            idContact = list.get(i).getIdContact();
+//                            firstName = list.get(i).getContactFirstName();
+//                            lastName = list.get(i).getContactLastName();
+//                            status = list.get(i).getOrderMstStatusStatus();
+//                            plafond = list.get(i).getPlafond();
+//                            idUnit = list.get(i).getIdMstUnit();
+//                            model = list.get(i).getModel();
+//                            createdAt = list.get(i).getCreatedAt();
+//
+//                            listOrders.add(new ListOrder(id, idContact, firstName, lastName, status, plafond, idUnit, model, createdAt));
+//
+//                        }
 
-                            listOrders.add(new ListOrder(id, idContact, firstName, lastName, status, plafond, idUnit, model, createdAt));
-
-                        }
+                        listOrders.addAll(list);
 
                         listOrderAdapter.notifyDataSetChanged();
 
