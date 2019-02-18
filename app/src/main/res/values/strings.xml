@@ -220,4 +220,20 @@
     <string name="title_activity_detail_deal">DetailDealActivity</string>
     <string name="title_activity_detail_target">DetailTargetActivity</string>
     <string name="title_activity_contact_order">ContactOrderActivity</string>
+    <string name="kpi_pribadi">KPI Pribadi</string>
+    <string name="brosur">Brosur</string>
+    <string name="tele">Tele</string>
+    <string name="new_db">New Db</string>
+    <string name="order">Order</string>
+    <string name="booking">Booking</string>
+    <string name="_0">0</string>
+    <string name="jumlah_order">Jumlah Order</string>
+    <string name="jumlah_booking">Jumlah Booking</string>
+    <string name="key_performance_indicator">Key Performance Indicator</string>
+    <string name="bulan_ini">BULAN INI</string>
+    <string name="bulan_kmrn">BULAN KMRN</string>
+    <string name="total">TOTAL</string>
+    <string name="lihat_rekap">LIHAT REKAP</string>
+    <string name="jadwal_aktivitas">Jadwal Aktivitas</string>
+    <string name="semangat">  Semangat !</string>
 </resources>
