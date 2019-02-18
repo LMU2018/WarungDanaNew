@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:met_minCharacters="10"
         app:met_maxCharacters="13"
-        android:hint="Input Phone Number"
+        android:hint="@string/masukan_no_hp"
         android:maxLength="13"
         android:textAlignment="center"
         android:inputType="phone"

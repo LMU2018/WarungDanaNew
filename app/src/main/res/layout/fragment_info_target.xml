@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="UBAH KE CONTACT"
+                android:text="@string/ubah_ke_contact"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:textColor="@color/colorAccent"
@@ -43,11 +43,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_gesture_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -73,7 +75,7 @@
                             />
 
                         <TextView
-                            android:text="Status"
+                            android:text="@string/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -95,11 +97,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:id="@+id/imgList"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -127,7 +131,7 @@
                             />
 
                         <TextView
-                            android:text="Nomor Telepon 1"
+                            android:text="@string/nomor_telepon_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -149,11 +153,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:id="@+id/imgList1"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -181,7 +187,7 @@
                             />
 
                         <TextView
-                            android:text="Nomor Telepon 2"
+                            android:text="@string/nomor_telepon_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -200,11 +206,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_folder_open_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -230,7 +238,7 @@
                             />
 
                         <TextView
-                            android:text="Category"
+                            android:text="@string/kategori"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -249,11 +257,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_priority_high_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -279,7 +289,7 @@
                             />
 
                         <TextView
-                            android:text="Priority"
+                            android:text="@string/prioritas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -298,11 +308,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_card_travel_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -328,7 +340,7 @@
                             />
 
                         <TextView
-                            android:text="Job"
+                            android:text="@string/pekerjaan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -351,11 +363,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:id="@+id/imgList2"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -378,11 +392,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <!--<View
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:id="@+id/map"
-                                android:background="#4b4b4b"/>-->
+
                             <TextView
                                 android:id="@+id/tvItemAddress"
                                 android:layout_margin="15dp"
@@ -394,7 +404,7 @@
                                 android:id="@+id/tvDirection"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="DIRECTIONS"
+                                android:text="@string/buka_dengan_google_maps"
                                 android:layout_margin="15dp"
                                 android:textColor="@color/colorAccent"
                                 android:textStyle="bold"/>
@@ -420,11 +430,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_perm_contact_calendar_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -450,7 +462,7 @@
                             />
 
                         <TextView
-                            android:text="No Contract"
+                            android:text="@string/nomor_kontrak"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -469,11 +481,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_motorcycle_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -499,7 +513,7 @@
                             />
 
                         <TextView
-                            android:text="No Polisi"
+                            android:text="@string/nomor_polisi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -518,11 +532,13 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_opacity_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -548,7 +564,7 @@
                             />
 
                         <TextView
-                            android:text="Source"
+                            android:text="@string/sumber_data"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -567,16 +583,19 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp">
                         <ImageView
+                            android:contentDescription="@null"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/oval"
                             />
                         <ImageView
+                            android:contentDescription="@null"
                             android:background="@drawable/ic_person_outline_black_24dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"/>
+                            android:layout_marginTop="5dp"
+                            tools:ignore="TooManyViews" />
 
                     </RelativeLayout>
 
@@ -597,7 +616,7 @@
                             />
 
                         <TextView
-                            android:text="Owner"
+                            android:text="@string/pemilik"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
