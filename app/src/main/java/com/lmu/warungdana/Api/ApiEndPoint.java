@@ -655,13 +655,15 @@ public interface ApiEndPoint {
                                     @Query("id_cms_users") Integer idCmsUsers);
 
     @GET("target_log_listing")
-    Call<RespListLogTarget> listLogTarget(@Query("id_target") Integer id);
+    Call<RespListLogTarget> listLogTarget(@Query("id_target") Integer id,
+                                          @Query("id_cms_users") Integer id_cms_users);
 
     @GET("target_note_listing")
     Call<RespListNote> listNoteTarget(@Query("id_target") Integer id);
 
     @GET("target_visum_listing")
-    Call<RespListVisum> listVisum(@Query("id_target") Integer id);
+    Call<RespListVisum> listVisum(@Query("id_target") Integer id,
+                                  @Query("id_cms_users") Integer id_cms_users);
 
     @FormUrlEncoded
     @POST("target_note_create")

@@ -66,7 +66,7 @@ public class VisumTargetFragment extends Fragment {
             listVisums.clear();
             recyclerView.getAdapter().notifyDataSetChanged();
         }
-        mApiService.listVisum(idTarget).enqueue(new Callback<RespListVisum>() {
+        mApiService.listVisum(idTarget,sharedPrefManager.getSpId()).enqueue(new Callback<RespListVisum>() {
             @Override
             public void onResponse(Call<RespListVisum> call, Response<RespListVisum> response) {
                 if (response.isSuccessful()) {
@@ -74,30 +74,32 @@ public class VisumTargetFragment extends Fragment {
                     recyclerView.setLayoutManager(layoutManager);
                     List<ListVisum> listLeads = response.body().getData();
 
-                    for (int i = 0; i < listLeads.size() ; i++){
+//                    for (int i = 0; i < listLeads.size() ; i++){
+//
+//                        int idCMS = listLeads.get(i).getId_cms_users();
+//                        int spID = sharedPrefManager.getSpId();
+//
+//                        if (idCMS == spID){
+//
+//                            Integer id , id_cms_users;
+//                            String targetFirstName , mstVisumStatus , revisit ,cmsUsername , createdAt , photo;
+//                            Object targetLastName;
+//
+//                            id = listLeads.get(i).getId();
+//                            id_cms_users = listLeads.get(i).getId_cms_users();
+//                            targetFirstName = listLeads.get(i).getTargetFirstName();
+//                            targetLastName = listLeads.get(i).getTargetLastName();
+//                            mstVisumStatus = listLeads.get(i).getMstVisumStatusStatus();
+//                            revisit = listLeads.get(i).getRevisit();
+//                            cmsUsername = listLeads.get(i).getCmsUsersName();
+//                            createdAt = listLeads.get(i).getCreatedAt();
+//                            photo = listLeads.get(i).getPhoto();
+//
+//                            listVisums.add(new ListVisum(id,targetFirstName,targetLastName,mstVisumStatus,revisit,id_cms_users,cmsUsername,createdAt,photo));
+//                        }
+//                    }
 
-                        int idCMS = listLeads.get(i).getId_cms_users();
-                        int spID = sharedPrefManager.getSpId();
-
-                        if (idCMS == spID){
-
-                            Integer id , id_cms_users;
-                            String targetFirstName , mstVisumStatus , revisit ,cmsUsername , createdAt , photo;
-                            Object targetLastName;
-
-                            id = listLeads.get(i).getId();
-                            id_cms_users = listLeads.get(i).getId_cms_users();
-                            targetFirstName = listLeads.get(i).getTargetFirstName();
-                            targetLastName = listLeads.get(i).getTargetLastName();
-                            mstVisumStatus = listLeads.get(i).getMstVisumStatusStatus();
-                            revisit = listLeads.get(i).getRevisit();
-                            cmsUsername = listLeads.get(i).getCmsUsersName();
-                            createdAt = listLeads.get(i).getCreatedAt();
-                            photo = listLeads.get(i).getPhoto();
-
-                            listVisums.add(new ListVisum(id,targetFirstName,targetLastName,mstVisumStatus,revisit,id_cms_users,cmsUsername,createdAt,photo));
-                        }
-                    }
+                    listVisums.addAll(listLeads);
                     recyclerView.setAdapter(new ListVisumAdapter(getContext(), listVisums));
                 }
             }
