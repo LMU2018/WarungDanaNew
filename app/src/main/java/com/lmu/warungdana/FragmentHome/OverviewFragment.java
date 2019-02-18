@@ -61,7 +61,6 @@ public class OverviewFragment extends Fragment {
     public String selectedDate;
     private ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
-    private LinearLayout jadwalAda, jadwalKosong;
     boolean isConn;
     private String dateSekarang , dateKemarin;
     int count_brosur,count_tele,count_newDB,count_order,count_booking,count_teleBlnKemarin,count_NewDBBlnKemarin,count_orderBulanKemarin,count_bookingBulanKemarin,count_teleTotal,count_newDBTotal,count_orderTotal,
@@ -99,10 +98,7 @@ public class OverviewFragment extends Fragment {
         booking = view.findViewById(R.id.bookingSum);
         btnGoToday = view.findViewById(R.id.btnGoToday);
         rvJadwalAktivitas = view.findViewById(R.id.rvJadwalAktivitas);
-        jadwalKosong = view.findViewById(R.id.jadwalKosong);
-        jadwalAda = view.findViewById(R.id.jadwalAda);
-        jadwalAda.setVisibility(View.GONE);
-        jadwalKosong.setVisibility(View.GONE);
+
 
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -1);
@@ -133,12 +129,6 @@ public class OverviewFragment extends Fragment {
                         List<ListJadwal> listLeads = response.body().getData();
                         if (listLeads != null) {
                             rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                            jadwalAda.setVisibility(View.VISIBLE);
-                            jadwalKosong.setVisibility(View.GONE);
-                        } else {
-//                        rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                            jadwalAda.setVisibility(View.GONE);
-                            jadwalKosong.setVisibility(View.VISIBLE);
                         }
 
                     } else {
@@ -922,12 +912,6 @@ public class OverviewFragment extends Fragment {
                             List<ListJadwal> listLeads = response.body().getData();
                             if (listLeads != null) {
                                 rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                                jadwalAda.setVisibility(View.VISIBLE);
-                                jadwalKosong.setVisibility(View.GONE);
-                            } else {
-                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                                jadwalAda.setVisibility(View.GONE);
-                                jadwalKosong.setVisibility(View.VISIBLE);
                             }
 
                         }
