@@ -50,7 +50,7 @@ public class LogTargetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_log_target, container, false);
+        View view =  inflater.inflate(R.layout.fragment_recycler_view, container, false);
         DetailTargetActivity activity = (DetailTargetActivity) getActivity();
         mActivity = getActivity();
         idTarget = activity.idTarget;

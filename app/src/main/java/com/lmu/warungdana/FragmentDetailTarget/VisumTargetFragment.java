@@ -47,7 +47,7 @@ public class VisumTargetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_visum_target, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         DetailTargetActivity activity = (DetailTargetActivity) getActivity();
         idTarget = activity.idTarget;
         mApiService = UtilsApi.getAPIService();

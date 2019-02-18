@@ -69,7 +69,7 @@ public class TargetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_target, container, false);
+        View view = inflater.inflate(R.layout.fragment_lead, container, false);
         context = getContext();
         sharedPrefManager = new SharedPrefManager(context);
         idUser = sharedPrefManager.getSpId();
