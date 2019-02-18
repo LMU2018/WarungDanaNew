@@ -1,114 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="25dp">
+    android:orientation="horizontal"
+    android:padding="25dp"
+    android:baselineAligned="false">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/bsVisum"
-            android:layout_weight="1"
+        android:id="@+id/bsVisum"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerInParent="true">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/oval"
-                    />
-                <ImageView
-                    android:id="@+id/imgList"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/ic_place_black_24dp"/>
-
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Visum"
-                android:textSize="12sp"
+            android:layout_gravity="center">
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval"
+                />
+            <ImageView
+                android:contentDescription="@null"
+                android:id="@+id/imgList"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+                android:background="@drawable/ic_place_black_24dp"/>
 
-        <LinearLayout
-            android:id="@+id/bsNote"
-            android:layout_weight="1"
-            android:layout_alignParentStart="true"
-            android:layout_width="70dp"
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/oval"
-                    />
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/ic_description_black_24dp"/>
+            android:text="@string/visum"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Note"
-                android:textSize="12sp"
+    <LinearLayout
+        android:id="@+id/bsNote"
+        android:layout_weight="1"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/oval"
+                />
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+                android:background="@drawable/ic_description_black_24dp"/>
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/bsDocument"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_width="70dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical">-->
-            <!--<RelativeLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center">-->
-                <!--<ImageView-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:background="@drawable/oval"-->
-                    <!--/>-->
-                <!--<ImageView-->
-                    <!--android:layout_width="30dp"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_marginStart="5dp"-->
-                    <!--android:layout_marginTop="5dp"-->
-                    <!--android:background="@drawable/ic_event_note_white_24dp"/>-->
-
-            <!--</RelativeLayout>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Document"-->
-                <!--android:textSize="12sp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:layout_gravity="center"/>-->
-        <!--</LinearLayout>-->
-
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 

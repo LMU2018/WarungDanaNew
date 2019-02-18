@@ -21,7 +21,7 @@
                 android:paddingEnd="20dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="10dp"
-                android:text="Overview"
+                android:text="@string/overview"
                 android:textStyle="bold"
                 android:background="#ffffff"/>
 
@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="28sp"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:textStyle="bold"
                         android:textColor="@color/colorAccent"
                         android:layout_gravity="center"/>
@@ -52,7 +52,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         android:layout_marginTop="10dp"
-                        android:text="Won Deal"/>
+                        android:text="@string/won_deal"/>
                 </LinearLayout>
                 <View
                     android:id="@+id/garteng"
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="28sp"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:textStyle="bold"
                         android:textColor="#4b4b4b"
                         android:layout_gravity="center"/>
@@ -82,7 +82,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         android:layout_marginTop="10dp"
-                        android:text="Potential Deal"/>
+                        android:text="@string/potential_deal"/>
                 </LinearLayout>
             </RelativeLayout>
 

@@ -15,11 +15,13 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp">
         <ImageView
+            android:contentDescription="@null"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/oval"
             />
         <ImageView
+            android:contentDescription="@null"
             android:id="@+id/imgList"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -43,13 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="150dp"-->
-                <!--android:id="@+id/map"-->
-                <!--android:background="#4b4b4b"-->
-                <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-                <!--/>-->
+
             <TextView
                 android:id="@+id/tvItemAddress"
                 android:layout_width="match_parent"
@@ -60,7 +56,7 @@
                 android:id="@+id/tvDirection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DIRECTION"
+                android:text="@string/buka_dengan_google_maps"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"/>

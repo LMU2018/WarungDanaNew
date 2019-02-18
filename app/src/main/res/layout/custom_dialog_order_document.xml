@@ -1,89 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/imgThum"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/tvDesc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/textview_rounded_dialog"
+        android:gravity="center"
+        android:text="@string/deskripsi"
+        android:textColor="#FFFF"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLihat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded"
+            android:drawableTop="@drawable/ic_eye"
+            android:text="@string/lihat_gambar"
+            android:textAllCaps="false"
+            android:textColor="#FFFF"
+            android:textSize="12sp"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded"
+            android:drawableTop="@drawable/ic_edit"
+            android:text="@string/edit"
+            android:textAllCaps="false"
+            android:textColor="#FFFF"
+            android:textSize="12sp"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded"
+            android:drawableTop="@drawable/ic_delete"
+            android:text="@string/hapus"
+            android:textAllCaps="false"
+            android:textColor="#FFFF"
+            android:textSize="12sp"
+            tools:ignore="ButtonStyle" />
 
 
-       <LinearLayout
-           android:orientation="vertical"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+    </LinearLayout>
 
-           <ImageView
-               android:id="@+id/imgThum"
-               android:layout_marginTop="10dp"
-               android:layout_gravity="center"
-               android:layout_width="150dp"
-               android:layout_height="150dp" />
-
-           <TextView
-               android:id="@+id/tvDesc"
-               android:layout_marginLeft="20dp"
-               android:layout_marginRight="20dp"
-               android:background="@drawable/textview_rounded_dialog"
-               android:textColor="#FFFF"
-               android:gravity="center"
-               android:textSize="25dp"
-               android:text="Desktipsi"
-               android:layout_marginBottom="5dp"
-               android:layout_marginTop="5dp"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content" />
-
-           <LinearLayout
-               android:orientation="horizontal"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-
-               <Button
-                   android:id="@+id/btnLihat"
-                   android:textColor="#FFFF"
-                   android:textSize="10dp"
-                   android:layout_marginRight="2dp"
-                   android:layout_marginLeft="2dp"
-                   android:background="@drawable/button_rounded"
-                   android:text="Lihat Gambar"
-                   android:textAllCaps="false"
-                   android:drawableTop="@drawable/ic_eye"
-                   android:layout_weight="1"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content" />
-
-               <Button
-                   android:id="@+id/btnUpdate"
-                   android:textColor="#FFFF"
-                   android:textSize="10dp"
-                   android:layout_marginRight="2dp"
-                   android:layout_marginLeft="2dp"
-                   android:background="@drawable/button_rounded"
-                   android:text="Edit"
-                   android:textAllCaps="false"
-                   android:drawableTop="@drawable/ic_edit"
-                   android:layout_weight="1"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content" />
-
-               <Button
-                   android:id="@+id/btnDelete"
-                   android:textColor="#FFFF"
-                   android:textSize="10dp"
-                   android:layout_marginRight="2dp"
-                   android:layout_marginLeft="2dp"
-                   android:background="@drawable/button_rounded"
-                   android:text="Hapus"
-                   android:textAllCaps="false"
-                   android:drawableTop="@drawable/ic_delete"
-                   android:layout_weight="1"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content" />
-
-
-           </LinearLayout>
-       </LinearLayout>
-    </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

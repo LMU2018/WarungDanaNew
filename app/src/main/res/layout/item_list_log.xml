@@ -13,11 +13,13 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp">
         <ImageView
+            android:contentDescription="@null"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/oval"
             />
         <ImageView
+            android:contentDescription="@null"
             android:id="@+id/imgList"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -103,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:text="Hubungi Ulang"
+                        android:text="@string/hubungi_ulang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_marginStart="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Input NIK"
+        android:hint="@string/input_nik"
         android:textAlignment="center"
         android:maxLength="16"
         app:met_minCharacters="16"

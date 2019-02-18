@@ -21,11 +21,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/oval"
                     />
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="5dp"
@@ -36,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Note"
+                android:text="@string/note"
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"/>
@@ -53,11 +55,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/oval"
                     />
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="5dp"
@@ -68,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order"
+                android:text="@string/order"
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"/>

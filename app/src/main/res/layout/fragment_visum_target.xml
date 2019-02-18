@@ -5,16 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".FragmentDetailTarget.VisumTargetFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="60dp"/>
-    </android.support.v4.widget.NestedScrollView>
-
+        android:layout_height="wrap_content"
+        android:paddingBottom="60dp"/>
 </FrameLayout>
