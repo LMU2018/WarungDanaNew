@@ -27,6 +27,7 @@ import com.lmu.warungdana.Response.ListJadwal;
 import com.lmu.warungdana.Response.RespCounterBrosur;
 import com.lmu.warungdana.Response.RespCounterLead;
 import com.lmu.warungdana.Response.RespListJadwal;
+import com.lmu.warungdana.Response.RespPerformaIndicator;
 import com.lmu.warungdana.Utils.UtilsConnected;
 import com.lmu.warungdana.Api.ApiEndPoint;
 import com.lmu.warungdana.Api.SharedPrefManager;
@@ -62,6 +63,9 @@ public class OverviewFragment extends Fragment {
     SharedPrefManager sharedPrefManager;
     private LinearLayout jadwalAda, jadwalKosong;
     boolean isConn;
+    private String dateSekarang , dateKemarin;
+    int count_brosur,count_tele,count_newDB,count_order,count_booking,count_teleBlnKemarin,count_NewDBBlnKemarin,count_orderBulanKemarin,count_bookingBulanKemarin,count_teleTotal,count_newDBTotal,count_orderTotal,
+    count_bookingTotal,count_brosurBulanKemarin,count_brosurBulanTotal;
 
 
     public OverviewFragment() {
@@ -155,15 +159,111 @@ public class OverviewFragment extends Fragment {
         return view;
     }
 
+    private void getDateNow() {
+
+        final Calendar calendar = Calendar.getInstance();
+
+        String bulanDateNow = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+        String tahunDateNow = String.valueOf(calendar.get(Calendar.YEAR));
+
+        if (!bulanDateNow.equals("10") || !bulanDateNow.equals("11") ||!bulanDateNow.equals("12") || !bulanDateNow.equals("0")){
+
+            bulanDateNow = "0"+bulanDateNow;
+        }
+
+        dateSekarang = tahunDateNow+"-"+bulanDateNow;
+
+        int blnKemarin = Integer.parseInt(bulanDateNow) - 1;
+
+        bulanDateNow = String.valueOf(blnKemarin);
+
+        if (!bulanDateNow.equals("10") || !bulanDateNow.equals("11") ||!bulanDateNow.equals("12") || !bulanDateNow.equals("0")){
+
+            bulanDateNow = "0"+bulanDateNow;
+        }
+
+        if (bulanDateNow.equals("0")){
+            bulanDateNow = "12";
+            tahunDateNow = String.valueOf(Integer.parseInt(tahunDateNow)-1);
+        }
+
+        dateKemarin = ""+tahunDateNow+"-"+bulanDateNow;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         if (isConn) {
-            getKPISKRG();
+            getDateNow();
+            getKPI();
+//            getKPISKRG();
             jadwalAktivitas();
         } else {
             Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void getKPI() {
+
+        mApiService.performaIndicator(sharedPrefManager.getSpId(),dateSekarang,dateKemarin).enqueue(new Callback<RespPerformaIndicator>() {
+            @Override
+            public void onResponse(Call<RespPerformaIndicator> call, Response<RespPerformaIndicator> response) {
+
+                if (response.isSuccessful()){
+
+                    if (response.body().getApiStatus() == 1){
+
+                        if (response.body().getCountBrosur() != null){
+
+                            count_brosur = response.body().getCountBrosur();
+                        }else{
+
+                            count_brosur = 0;
+                        }
+
+                        if (response.body().getCountBrosurBulanKemarin() != null){
+
+                            count_brosurBulanKemarin = response.body().getCountBrosurBulanKemarin();
+                        }else {
+
+                            count_brosurBulanKemarin = 0;
+                        }
+
+                        if (response.body().getCountBrosurBulanTotal() != null){
+
+                            count_brosurBulanTotal = response.body().getCountBrosurBulanTotal();
+                        }else {
+
+                            count_brosurBulanTotal = 0;
+
+                        }
+
+                        count_tele = response.body().getCountTele();
+                        count_newDB = response.body().getCountNewDB();
+                        count_order = response.body().getCountOrder();
+                        count_booking = response.body().getCountBooking();
+                        count_teleBlnKemarin = response.body().getCountTeleBlnKemarin();
+                        count_NewDBBlnKemarin = response.body().getCountNewDBBlnKemarin();
+                        count_orderBulanKemarin = response.body().getCountOrderBulanKemarin();
+                        count_bookingBulanKemarin = response.body().getCountBookingBulanKemarin();
+                        count_teleTotal = response.body().getCountTeleTotal();
+                        count_newDBTotal = response.body().getCountNewDBTotal();
+                        count_orderTotal = response.body().getCountOrderTotal();
+                        count_bookingTotal = response.body().getCountBookingTotal();
+
+                        getKPISKRG();
+
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RespPerformaIndicator> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -203,573 +303,561 @@ public class OverviewFragment extends Fragment {
     }
 
     private void getKPISKRG() {
-        final Calendar calendar = Calendar.getInstance();
-        final List<KpiCfa> data = new ArrayList<KpiCfa>();
-        Date d1 = null, d2 = null;
 
-        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
-            @Override
-            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+        brosur.setText(String.valueOf(count_brosur));
+        tele.setText(String.valueOf(count_tele));
+        newdb.setText(String.valueOf(count_newDB));
+        order.setText(String.valueOf(count_order));
+        booking.setText(String.valueOf(count_booking));
 
-                    d3 = tahun+"-"+d3;
-                    List<CounterBrosur> list = response.body().getData();
-                    List<CounterBrosur> baru = new ArrayList<>();
-                    List<Integer> jumbros = new ArrayList<>();
-                    Integer tot = 0;
+//        final Calendar calendar = Calendar.getInstance();
+//        final List<KpiCfa> data = new ArrayList<KpiCfa>();
+//        Date d1 = null, d2 = null;
 
-                    if (response.body().getData() != null) {
-                        for (CounterBrosur p : list) {
-                            if (convertTime(p.getCreatedAt()).equals(d3)) {
-                                baru.add(p);
-                            }
-                        }
-                        for (int i = 0; i < baru.size(); i++) {
-                            if (baru.get(i).getBrosur() != null) {
-                                jumbros.add(baru.get(i).getBrosur());
-                            }
+//        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
+//            @Override
+//            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    d3 = tahun+"-"+d3;
+//                    List<CounterBrosur> list = response.body().getData();
+//                    List<CounterBrosur> baru = new ArrayList<>();
+//                    List<Integer> jumbros = new ArrayList<>();
+//                    Integer tot = 0;
+//
+//                    if (response.body().getData() != null) {
+//                        for (CounterBrosur p : list) {
+//                            if (convertTime(p.getCreatedAt()).equals(d3)) {
+//                                baru.add(p);
+//                            }
+//                        }
+//                        for (int i = 0; i < baru.size(); i++) {
+//                            if (baru.get(i).getBrosur() != null) {
+//                                jumbros.add(baru.get(i).getBrosur());
+//                            }
+//
+//                        }
+//                        for (int i = 0; i < jumbros.size(); i++) {
+//                            tot += jumbros.get(i);
+//
+//                        }
+//                        brosur.setText(String.valueOf(tot));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-                        }
-                        for (int i = 0; i < jumbros.size(); i++) {
-                            tot += jumbros.get(i);
+//        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    d3 = tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        tele.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-                        }
-                        brosur.setText(String.valueOf(tot));
+//        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    d3 = tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        newdb.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-                    }
-                }
-            }
+//        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    d3 = tahun+"-"+d3;
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        order.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    d3 = tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        tele.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    d3 = tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        newdb.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    d3 = tahun+"-"+d3;
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        order.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    d3 = tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        booking.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    d3 = tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        booking.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
     private void getKPIKMRIN() {
-        final Calendar calendar = Calendar.getInstance();
-        final List<KpiCfa> data = new ArrayList<KpiCfa>();
-        Date d1 = null, d2 = null;
 
-        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
-            @Override
-            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+        brosur.setText(String.valueOf(count_brosurBulanKemarin));
+        tele.setText(String.valueOf(count_teleBlnKemarin));
+        newdb.setText(String.valueOf(count_NewDBBlnKemarin));
+        order.setText(String.valueOf(count_orderBulanKemarin));
+        booking.setText(String.valueOf(count_bookingBulanKemarin));
 
-                    int blnKemarin = Integer.parseInt(d3) - 1;
-
-                    d3 = String.valueOf(blnKemarin);
-                    if (d3.equals("0")){
-                        d3 = "12";
-                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
-                    }
-
-                    d3 = ""+tahun+"-"+d3;
-
-                    Log.d("Bulan , Tahun",d3+" "+tahun);
-
-                    List<CounterBrosur> list = response.body().getData();
-                    List<CounterBrosur> baru = new ArrayList<>();
-                    List<Integer> jumbros = new ArrayList<>();
-                    Integer tot = 0;
-                    if (response.body().getData() != null) {
-                        for (CounterBrosur p : list) {
-
-                            Log.d("Convert , Hasil",convertTime(p.getCreatedAt())+"="+d3);
-                            if (convertTime(p.getCreatedAt()).equals(d3)) {
-                                baru.add(p);
-                            }
-                        }
-                        for (int i = 0; i < baru.size(); i++) {
-                            if (baru.get(i).getBrosur() != null) {
-                                jumbros.add(baru.get(i).getBrosur());
-                            }
-
-                        }
-                        for (int i = 0; i < jumbros.size(); i++) {
-                            tot += jumbros.get(i);
-                            brosur.setText(String.valueOf(tot));
-                        }
-
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    int blnKemarin = Integer.parseInt(d3) - 1;
-
-                    d3 = String.valueOf(blnKemarin);
-                    if (d3.equals("0")){
-                        d3 = "12";
-                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
-                    }
-
-                    d3 = ""+tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                            Log.d("Convert , Hasil",convertTime(response.body().getData().get(i).getCreatedAt())+"="+d3);
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        tele.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    int blnKemarin = Integer.parseInt(d3) - 1;
-
-                    d3 = String.valueOf(blnKemarin);
-                    if (d3.equals("0")){
-                        d3 = "12";
-                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
-                    }
-
-                    d3 = ""+tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        newdb.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    int blnKemarin = Integer.parseInt(d3) - 1;
-
-                    d3 = String.valueOf(blnKemarin);
-                    if (d3.equals("0")){
-                        d3 = "12";
-                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
-                    }
-
-                    d3 = ""+tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        order.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
-                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
-
-                    int blnKemarin = Integer.parseInt(d3) - 1;
-
-                    d3 = String.valueOf(blnKemarin);
-                    if (d3.equals("0")){
-                        d3 = "12";
-                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
-                    }
-
-                    d3 = ""+tahun+"-"+d3;
-
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        int count = 0;
-                        for (String cfa : gas) {
-                            if (cfa.equals(d3)) {
-                                count++;
-                            }
-
-                        }
-                        booking.setText(String.valueOf(count));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        final Calendar calendar = Calendar.getInstance();
+//        final List<KpiCfa> data = new ArrayList<KpiCfa>();
+//        Date d1 = null, d2 = null;
+//
+//        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
+//            @Override
+//            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    int blnKemarin = Integer.parseInt(d3) - 1;
+//
+//                    d3 = String.valueOf(blnKemarin);
+//                    if (d3.equals("0")){
+//                        d3 = "12";
+//                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
+//                    }
+//
+//                    d3 = ""+tahun+"-"+d3;
+//
+//                    Log.d("Bulan , Tahun",d3+" "+tahun);
+//
+//                    List<CounterBrosur> list = response.body().getData();
+//                    List<CounterBrosur> baru = new ArrayList<>();
+//                    List<Integer> jumbros = new ArrayList<>();
+//                    Integer tot = 0;
+//                    if (response.body().getData() != null) {
+//                        for (CounterBrosur p : list) {
+//
+//                            Log.d("Convert , Hasil",convertTime(p.getCreatedAt())+"="+d3);
+//                            if (convertTime(p.getCreatedAt()).equals(d3)) {
+//                                baru.add(p);
+//                            }
+//                        }
+//                        for (int i = 0; i < baru.size(); i++) {
+//                            if (baru.get(i).getBrosur() != null) {
+//                                jumbros.add(baru.get(i).getBrosur());
+//                            }
+//
+//                        }
+//                        for (int i = 0; i < jumbros.size(); i++) {
+//                            tot += jumbros.get(i);
+//                            brosur.setText(String.valueOf(tot));
+//                        }
+//
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    int blnKemarin = Integer.parseInt(d3) - 1;
+//
+//                    d3 = String.valueOf(blnKemarin);
+//                    if (d3.equals("0")){
+//                        d3 = "12";
+//                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
+//                    }
+//
+//                    d3 = ""+tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                            Log.d("Convert , Hasil",convertTime(response.body().getData().get(i).getCreatedAt())+"="+d3);
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        tele.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    int blnKemarin = Integer.parseInt(d3) - 1;
+//
+//                    d3 = String.valueOf(blnKemarin);
+//                    if (d3.equals("0")){
+//                        d3 = "12";
+//                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
+//                    }
+//
+//                    d3 = ""+tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        newdb.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    int blnKemarin = Integer.parseInt(d3) - 1;
+//
+//                    d3 = String.valueOf(blnKemarin);
+//                    if (d3.equals("0")){
+//                        d3 = "12";
+//                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
+//                    }
+//
+//                    d3 = ""+tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        order.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH)+1);
+//                    String tahun = String.valueOf(calendar.get(Calendar.YEAR));
+//
+//                    int blnKemarin = Integer.parseInt(d3) - 1;
+//
+//                    d3 = String.valueOf(blnKemarin);
+//                    if (d3.equals("0")){
+//                        d3 = "12";
+//                        tahun = String.valueOf(Integer.parseInt(tahun)-1);
+//                    }
+//
+//                    d3 = ""+tahun+"-"+d3;
+//
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        int count = 0;
+//                        for (String cfa : gas) {
+//                            if (cfa.equals(d3)) {
+//                                count++;
+//                            }
+//
+//                        }
+//                        booking.setText(String.valueOf(count));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
     private void getKPITOTAL() {
-        final Calendar calendar = Calendar.getInstance();
-        final List<KpiCfa> data = new ArrayList<KpiCfa>();
-        Date d1 = null, d2 = null;
-
-        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
-            @Override
-            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
-                    List<CounterBrosur> list = response.body().getData();
-                    List<CounterBrosur> baru = new ArrayList<>();
-                    List<Integer> jumbros = new ArrayList<>();
-                    Integer tot = 0;
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i).getBrosur() != null) {
-                                jumbros.add(list.get(i).getBrosur());
-                            }
-
-                        }
-                        for (int i = 0; i < jumbros.size(); i++) {
-                            tot += jumbros.get(i);
-                            brosur.setText(String.valueOf(tot));
-                        }
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-
-                        tele.setText(String.valueOf(gas.size()));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        newdb.setText(String.valueOf(gas.size()));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-
-                        order.setText(String.valueOf(gas.size()));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
-            @Override
-            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
-                if (response.isSuccessful()) {
-                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
-                    List<String> gas = new ArrayList<String>();
-                    if (response.body().getData() != null) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
-                        }
-                        booking.setText(String.valueOf(gas.size()));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespCounterLead> call, Throwable t) {
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void jadwalAktivitas() {
-
-        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
-            @Override
-            public void onDateSelected(Calendar date, int position) {
-                selectedDate = android.text.format.DateFormat.format("yyyy-MM-dd", date).toString();
-
-                mApiService.listJadwal(selectedDate, sharedPrefManager.getSpId()).enqueue(new Callback<RespListJadwal>() {
-                    @Override
-                    public void onResponse(Call<RespListJadwal> call, Response<RespListJadwal> response) {
-                        if (response.isSuccessful()) {
-                            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-                            rvJadwalAktivitas.setLayoutManager(layoutManager);
-                            List<ListJadwal> listLeads = response.body().getData();
-                            if (listLeads != null) {
-                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                                jadwalAda.setVisibility(View.VISIBLE);
-                                jadwalKosong.setVisibility(View.GONE);
-                            } else {
-                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
-                                jadwalAda.setVisibility(View.GONE);
-                                jadwalKosong.setVisibility(View.VISIBLE);
-                            }
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RespListJadwal> call, Throwable t) {
-                        Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
-
+        brosur.setText(String.valueOf(count_brosurBulanTotal));
+        tele.setText(String.valueOf(count_teleTotal));
+        newdb.setText(String.valueOf(count_newDBTotal));
+        order.setText(String.valueOf(count_orderTotal));
+        booking.setText(String.valueOf(count_bookingTotal));
+//        final Calendar calendar = Calendar.getInstance();
+//        final List<KpiCfa> data = new ArrayList<KpiCfa>();
+//        Date d1 = null, d2 = null;
+//
+//        mApiService.brosurCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterBrosur>() {
+//            @Override
+//            public void onResponse(Call<RespCounterBrosur> call, Response<RespCounterBrosur> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+//                    List<CounterBrosur> list = response.body().getData();
+//                    List<CounterBrosur> baru = new ArrayList<>();
+//                    List<Integer> jumbros = new ArrayList<>();
+//                    Integer tot = 0;
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < list.size(); i++) {
+//                            if (list.get(i).getBrosur() != null) {
+//                                jumbros.add(list.get(i).getBrosur());
+//                            }
+//
+//                        }
+//                        for (int i = 0; i < jumbros.size(); i++) {
+//                            tot += jumbros.get(i);
+//                            brosur.setText(String.valueOf(tot));
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterBrosur> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.targetCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//
+//                        tele.setText(String.valueOf(gas.size()));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.leadCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        newdb.setText(String.valueOf(gas.size()));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.orderCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//
+//                        order.setText(String.valueOf(gas.size()));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mApiService.bookingCounter(sharedPrefManager.getSpId()).enqueue(new Callback<RespCounterLead>() {
+//            @Override
+//            public void onResponse(Call<RespCounterLead> call, Response<RespCounterLead> response) {
+//                if (response.isSuccessful()) {
+//                    String d3 = String.valueOf(calendar.get(Calendar.MONTH));
+//                    List<String> gas = new ArrayList<String>();
+//                    if (response.body().getData() != null) {
+//                        for (int i = 0; i < response.body().getData().size(); i++) {
+//                            gas.add(convertTime(response.body().getData().get(i).getCreatedAt()));
+//                        }
+//                        booking.setText(String.valueOf(gas.size()));
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespCounterLead> call, Throwable t) {
+//                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
+//
+//
+//
+//    }
+//
+//
     }
 
     private void reportKPI() {
@@ -814,6 +902,43 @@ public class OverviewFragment extends Fragment {
                 } else {
                     Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    private void jadwalAktivitas() {
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Calendar date, int position) {
+                selectedDate = android.text.format.DateFormat.format("yyyy-MM-dd", date).toString();
+
+                mApiService.listJadwal(selectedDate, sharedPrefManager.getSpId()).enqueue(new Callback<RespListJadwal>() {
+                    @Override
+                    public void onResponse(Call<RespListJadwal> call, Response<RespListJadwal> response) {
+                        if (response.isSuccessful()) {
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+                            rvJadwalAktivitas.setLayoutManager(layoutManager);
+                            List<ListJadwal> listLeads = response.body().getData();
+                            if (listLeads != null) {
+                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
+                                jadwalAda.setVisibility(View.VISIBLE);
+                                jadwalKosong.setVisibility(View.GONE);
+                            } else {
+                                rvJadwalAktivitas.setAdapter(new ListJadwalAdapter(mContext, listLeads));
+                                jadwalAda.setVisibility(View.GONE);
+                                jadwalKosong.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RespListJadwal> call, Throwable t) {
+                        Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
     }

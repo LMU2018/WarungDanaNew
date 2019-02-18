@@ -151,18 +151,20 @@ public class ActivityFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListUserLog> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String cmsUsersName, jenis, createdAt;
-                            Integer id, idModul, idData;
-                            id = list.get(i).getId();
-                            cmsUsersName = list.get(i).getCmsUsersName();
-                            idModul = list.get(i).getIdModul();
-                            idData = list.get(i).getIdData();
-                            jenis = list.get(i).getJenis();
-                            createdAt = list.get(i).getCreatedAt();
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String cmsUsersName, jenis, createdAt;
+//                            Integer id, idModul, idData;
+//                            id = list.get(i).getId();
+//                            cmsUsersName = list.get(i).getCmsUsersName();
+//                            idModul = list.get(i).getIdModul();
+//                            idData = list.get(i).getIdData();
+//                            jenis = list.get(i).getJenis();
+//                            createdAt = list.get(i).getCreatedAt();
+//
+//                            listUserLogs.add(new ListUserLog(id, cmsUsersName, idModul, idData, jenis, createdAt));
+//                        }
 
-                            listUserLogs.add(new ListUserLog(id, cmsUsersName, idModul, idData, jenis, createdAt));
-                        }
+                        listUserLogs.addAll(list);
 
                         listUserLogAdapter.notifyDataSetChanged();
                         progress.setVisibility(View.GONE);
@@ -189,18 +191,19 @@ public class ActivityFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListUserLog> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String cmsUsersName, jenis, createdAt;
-                            Integer id, idModul, idData;
-                            id = list.get(i).getId();
-                            cmsUsersName = list.get(i).getCmsUsersName();
-                            idModul = list.get(i).getIdModul();
-                            idData = list.get(i).getIdData();
-                            jenis = list.get(i).getJenis();
-                            createdAt = list.get(i).getCreatedAt();
-
-                            listUserLogs.add(new ListUserLog(id, cmsUsersName, idModul, idData, jenis, createdAt));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String cmsUsersName, jenis, createdAt;
+//                            Integer id, idModul, idData;
+//                            id = list.get(i).getId();
+//                            cmsUsersName = list.get(i).getCmsUsersName();
+//                            idModul = list.get(i).getIdModul();
+//                            idData = list.get(i).getIdData();
+//                            jenis = list.get(i).getJenis();
+//                            createdAt = list.get(i).getCreatedAt();
+//
+//                            listUserLogs.add(new ListUserLog(id, cmsUsersName, idModul, idData, jenis, createdAt));
+//                        }
+                        listUserLogs.addAll(list);
 
                         listUserLogAdapter.notifyDataSetChanged();
                         int index = listUserLogs.size();

@@ -130,19 +130,20 @@ public class CurrentContactFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListContact> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String contactFirstName, contactLastName, contactGender, status;
-                            Integer id, idContact, idOrderMstStatus;
-                            id = list.get(i).getId();
-                            idContact = list.get(i).getIdContact();
-                            contactFirstName = list.get(i).getContactFirstName();
-                            contactLastName = list.get(i).getContactLastName();
-                            contactGender = list.get(i).getContactGender();
-                            idOrderMstStatus = list.get(i).getIdOrderMstStatus();
-                            status = list.get(i).getStatus();
-
-                            listContacts.add(new ListContact(id, idContact, contactFirstName, contactLastName, contactGender, idOrderMstStatus, status));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String contactFirstName, contactLastName, contactGender, status;
+//                            Integer id, idContact, idOrderMstStatus;
+//                            id = list.get(i).getId();
+//                            idContact = list.get(i).getIdContact();
+//                            contactFirstName = list.get(i).getContactFirstName();
+//                            contactLastName = list.get(i).getContactLastName();
+//                            contactGender = list.get(i).getContactGender();
+//                            idOrderMstStatus = list.get(i).getIdOrderMstStatus();
+//                            status = list.get(i).getStatus();
+//
+//                            listContacts.add(new ListContact(id, idContact, contactFirstName, contactLastName, contactGender, idOrderMstStatus, status));
+//                        }
+                        listContacts.addAll(list);
                         listContactAdapter.notifyDataSetChanged();
                         progress.setVisibility(View.GONE);
                     }
@@ -166,19 +167,20 @@ public class CurrentContactFragment extends Fragment {
                     itShouldLoadMore = true;
                     if (response.body().getData() != null) {
                         List<ListContact> list = response.body().getData();
-                        for (int i = 0; i < list.size(); i++) {
-                            String contactFirstName, contactLastName, contactGender, status;
-                            Integer id, idContact, idOrderMstStatus;
-                            id = list.get(i).getId();
-                            idContact = list.get(i).getIdContact();
-                            contactFirstName = list.get(i).getContactFirstName();
-                            contactLastName = list.get(i).getContactLastName();
-                            contactGender = list.get(i).getContactGender();
-                            idOrderMstStatus = list.get(i).getIdOrderMstStatus();
-                            status = list.get(i).getStatus();
-
-                            listContacts.add(new ListContact(id, idContact, contactFirstName, contactLastName, contactGender, idOrderMstStatus, status));
-                        }
+//                        for (int i = 0; i < list.size(); i++) {
+//                            String contactFirstName, contactLastName, contactGender, status;
+//                            Integer id, idContact, idOrderMstStatus;
+//                            id = list.get(i).getId();
+//                            idContact = list.get(i).getIdContact();
+//                            contactFirstName = list.get(i).getContactFirstName();
+//                            contactLastName = list.get(i).getContactLastName();
+//                            contactGender = list.get(i).getContactGender();
+//                            idOrderMstStatus = list.get(i).getIdOrderMstStatus();
+//                            status = list.get(i).getStatus();
+//
+//                            listContacts.add(new ListContact(id, idContact, contactFirstName, contactLastName, contactGender, idOrderMstStatus, status));
+//                        }
+                        listContacts.addAll(list);
                         listContactAdapter.notifyDataSetChanged();
                         int index = listContacts.size();
                         offset = index;
