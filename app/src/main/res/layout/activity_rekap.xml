@@ -17,6 +17,33 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="#ffffff"/>
 
+        <LinearLayout
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/nama_cfa"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="#4b4b4b"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_marginBottom="5dp"
+                android:id="@+id/outlet_cfa"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#4b4b4b"/>
+        </LinearLayout>
+
+
+
+
         <devs.mulham.horizontalcalendar.HorizontalCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
@@ -47,7 +74,6 @@
                         android:padding="15dp">
                         <TextView
                             android:id="@+id/namaOutlet"
-                            android:text="Warung Dana Ciruas"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_width="match_parent"
@@ -57,7 +83,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:baselineAligned="false">
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -65,7 +92,7 @@
                                 android:orientation="vertical">
                                 <TextView
                                     android:id="@+id/jumlahOrder"
-                                    android:text="0"
+                                    android:text="@string/_0"
                                     android:textSize="30sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorAccent"
@@ -76,7 +103,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:text="Jumlah Order"
+                                    android:text="@string/jumlah_order"
                                     android:gravity="center"
                                     android:textColor="#000"/>
                             </LinearLayout>
@@ -87,7 +114,7 @@
                                 android:orientation="vertical">
                                 <TextView
                                     android:id="@+id/jumlahBooking"
-                                    android:text="0"
+                                    android:text="@string/_0"
                                     android:textSize="30sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/colorAccent"
@@ -97,7 +124,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Jumlah Booking"
+                                    android:text="@string/jumlah_booking"
                                     android:layout_marginTop="10dp"
                                     android:gravity="center"
                                     android:textColor="#000"/>
@@ -121,7 +148,7 @@
                         android:padding="15dp">
                         <TextView
                             android:id="@+id/nama"
-                            android:text="KPI Pribadi"
+                            android:text="@string/kpi_pribadi"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_width="match_parent"
@@ -142,7 +169,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:textStyle="bold"
                                 android:textColor="#4b4b4b"
                                 android:layout_gravity="center"/>
@@ -154,7 +181,7 @@
                                 android:textAlignment="center"
                                 android:textSize="12sp"
                                 android:layout_marginTop="10dp"
-                                android:text="Brosur"/>
+                                android:text="@string/brosur"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -168,7 +195,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:textStyle="bold"
                                 android:textColor="#4b4b4b"
                                 android:layout_gravity="center"/>
@@ -179,7 +206,7 @@
                                 android:textAlignment="center"
                                 android:textSize="12sp"
                                 android:layout_marginTop="10dp"
-                                android:text="Tele"
+                                android:text="@string/tele"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 
@@ -194,7 +221,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:textStyle="bold"
                                 android:textColor="#4b4b4b"
                                 android:layout_gravity="center"/>
@@ -205,7 +232,7 @@
                                 android:textAlignment="center"
                                 android:textSize="12sp"
                                 android:layout_marginTop="10dp"
-                                android:text="New Db"/>
+                                android:text="@string/new_db"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -219,7 +246,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:textStyle="bold"
                                 android:textColor="#4b4b4b"
                                 android:layout_gravity="center"/>
@@ -230,7 +257,7 @@
                                 android:textAlignment="center"
                                 android:textSize="12sp"
                                 android:layout_marginTop="10dp"                            android:layout_gravity="center"
-                                android:text="Order"/>
+                                android:text="@string/order"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -244,18 +271,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="24sp"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:textStyle="bold"
                                 android:textColor="#4b4b4b"
                                 android:layout_gravity="center"/>
+
                             <TextView
-                                android:layout_gravity="center"
-                                android:gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="@string/booking"
                                 android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:layout_marginTop="10dp"                            android:text="Booking"/>
+                                android:textSize="12sp" />
                         </LinearLayout>
 
 

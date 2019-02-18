@@ -38,6 +38,7 @@ public class RekapActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     String selectedDate;
     Context mContext;
+    TextView nama_cfa,outlet_cfa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,12 @@ public class RekapActivity extends AppCompatActivity {
         booking = findViewById(R.id.bookingSum);
         orderOutlet = findViewById(R.id.jumlahOrder);
         bookingOutlet = findViewById(R.id.jumlahBooking);
+
+
+        nama_cfa = findViewById(R.id.nama_cfa);
+        outlet_cfa = findViewById(R.id.outlet_cfa);
+        nama_cfa.setText(sharedPrefManager.getSPName());
+        outlet_cfa.setText(sharedPrefManager.getSPOutletName());
 
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.YEAR, -1);

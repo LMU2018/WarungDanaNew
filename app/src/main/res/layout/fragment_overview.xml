@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentHome.OverviewFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,27 +28,28 @@
                     android:layout_toStartOf="@+id/tvTanggal"
                     android:textColor="#4b4b4b"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvTanggal"
-                    android:textAlignment="textEnd"
                     android:layout_width="120dp"
-                    android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textAlignment="textEnd" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/shadow">
+                android:background="@drawable/shadow"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp">
 
@@ -55,21 +57,22 @@
                         android:id="@+id/tvKPIDeskripsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/tvKPI"
                         android:textColor="#4b4b4b"
-                        android:textSize="14sp"
-                        android:layout_centerVertical="true"/>
+                        android:textSize="14sp" />
+
                     <TextView
                         android:id="@+id/tvKPI"
-                        android:textAlignment="textEnd"
                         android:layout_width="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="Key Performance Indicator"
+                        android:layout_centerVertical="true"
+                        android:text="@string/key_performance_indicator"
+                        android:textAlignment="textEnd"
+                        android:textColor="#4b4b4b"
                         android:textSize="15sp"
-                        android:textStyle="bold|italic"
-                        android:textColor="#4b4b4b"/>
+                        android:textStyle="bold|italic" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -81,192 +84,207 @@
                         android:id="@+id/layoutAwal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentStart="true">
+                        android:layout_alignParentStart="true"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/brosurSum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:text="0"
-                            android:textStyle="bold"
-                            android:textColor="#4b4b4b"
-                            android:layout_gravity="center"/>
-                        <TextView
-                            android:gravity="center"
                             android:layout_gravity="center"
+                            android:text="@string/_0"
+                            android:textColor="#4b4b4b"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textSize="12sp"
+                            android:layout_gravity="center"
                             android:layout_marginTop="10dp"
-                            android:text="Brosur"/>
+                            android:gravity="center"
+                            android:text="@string/brosur"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_toStartOf="@+id/layoutTengah"
-                        android:layout_toEndOf="@id/layoutAwal">
+                        android:layout_toEndOf="@id/layoutAwal"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/teleSum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:text="0"
-                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:text="@string/_0"
                             android:textColor="#4b4b4b"
-                            android:layout_gravity="center"/>
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textSize="12sp"
+                            android:layout_gravity="center"
                             android:layout_marginTop="10dp"
-                            android:text="Tele"
-                            android:layout_gravity="center"/>
+                            android:gravity="center"
+                            android:text="@string/tele"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layoutTengah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_centerInParent="true">
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/newDBSum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:text="0"
-                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:text="@string/_0"
                             android:textColor="#4b4b4b"
-                            android:layout_gravity="center"/>
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textSize="12sp"
                             android:layout_marginTop="10dp"
-                            android:text="New Db"/>
+                            android:gravity="center"
+                            android:text="@string/new_db"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_toStartOf="@+id/layoutAkhir"
                         android:layout_toEndOf="@+id/layoutTengah"
-                        android:layout_toStartOf="@+id/layoutAkhir">
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/orderSum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:text="0"
-                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:text="@string/_0"
                             android:textColor="#4b4b4b"
-                            android:layout_gravity="center"/>
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="@string/order"
                             android:textAlignment="center"
-                            android:textSize="12sp"
-                            android:layout_marginTop="10dp"                            android:layout_gravity="center"
-                            android:text="Order"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layoutAkhir"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentEnd="true">
+                        android:layout_alignParentEnd="true"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/bookingSum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:text="0"
-                            android:textStyle="bold"
-                            android:textColor="#4b4b4b"
-                            android:layout_gravity="center"/>
-                        <TextView
                             android:layout_gravity="center"
-                            android:gravity="center"
+                            android:text="@string/_0"
+                            android:textColor="#4b4b4b"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="@string/booking"
                             android:textAlignment="center"
-                            android:textSize="12sp"
-                            android:layout_marginTop="10dp"                            android:text="Booking"/>
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:gravity="center"
-                        android:padding="10dp"
                         android:id="@+id/tvSKRG"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="BULAN INI"
-                        android:textSize="14sp"
-                        android:textColor="#4b4b4b"
-                        android:textStyle="bold"/>
-                    <TextView
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:padding="10dp"
+                        android:text="@string/bulan_ini"
+                        android:textColor="#4b4b4b"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/tvKMRN"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="BULAN KMRN"
-                        android:textSize="14sp"
-                        android:textColor="#4b4b4b"
-                        android:textStyle="bold"/>
-                    <TextView
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:padding="10dp"
+                        android:text="@string/bulan_kmrn"
+                        android:textColor="#4b4b4b"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/tvSEMUA"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="TOTAL"
-                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/total"
                         android:textColor="#4b4b4b"
-                        android:textStyle="bold"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="#4b4b4b"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginTop="5dp"/>
+                    android:background="#4b4b4b" />
 
                 <TextView
                     android:id="@+id/tvRekap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_margin="5dp"
                     android:background="#ffffff"
-                    android:text="LIHAT REKAP"
+                    android:padding="10dp"
+                    android:text="@string/lihat_rekap"
                     android:textColor="@color/colorAccent"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -276,20 +294,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/shadow">
+                android:background="@drawable/shadow"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp">
+
                     <TextView
+                        android:layout_toStartOf="@+id/btnGoToday"
+                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jadwal Aktivitas"
-                        android:textSize="18sp"
+                        android:text="@string/jadwal_aktivitas"
                         android:textColor="#4b4b4b"
-                        android:textStyle="bold"/>
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/btnGoToday"
@@ -305,57 +326,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
-                    app:textColorSelected="#4b4b4b"
-                    app:selectorColor="#4b4b4b"/>
+                    app:selectorColor="#4b4b4b"
+                    app:textColorSelected="#4b4b4b" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvJadwalAktivitas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"/>
+                    android:layout_marginBottom="15dp" />
 
-                <LinearLayout
-                    android:id="@+id/jadwalAda"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                <TextView
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/ic_fitness_center_black_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_fitness_center_black_24dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="  Semangat !"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/jadwalKosong"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_hot_tub_black_24dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="  Tidak ada jadwal~"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </LinearLayout>
-
+                    android:text="@string/semangat" />
 
 
 
@@ -364,7 +351,6 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </FrameLayout>
