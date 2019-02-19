@@ -77,7 +77,7 @@ public class VisumLeadFragment extends Fragment {
             listVisums.clear();
             recyclerView.getAdapter().notifyDataSetChanged();
         }
-        mApiService.listLeadVisum(idTarget).enqueue(new Callback<RespListLeadVisum>() {
+        mApiService.listLeadVisum(idTarget,sharedPrefManager.getSpId()).enqueue(new Callback<RespListLeadVisum>() {
             @Override
             public void onResponse(Call<RespListLeadVisum> call, Response<RespListLeadVisum> response) {
 
@@ -87,35 +87,37 @@ public class VisumLeadFragment extends Fragment {
                         listLeadsx = response.body().getData();
 
 
-                        for (int i = 0; i < listLeadsx.size() ; i++){
-
-                            int idCMS = listLeadsx.get(i).getId_cms_users();
-                            int spID = sharedPrefManager.getSpId();
-
-                            if (idCMS == spID){
-
-                                Integer id , id_cms_users;
-                                String targetFirstName , mstVisumStatus , revisit ,cmsUsername , createdAt , photo;
-                                Object targetLastName;
-
-                                id = listLeadsx.get(i).getId();
-                                id_cms_users = listLeadsx.get(i).getId_cms_users();
-                                targetFirstName = listLeadsx.get(i).getLeadFirstName();
-                                targetLastName = listLeadsx.get(i).getLeadLastName();
-                                mstVisumStatus = listLeadsx.get(i).getMstVisumStatusStatus();
-                                revisit = listLeadsx.get(i).getRevisit();
-                                cmsUsername = listLeadsx.get(i).getCmsUsersName();
-                                createdAt = listLeadsx.get(i).getCreatedAt();
-                                photo = listLeadsx.get(i).getPhoto();
-
-                                listVisums.add(new ListVisumLead(id,targetFirstName,targetLastName,mstVisumStatus,revisit,id_cms_users,cmsUsername,createdAt,photo));
-                            }
-                        }
-
-
+//                        for (int i = 0; i < listLeadsx.size() ; i++){
+//
+//                            int idCMS = listLeadsx.get(i).getId_cms_users();
+//                            int spID = sharedPrefManager.getSpId();
+//
+//                            if (idCMS == spID){
+//
+//                                Integer id , id_cms_users;
+//                                String targetFirstName , mstVisumStatus , revisit ,cmsUsername , createdAt , photo;
+//                                Object targetLastName;
+//
+//                                id = listLeadsx.get(i).getId();
+//                                id_cms_users = listLeadsx.get(i).getId_cms_users();
+//                                targetFirstName = listLeadsx.get(i).getLeadFirstName();
+//                                targetLastName = listLeadsx.get(i).getLeadLastName();
+//                                mstVisumStatus = listLeadsx.get(i).getMstVisumStatusStatus();
+//                                revisit = listLeadsx.get(i).getRevisit();
+//                                cmsUsername = listLeadsx.get(i).getCmsUsersName();
+//                                createdAt = listLeadsx.get(i).getCreatedAt();
+//                                photo = listLeadsx.get(i).getPhoto();
+//
+//                                listVisums.add(new ListVisumLead(id,targetFirstName,targetLastName,mstVisumStatus,revisit,id_cms_users,cmsUsername,createdAt,photo));
+//                            }
+//                        }
 
 
-                        recyclerView.setAdapter(new ListVisumLeadAdapter(getContext(), listVisums));
+
+
+
+
+                        recyclerView.setAdapter(new ListVisumLeadAdapter(getContext(), listLeadsx));
                     }
                 }
 

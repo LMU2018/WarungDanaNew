@@ -144,14 +144,14 @@ public class ListLeadAdapter extends RecyclerView.Adapter<ListLeadAdapter.ListLe
     @Override
     public int getItemCount() {
 
-//        return listLeads == null ? 0 : listLeads.size();
-        if (num*20 > listLeads.size()){
-
-            return listLeads.size();
-        }else {
-
-            return num *20;
-        }
+        return listLeads == null ? 0 : listLeads.size();
+//        if (num*20 > listLeads.size()){
+//
+//            return listLeads.size();
+//        }else {
+//
+//            return num *20;
+//        }
 
     }
 

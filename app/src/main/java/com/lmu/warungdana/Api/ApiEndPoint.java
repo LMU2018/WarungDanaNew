@@ -91,7 +91,8 @@ public interface ApiEndPoint {
                                           @Query("offset") Integer offset);
 
     @GET("lead_visum_listing")
-    Call<RespListLeadVisum> listLeadVisum(@Query("id_lead") Integer id);
+    Call<RespListLeadVisum> listLeadVisum(@Query("id_lead") Integer id,
+                                          @Query("id_cms_users") Integer id_cms_users);
 
     @FormUrlEncoded
     @POST("lead_visum_create")
@@ -614,7 +615,7 @@ public interface ApiEndPoint {
 
 
     @FormUrlEncoded
-    @POST("target_log_create")
+    @POST("target_log_create_new")
     Call<ResponseBody> targetLog(@Field("id_target") Integer idLead,
                                  @Field("duration") String duration,
                                  @Field("id_mst_log_desc") Integer idDesc,
