@@ -105,6 +105,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         imgList = findViewById(R.id.imgList);
         btnCheck = findViewById(R.id.btnCheck);
+        loading = new ProgressDialog(AddTargetLogActivity.this);
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, 0);
@@ -241,7 +242,10 @@ public class AddTargetLogActivity extends AppCompatActivity {
                         tanggal.setError("Wajib Diisi");
                         return;
                     } else {
-                        loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+//                        loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+                        loading.setMessage("Harap Tunggu...");
+                        loading.setCancelable(false);
+                        loading.show();
                         mApiService.targetLog(idData, callDuration, idDesc, tglPilih, idUser).enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -270,6 +274,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -282,6 +287,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -294,6 +300,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -306,6 +313,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -318,6 +326,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -330,6 +339,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -342,6 +352,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -354,6 +365,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -366,6 +378,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                                                 @Override
                                                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                    loading.dismiss();
                                                                     Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
@@ -377,9 +390,11 @@ public class AddTargetLogActivity extends AppCompatActivity {
                                                         Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
                                                     } else {
+                                                        loading.dismiss();
                                                         Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
                                                     }
                                                 } else {
+                                                    loading.dismiss();
                                                     Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -394,6 +409,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        loading.dismiss();
                                         Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                     }
                                 });
