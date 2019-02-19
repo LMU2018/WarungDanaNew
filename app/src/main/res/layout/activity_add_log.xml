@@ -20,13 +20,7 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="#ffffff"
             app:subtitleTextColor="#ffffff">
-            <Button
-                android:id="@+id/btnCheck"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/ic_check_black_24dp"/>
+
         </android.support.v7.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Panggilan Keluar"
+                android:text="@string/panggilan_keluar"
                 android:textColor="#ffffff"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -65,6 +59,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp">
                     <ImageView
+                        android:contentDescription="@null"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:background="@drawable/ic_person_outline_black_24dp"
@@ -101,7 +96,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="@string/status"
                 android:textSize="12sp"
                 android:textColor="#ffffff"
                 android:layout_marginStart="80dp"
@@ -113,6 +108,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="22.5dp">
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginEnd="22.5dp"
@@ -139,7 +135,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Deskripsi"
+                android:text="@string/deskripsi"
                 android:textSize="12sp"
                 android:textColor="#ffffff"
                 android:layout_marginStart="80dp"
@@ -151,6 +147,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="22.5dp">
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginEnd="22.5dp"
@@ -182,7 +179,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hubungi Ulang"
+                android:text="@string/hubungi_ulang"
                 android:textSize="12sp"
                 android:textColor="#ffffff"
                 android:layout_marginStart="80dp"
@@ -192,8 +189,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginEnd="20dp"
-                android:layout_marginStart="22.5dp">
+                android:layout_marginStart="22.5dp"
+                tools:ignore="UseCompoundDrawables">
                 <ImageView
+                    android:contentDescription="@null"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginEnd="22.5dp"
@@ -204,7 +203,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="Pilih Tanggal"
+                    android:hint="@string/pilih_tanggal"
                     android:textColorHint="#ffffff"
                     android:textSize="15sp"
                     android:textColor="#ffffff"
@@ -218,6 +217,17 @@
                 android:background="#ffffff"
                 android:layout_marginStart="80dp"
                 android:layout_marginEnd="20dp"/>
+
+            <Button
+                android:id="@+id/btnCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tambah"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:layout_margin="20dp"/>
 
 
         </LinearLayout>

@@ -26,13 +26,7 @@
                 android:background="@color/colorPrimary"
                 app:titleTextColor="#ffffff"
                 app:subtitleTextColor="#ffffff">
-                <Button
-                    android:id="@+id/btnCheck"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="15dp"
-                    android:background="@drawable/ic_check_black_24dp"/>
+
             </android.support.v7.widget.Toolbar>
 
             <LinearLayout
@@ -214,7 +208,6 @@
 
                 <ImageView
                     android:id="@+id/imgPhoto"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="22.5dp"
@@ -222,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
                     android:layout_gravity="center"
-                    android:hint="Pilih Foto"
+                    android:hint="@string/pilih_foto"
                     android:textColorHint="#ffffff"
                     android:textColor="#ffffff"
                     android:textSize="15sp"
@@ -230,6 +223,17 @@
 
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tambah"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:layout_margin="20dp"/>
 
         </android.support.design.widget.AppBarLayout>
     </ScrollView>

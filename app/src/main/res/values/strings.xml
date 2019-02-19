@@ -322,4 +322,8 @@
     <string name="no_hp_2">No Hp 2</string>
     <string name="tempat_lahir">Tempat Lahir</string>
     <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="panggilan_keluar">Panggilan Keluar</string>
+    <string name="pilih_tanggal">Pilih Tanggal</string>
+    <string name="tambah">tambah</string>
+    <string name="pilih_foto">Pilih Foto</string>
 </resources>

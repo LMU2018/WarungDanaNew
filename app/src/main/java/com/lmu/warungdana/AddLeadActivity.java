@@ -74,7 +74,7 @@ public class AddLeadActivity extends AppCompatActivity {
     private RadioGroup rgPajak, rgPemilik;
     private RadioButton rbPajak, rbPemilik, rbPajakY, rbPajakN, rbOwnerS, rbOwnerOL;
     private EditText firstName, lastName, address, nopol;
-    private Button btnCheck;
+    private Button btnCheck,btnCheck2;
     ProgressDialog loading;
     private Switch switchAddress, switchProduct;
     SharedPrefManager sharedPrefManager;
@@ -136,6 +136,7 @@ public class AddLeadActivity extends AppCompatActivity {
         idBranch = sharedPrefManager.getSpBranchId();
 
         btnCheck = findViewById(R.id.btnCheck);
+        btnCheck2 = findViewById(R.id.btnCheck2);
 
         firstName = findViewById(R.id.tvFirstName);
         lastName = findViewById(R.id.tvLastName);
@@ -280,6 +281,52 @@ public class AddLeadActivity extends AppCompatActivity {
         });
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idPajak = rgPajak.getCheckedRadioButtonId();
+                int idPemilik = rgPemilik.getCheckedRadioButtonId();
+                rbPajak = findViewById(idPajak);
+                rbPemilik = findViewById(idPemilik);
+                if (TextUtils.isEmpty(firstName.getText())) {
+                    firstName.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(lastName.getText())) {
+                    lastName.setError("Wajib Diisi !");
+                } else if (idDataSource == null) {
+                    Toast toast = Toast.makeText(context, "Pilih Sumber Data", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (switchAddress.isChecked() && idAlamatKat == null) {
+                    Toast toast = Toast.makeText(context, "Pilih Kategori Alamat", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (switchAddress.isChecked() && TextUtils.isEmpty(address.getText())) {
+                    address.setError("Wajib Diisi !");
+                } else if (switchAddress.isChecked() && idAlamat == null) {
+                    Toast toast = Toast.makeText(context, "Lengkapi Alamat", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (switchProduct.isChecked() && idUnitUfi == null) {
+                    Toast toast = Toast.makeText(context, "Lengkapi Produk", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (switchProduct.isChecked() && TextUtils.isEmpty(nopol.getText())) {
+                    nopol.setError("Wajib Diisi !");
+                } else if (switchProduct.isChecked() && rgPajak.getCheckedRadioButtonId() == -1) {
+                    Toast toast = Toast.makeText(context, "Pilih Pajak STNK", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (switchProduct.isChecked() && rgPemilik.getCheckedRadioButtonId() == -1) {
+                    Toast toast = Toast.makeText(context, "Pilih Pemilik Kendaraan", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else {
+                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+                    createLead();
+                }
+
+            }
+        });
+        btnCheck2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int idPajak = rgPajak.getCheckedRadioButtonId();

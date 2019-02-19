@@ -35,7 +35,7 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
     private ApiEndPoint mApiService;
     private Context context;
     private android.support.v7.widget.Toolbar toolbar;
-    private Button btnCheck;
+    private Button btnCheck,btnCheck2;
     private Integer idIndicator, idModul, idData, idUser, idUnitUfi;
     private EditText note, nopol;
     private RadioGroup rgPajak, rgPemilik;
@@ -64,6 +64,7 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
         rgPemilik = findViewById(R.id.rgOwner);
         nopol = findViewById(R.id.tvNopol);
         btnCheck = findViewById(R.id.btnCheck);
+        btnCheck2 = findViewById(R.id.btnCheck2);
         addAddress = findViewById(R.id.addAddress);
         addPhone = findViewById(R.id.addPhone);
         addNote = findViewById(R.id.addNote);
@@ -131,6 +132,36 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
                     alert.show();
                 }
             });
+            btnCheck2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Tambah Catatan ?");
+                    alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mApiService.contactNoteCreate(idData, idUser, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    finish();
+                                    Toast.makeText(context, "Berhasil Menambah Note!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+                    alert.show();
+                }
+            });
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,6 +193,38 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
         if (idIndicator == 1) {
             final Editable isiNote = note.getText();
             btnCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Tambah Catatan ?");
+                    alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mApiService.leadNoteCreate(idData, idUser, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    finish();
+                                    Toast.makeText(context, "Berhasil Menambah Note !", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+
+                    alert.show();
+
+                }
+            });
+            btnCheck2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -288,6 +351,52 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
 
                 }
             });
+            btnCheck2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int idPajak = rgPajak.getCheckedRadioButtonId();
+                    int idPemilik = rgPemilik.getCheckedRadioButtonId();
+                    rbPajak = findViewById(idPajak);
+                    rbPemilik = findViewById(idPemilik);
+                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+                    mApiService.leadProductCreate(idData, 4, idUser).enqueue(new Callback<RespPost>() {
+                        @Override
+                        public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+                            if (response.isSuccessful()) {
+                                Integer idhasil = response.body().getId();
+                                String taxStatus;
+                                if (rbPajak.getText().toString().equals("Hidup")) {
+                                    taxStatus = "Y";
+                                } else {
+                                    taxStatus = "N";
+                                }
+                                mApiService.leadProductDetailCreate(idhasil, idUnitUfi, idUser, nopol.getText().toString(), taxStatus,
+                                        rbPemilik.getText().toString()).enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        loading.dismiss();
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        loading.dismiss();
+                                        Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<RespPost> call, Throwable t) {
+                            Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            });
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -314,6 +423,38 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
         if (idIndicator == 1) {
             final Editable isiNote = note.getText();
             btnCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Add Note ?");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mApiService.targetNoteCreate(idData, 1, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    finish();
+                                    Toast.makeText(context, "Berhasil Menambah Note!", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+
+                    alert.show();
+
+                }
+            });
+            btnCheck2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(context);

@@ -93,7 +93,7 @@ public class AddOrderActivity extends AppCompatActivity {
     private Integer lamaKerja, pendapatan, pengeluaran = null, jumlah = 0;
     private RadioGroup rgTax, rgOwner;
     private RadioButton rbTax, rbOwner;
-    private Button btnCheck;
+    private Button btnCheck, btnCheck2;
     SharedPrefManager sharedPrefManager;
     private Calendar calendar;
     NumberFormat formatter = new DecimalFormat("#,###");
@@ -170,6 +170,7 @@ public class AddOrderActivity extends AppCompatActivity {
         tvPengeluaran = findViewById(R.id.tvPengeluaran);
 
         btnCheck = findViewById(R.id.btnCheck);
+        btnCheck2 = findViewById(R.id.btnCheck2);
         scrollView = findViewById(R.id.scrollView);
 
         tvNamaOutlet.setText(sharedPrefManager.getSPOutletName());
@@ -279,34 +280,6 @@ public class AddOrderActivity extends AppCompatActivity {
         initSpinnerStatusAlamat();
         initSpinnerCabangFif();
         countOrder();
-
-        /*spMerk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                strMerk = spMerk.getSelectedItem().toString();
-                strYear = spYear.getSelectedItem().toString();
-                initSpinnerModel();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
-        /*spYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                strMerk = spMerk.getSelectedItem().toString();
-                strYear = spYear.getSelectedItem().toString();
-                initSpinnerModel();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -429,6 +402,124 @@ public class AddOrderActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(tvPenghasilan.getText())) {
                     tvPenghasilan.setError("Wajib Diisi !");
                     return;*/
+                } else {
+                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+//                    Toast.makeText(context, "Test" + idContact + idUser + idOutlet + nmrOrder + idDataSource + strStatKons + idCabangFif + tglJamSurvei, Toast.LENGTH_SHORT).show();
+                    createOrder();
+                }
+
+            }
+        });
+        btnCheck2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                countOrder();
+                int idPajak = rgTax.getCheckedRadioButtonId();
+                int idPemilik = rgOwner.getCheckedRadioButtonId();
+                rbTax = findViewById(idPajak);
+                rbOwner = findViewById(idPemilik);
+
+                perusahaan = tvPerusahaan.getText().toString();
+                jabatan = tvJabatan.getText().toString();
+
+                if (TextUtils.isEmpty(tvPerusahaan.getText())) {
+                    lamaKerja = null;
+                } else {
+                    lamaKerja = Integer.parseInt(tvLamaKerja.getText().toString());
+                }
+                if (TextUtils.isEmpty(tvPenghasilan.getText())) {
+                    pendapatan = null;
+                } else {
+                    pendapatan = Integer.parseInt(tvPenghasilan.getText().toString().replaceAll(",", "").replaceAll("\\.", ""));
+
+                }
+                if (TextUtils.isEmpty(tvPengeluaran.getText())) {
+                    pengeluaran = null;
+                } else {
+                    pengeluaran = Integer.parseInt(tvPengeluaran.getText().toString().replaceAll(",", "").replaceAll("\\.", ""));
+                }
+
+                Calendar clndr = Calendar.getInstance(TimeZone.getDefault());
+                int year = clndr.get(Calendar.YEAR);
+                int month = clndr.get(Calendar.MONTH) + 1;
+                String idCnt = String.valueOf(count);
+                String idMonth = String.valueOf(month);
+                String urut, urutMonth;
+
+                if (idCnt.length() == 1) {
+                    urut = "00000" + count;
+                } else if (idCnt.length() == 2) {
+                    urut = "0000" + count;
+                } else if (idCnt.length() == 3) {
+                    urut = "000" + count;
+                } else if (idCnt.length() == 4) {
+                    urut = "00" + count;
+                } else if (idCnt.length() == 5) {
+                    urut = "0" + count;
+                } else {
+                    urut = "" + count;
+                }
+
+                if (idMonth.length() == 1) {
+                    urutMonth = "0" + month;
+                } else {
+                    urutMonth = "" + month;
+                }
+
+                nmrOrder = year + "" + urutMonth + "OR" + urut;
+//                Toast.makeText(context, "COBA " + nmrOrder, Toast.LENGTH_SHORT).show();
+
+                if (TextUtils.isEmpty(tvContact.getText())) {
+                    tvContact.setError("Wajib Diisi !");
+
+                    return;
+                } else if (tglSurvei == null) {
+//                    tvTanggalSurvei.setError("Wajib Diisi !");
+                    Toast.makeText(getApplicationContext(), "Isi Jadwal Survei !", Toast.LENGTH_LONG).show();
+
+                    return;
+                } else if (TextUtils.isEmpty(tvNopol.getText())) {
+                    tvNopol.setError("Wajib Diisi !");
+
+                    return;
+                } else if (rgTax.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getApplicationContext(), "Pajak STNK Harus diisi !", Toast.LENGTH_LONG).show();
+                } else if (rgOwner.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getApplicationContext(), "Pemilik Kend. Harus diisi !", Toast.LENGTH_LONG).show();
+                } else if (TextUtils.isEmpty(tvOTR.getText())) {
+                    tvOTR.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvPlafond.getText())) {
+                    tvPlafond.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvDP.getText())) {
+                    Toast.makeText(getApplicationContext(), "DP Kosong cek Plafond Pinjaman", Toast.LENGTH_LONG).show();
+
+                    return;
+                } else if (TextUtils.isEmpty(tvAngsuran.getText())) {
+                    tvAngsuran.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvTenor.getText())) {
+                    tvTenor.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvSuretyName.getText())) {
+                    tvSuretyName.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvSuretyBirthPlace.getText())) {
+                    tvSuretyBirthPlace.setError("Wajib Diisi !");
+
+                    return;
+                } else if (TextUtils.isEmpty(tvBirthdate.getText())) {
+                    tvBirthdate.setError("Wajib Diisi !");
+
+                    return;
+
                 } else {
                     loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
 //                    Toast.makeText(context, "Test" + idContact + idUser + idOutlet + nmrOrder + idDataSource + strStatKons + idCabangFif + tglJamSurvei, Toast.LENGTH_SHORT).show();

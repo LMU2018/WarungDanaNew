@@ -78,7 +78,7 @@ public class AddContactActivity extends AppCompatActivity {
     List<ListMarital> listMaritals;
     List<ListPlace> listPlaces;
     List<ListEmployee> listEmployees;
-    private Button btnCheck;
+    private Button btnCheck,btnCheck2;
     private Integer idReligion, idmarital, idjob = 0, idContact, idDataSource, idJobs, idContactIntent, idAddressIntent,
             idAddContact, idContactUpdate, idMainPhone, idMobilePhone;
     private CheckBox cbemployeeDetail, cbemployee;
@@ -190,6 +190,7 @@ public class AddContactActivity extends AppCompatActivity {
 
         nik.setText(getIntent().getStringExtra("nik"));
         btnCheck = findViewById(R.id.btnCheck);
+        btnCheck2 = findViewById(R.id.btnCheck2);
         employeeDetail = findViewById(R.id.employeeDetail);
         employee = findViewById(R.id.employee);
 
@@ -328,6 +329,66 @@ public class AddContactActivity extends AppCompatActivity {
         });
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(firstname.getText())) {
+                    firstname.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(lastname.getText())) {
+                    lastname.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(birthplace.getText())) {
+                    birthplace.setError("Wajib Diisi !");
+                    return;
+                } else if (TextUtils.isEmpty(birthdate.getText())) {
+                    birthdate.setError("Wajib Diisi !");
+                    return;
+                } else if (rgGender.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getApplicationContext(), "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
+                } else if (idReligion == 0) {
+                    Toast.makeText(getApplicationContext(),"Agama wajib diisi",Toast.LENGTH_LONG).show();
+                } else if (idmarital == 0) {
+                    Toast.makeText(getApplicationContext(),"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
+                } else if (idjob == 0) {
+                    Toast.makeText(getApplicationContext(),"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (idSource == 0) {
+                    Toast.makeText(getApplicationContext(),"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(mainphone.getText())) {
+                    mainphone.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(mobilephone.getText())) {
+                    mobilephone.setError("Wajib Diisi !");
+                } else if (idCategory== 0) {
+                    Toast.makeText(getApplicationContext(),"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(address.getText())) {
+                    address.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(rt.getText())) {
+                    rt.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(rw.getText())) {
+                    rw.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(mother.getText())) {
+                    mother.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(tanggungan.getText())) {
+                    tanggungan.setError("Wajib Diisi !");
+                } else if (iRumah == 0) {
+                    Toast.makeText(getApplicationContext(),"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
+                } else if (TextUtils.isEmpty(perusahaan.getText())) {
+                    perusahaan.setError("Wajib Diisi !");
+                } else if (iKaryawan == 0) {
+                    Toast.makeText(getApplicationContext(),"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(jabatan.getText())) {
+                    jabatan.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(lamakerja.getText())) {
+                    lamakerja.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(pendapatan.getText())) {
+                    pendapatan.setError("Wajib Diisi !");
+                } else if (TextUtils.isEmpty(pengeluaran.getText())) {
+                    pengeluaran.setError("Wajib Diisi !");
+                }  else {
+                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+                    contactCreate();
+                }
+            }
+        });
+
+        btnCheck2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(firstname.getText())) {

@@ -19,13 +19,7 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="#ffffff"
             app:subtitleTextColor="#ffffff">
-            <Button
-                android:id="@+id/btnCheck"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/ic_check_black_24dp"/>
+
         </android.support.v7.widget.Toolbar>
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,6 +220,17 @@
                 android:background="#ffffff"
                 android:layout_marginStart="80dp"
                 android:layout_marginEnd="20dp"/>
+
+            <Button
+                android:id="@+id/btnCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tambah"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@color/colorPrimaryDark"
+                android:layout_margin="20dp"/>
 
 
         </LinearLayout>

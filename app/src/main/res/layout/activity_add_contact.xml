@@ -95,8 +95,8 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:inputType="textCapWords"
-                    android:textColor="#000000"
                     android:maxLength="30"
+                    android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -127,8 +127,8 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:inputType="textCapWords"
-                    android:textColor="#000000"
                     android:maxLength="30"
+                    android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -159,8 +159,8 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:inputType="textCapWords"
-                    android:textColor="#000000"
                     android:maxLength="30"
+                    android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -332,9 +332,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
                 android:text="Informasi Contact"
                 android:textColor="#000000"
                 android:textSize="14sp"
@@ -553,8 +553,8 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:inputType="number"
-                    android:textColor="#000000"
                     android:maxLength="3"
+                    android:textColor="#000000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -840,9 +840,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
                     android:text="Info Tambahan"
                     android:textColor="#000000"
                     android:textSize="14sp"
@@ -884,8 +884,8 @@
                         android:layout_marginStart="20dp"
                         android:background="@null"
                         android:inputType="textCapWords"
-                        android:textColor="#000000"
                         android:maxLength="30"
+                        android:textColor="#000000"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -915,9 +915,9 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:background="@null"
+                        android:hint="0"
                         android:inputType="number"
                         android:maxLength="2"
-                        android:hint="0"
                         android:textColor="#000000"
                         android:textSize="14sp" />
 
@@ -971,9 +971,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
                     android:text="Info Pekerjaan"
                     android:textColor="#000000"
                     android:textSize="14sp"
@@ -1016,8 +1016,8 @@
                         android:layout_marginStart="20dp"
                         android:background="@null"
                         android:inputType="textCapCharacters"
-                        android:textColor="#000000"
                         android:maxLength="50"
+                        android:textColor="#000000"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -1077,8 +1077,8 @@
                         android:layout_marginStart="20dp"
                         android:background="@null"
                         android:inputType="textCapWords"
-                        android:textColor="#000000"
                         android:maxLength="30"
+                        android:textColor="#000000"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -1108,9 +1108,9 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:background="@null"
+                        android:hint="0"
                         android:inputType="number"
                         android:maxLength="2"
-                        android:hint="0"
                         android:textColor="#000000"
                         android:textSize="14sp" />
 
@@ -1190,6 +1190,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="#4b4b4b" />
+
+                <Button
+                    android:id="@+id/btnCheck2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/tambah"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_margin="20dp"/>
             </LinearLayout>
 
         </LinearLayout>
