@@ -137,4 +137,9 @@ public class LogTargetFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

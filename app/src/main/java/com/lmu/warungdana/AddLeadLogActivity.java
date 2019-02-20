@@ -272,6 +272,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
@@ -284,6 +289,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                     mApiService.leadUpdateStatus(idLead, 4, idUser).enqueue(new Callback<ResponseBody>() {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
 
                                                         }
 
@@ -298,6 +308,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
@@ -311,11 +326,16 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
                                                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                            loading.dismiss();
+
                                                             Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                                                         }
                                                     });
@@ -323,6 +343,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                     mApiService.leadUpdateStatus(idLead, 2, idUser).enqueue(new Callback<ResponseBody>() {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
 
                                                         }
 
@@ -337,6 +362,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
@@ -349,6 +379,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                     mApiService.leadUpdateStatus(idLead, 2, idUser).enqueue(new Callback<ResponseBody>() {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
 
                                                         }
 
@@ -363,6 +398,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
@@ -376,6 +416,11 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                                            finish();
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
                                                         }
 
                                                         @Override
@@ -386,9 +431,7 @@ public class AddLeadLogActivity extends AppCompatActivity {
                                                     });
                                                 }
 
-                                                finish();
-                                                loading.dismiss();
-                                                Toast.makeText(context, "Berhasil menambah log call !", Toast.LENGTH_LONG).show();
+
 
                                             }
 

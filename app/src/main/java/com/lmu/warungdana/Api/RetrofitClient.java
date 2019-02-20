@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -25,7 +27,10 @@ public class RetrofitClient {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 //        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .readTimeout(1, TimeUnit.MINUTES)
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .writeTimeout(2,TimeUnit.MINUTES);
         client.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

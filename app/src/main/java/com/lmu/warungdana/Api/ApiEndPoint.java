@@ -245,7 +245,7 @@ public interface ApiEndPoint {
                                          @Query("offset") Integer offset);
 
     @FormUrlEncoded
-    @POST("user_log_create")
+    @POST("user_log_create_fix")
     Call<ResponseBody> userLogCreate(@Field("id_modul") Integer idModul,
                                      @Field("id_data") Integer id_data,
                                      @Field("jenis") String jenis,

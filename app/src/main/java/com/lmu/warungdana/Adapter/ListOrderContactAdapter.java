@@ -55,23 +55,29 @@ public class ListOrderContactAdapter extends RecyclerView.Adapter<ListOrderConta
     }
 
     @Override
-    public void onBindViewHolder(ListLeadHolder holder, int position) {
-        final ListOrder listLead = listLeads.get(position);
-        String tanggal = convertTime(listLead.getCreatedAt());
+    public void onBindViewHolder(ListLeadHolder holder, final int position) {
+//        final ListOrder listLead = listLeads.get(position);
+        String tanggal = convertTime(listLeads.get(position).getCreatedAt());
         NumberFormat formatter = new DecimalFormat("#,###");
-        double myNumber = listLead.getPlafond();
+        int myNumber = 0;
+        try {
+            myNumber = listLeads.get(position).getPlafond();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String plafond = formatter.format(myNumber);
 
-        holder.deskripsi.setText(listLead.getOrderMstStatusStatus());
-        holder.nama.setText(listLead.getModel());
+        holder.deskripsi.setText(listLeads.get(position).getOrderMstStatusStatus());
+        holder.nama.setText(listLeads.get(position).getModel());
 //        holder.tanggal.setText(listLead.getCreatedAt());
         holder.status.setText("IDR " + plafond);
         holder.kotak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailDealActivity.class);
-                intent.putExtra("idOrder", listLead.getId());
-                intent.putExtra("idContact", listLead.getIdContact());
+                intent.putExtra("idOrder", listLeads.get(position).getId());
+                intent.putExtra("idContact", listLeads.get(position).getIdContact());
                 context.startActivity(intent);
             }
         });
@@ -79,7 +85,6 @@ public class ListOrderContactAdapter extends RecyclerView.Adapter<ListOrderConta
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_attach_money_black_24dp);
         drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         holder.imgList.setBackground(drawable);
-
 
     }
 

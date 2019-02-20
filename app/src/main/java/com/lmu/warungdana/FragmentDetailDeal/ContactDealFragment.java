@@ -60,6 +60,7 @@ public class ContactDealFragment extends Fragment {
         DetailDealActivity activity = (DetailDealActivity) getActivity();
         idContact = activity.idContact;
 
+        context = getActivity();
         mApiService = UtilsApi.getAPIService();
         Status = view.findViewById(R.id.tvStatus);
         job = view.findViewById(R.id.tvJob);
@@ -139,7 +140,7 @@ public class ContactDealFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailContact> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
         mApiService.detailAdditionalContact(idContact).enqueue(new Callback<DetailAdditionalContact>() {
@@ -207,7 +208,7 @@ public class ContactDealFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailAdditionalContact> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -224,7 +225,7 @@ public class ContactDealFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListPhone> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
 
