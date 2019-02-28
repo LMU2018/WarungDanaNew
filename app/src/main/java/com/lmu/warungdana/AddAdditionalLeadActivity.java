@@ -429,7 +429,7 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
                     alert.setTitle("Add Note ?");
                     alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mApiService.targetNoteCreate(idData, 1, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                            mApiService.targetNoteCreate(idData, idUser, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     finish();
