@@ -59,6 +59,7 @@ import com.lmu.warungdana.Response.RespListVisum;
 import com.lmu.warungdana.Response.RespOrderDocument;
 import com.lmu.warungdana.Response.RespPerformaIndicator;
 import com.lmu.warungdana.Response.RespPost;
+import com.lmu.warungdana.Response.RespRekapActivity;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -73,6 +74,11 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiEndPoint {
+
+    @GET("rekap_activity")
+    Call<RespRekapActivity> rekapActivity(@Query("id") Integer id,
+                                          @Query("inputdate") String inputDate,
+                                          @Query("input_id_mst_outlet") Integer input_id_mst_outlet);
 
     @GET("performa_indicator")
     Call<RespPerformaIndicator> performaIndicator(@Query("id") Integer id,
