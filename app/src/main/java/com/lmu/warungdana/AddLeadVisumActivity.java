@@ -156,16 +156,6 @@ public class AddLeadVisumActivity extends AppCompatActivity implements ProgressR
                 Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,6 +332,18 @@ public class AddLeadVisumActivity extends AppCompatActivity implements ProgressR
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
 
 
     }

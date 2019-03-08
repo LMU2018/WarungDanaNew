@@ -184,16 +184,12 @@ public class AddOrderActivity extends AppCompatActivity {
         tvPenghasilan.addTextChangedListener(new NumberTextWatcher(tvPenghasilan));
         tvPengeluaran.addTextChangedListener(new NumberTextWatcher(tvPengeluaran));
 
-    }
-
-    @Override
-    public void onBackPressed() {
+        listener();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void listener() {
+
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -528,6 +524,17 @@ public class AddOrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
 //    private void focus(final TextView tv) {

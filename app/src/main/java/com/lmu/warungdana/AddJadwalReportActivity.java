@@ -130,58 +130,12 @@ public class AddJadwalReportActivity extends AppCompatActivity implements Locati
         } else {
             Toast.makeText(getBaseContext(), "No Provider Found", Toast.LENGTH_SHORT).show();
         }
+
+        listener();
     }
 
-    private String convertTime(String time) {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format1 = new SimpleDateFormat("dd MMM, yyyy");
-        java.util.Date date = null;
-        try {
-            date = format.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String convertedDate = format1.format(date);
-        return convertedDate;
-    }
+    private void listener() {
 
-    public void statusCheck() {
-        final LocationManager manager = (LocationManager) getSystemService(
-                Context.LOCATION_SERVICE);
-
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
-        }
-    }
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(
-                "Your GPS seems to be disabled, do you want to enable it?")
-                .setCancelable(false).setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog,
-                                        final int id) {
-                        startActivity(new Intent(
-                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog,
-                                        final int id) {
-                        Toast.makeText(context, "Aktifkan GPS !!!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, HomeActivity.class);
-                        startActivity(intent);
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -250,6 +204,59 @@ public class AddJadwalReportActivity extends AppCompatActivity implements Locati
                 }
             }
         });
+    }
+
+    private String convertTime(String time) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format1 = new SimpleDateFormat("dd MMM, yyyy");
+        java.util.Date date = null;
+        try {
+            date = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String convertedDate = format1.format(date);
+        return convertedDate;
+    }
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getSystemService(
+                Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(
+                "Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false).setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog,
+                                        final int id) {
+                        startActivity(new Intent(
+                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog,
+                                        final int id) {
+                        Toast.makeText(context, "Aktifkan GPS !!!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 

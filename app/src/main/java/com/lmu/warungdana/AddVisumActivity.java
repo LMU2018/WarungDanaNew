@@ -155,16 +155,6 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
                 Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,6 +331,18 @@ public class AddVisumActivity extends AppCompatActivity implements ProgressReque
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
 
 
     }

@@ -233,6 +233,8 @@ public class AddLeadActivity extends AppCompatActivity {
             detailUFI.setVisibility(View.VISIBLE);
         }
 
+        getIdStatus();
+
         initProv();
         initSpinnerMerk();
         initSpinnerAddressCat();
@@ -240,17 +242,11 @@ public class AddLeadActivity extends AppCompatActivity {
         initSpinnerSource();
         getIdStatus();
 
+        listener();
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getIdStatus();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void listener() {
 
         switchProduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -372,6 +368,19 @@ public class AddLeadActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
     }
 
     @Override

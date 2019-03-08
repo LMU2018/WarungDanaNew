@@ -116,11 +116,14 @@ public class AddLeadLogActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALL_LOG}, 0);
         }
 
+        getData();
+
+        listener();
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void getData() {
+
         mApiService.logStatus().enqueue(new Callback<RespListLogStatus>() {
             @Override
             public void onResponse(Call<RespListLogStatus> call, Response<RespListLogStatus> response) {
@@ -196,9 +199,7 @@ public class AddLeadLogActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void listener() {
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -470,6 +471,19 @@ public class AddLeadLogActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
 
     }
 

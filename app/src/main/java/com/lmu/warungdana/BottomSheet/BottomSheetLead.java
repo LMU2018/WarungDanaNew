@@ -1,6 +1,7 @@
 package com.lmu.warungdana.BottomSheet;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -18,12 +19,16 @@ import com.lmu.warungdana.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class BottomSheetLead extends BottomSheetDialogFragment {
     private LinearLayout bsNote, bsVisum,bsUnit, bsDocument;
     private Integer idLead;
+    private Boolean visumStatus = true;
 
-    public BottomSheetLead() {
-        // Required empty public constructor
+
+    @SuppressLint("ValidFragment")
+    public BottomSheetLead(Boolean visumStatus) {
+        this.visumStatus = visumStatus;
     }
 
     @Override
@@ -47,6 +52,17 @@ public class BottomSheetLead extends BottomSheetDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (visumStatus == false){
+
+            bsVisum.setVisibility(LinearLayout.GONE);
+
+        }else if(visumStatus == true){
+
+            bsVisum.setVisibility(LinearLayout.VISIBLE);
+
+        }
+
         bsNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

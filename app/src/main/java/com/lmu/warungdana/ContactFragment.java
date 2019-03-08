@@ -100,12 +100,13 @@ public class ContactFragment extends Fragment {
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        listener(view);
+
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void listener(View view) {
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,6 +207,12 @@ public class ContactFragment extends Fragment {
                 alert.show();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 /*
         initFilter();
 */

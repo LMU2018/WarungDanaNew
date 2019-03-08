@@ -265,16 +265,8 @@ public class AddContactActivity extends AppCompatActivity {
 
         job.setPrompt("Pilih Pekerjaan");
 
-    }
+        //
 
-    @Override
-    public void onBackPressed() {
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         initSpinnerAddressCat();
         initSpinnerJob();
         initSpinnerSource();
@@ -284,11 +276,13 @@ public class AddContactActivity extends AppCompatActivity {
         initSpinnerEmployee();
         initProv();
 
+        //
+
+        listener();
+
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void listener() {
 
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -447,6 +441,22 @@ public class AddContactActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 

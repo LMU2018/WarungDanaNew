@@ -80,25 +80,11 @@ public class DetailLeadActivity extends AppCompatActivity implements Toolbar.OnM
         fab = findViewById(R.id.fab);
 
         getDetail();
-
+        listener();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void listener() {
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetLead bottomSheetLead = new BottomSheetLead();
-                bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
-            }
-        });
 
         mApiService.listPhoneLead(idLead).enqueue(new Callback<RespListPhone>() {
             @Override
@@ -139,10 +125,32 @@ public class DetailLeadActivity extends AppCompatActivity implements Toolbar.OnM
                         kab = response.body().getData().get(0).getMstAddressKabupaten();
                         kec = response.body().getData().get(0).getMstAddressKecamatan();
                         kel = response.body().getData().get(0).getMstAddressKelurahan();
+
                     } catch (IndexOutOfBoundsException e) {
                         e.printStackTrace();
                     } catch (NullPointerException e) {
                         e.printStackTrace();
+                    }
+
+                    if (idAddress != null || address != null){
+
+                        fab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                BottomSheetLead bottomSheetLead = new BottomSheetLead(true);
+                                bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
+                            }
+                        });
+                    }else{
+
+
+                        fab.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                BottomSheetLead bottomSheetLead = new BottomSheetLead(false);
+                                bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
+                            }
+                        });
                     }
 
 
@@ -195,6 +203,18 @@ public class DetailLeadActivity extends AppCompatActivity implements Toolbar.OnM
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 

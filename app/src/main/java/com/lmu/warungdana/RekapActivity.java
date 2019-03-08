@@ -106,12 +106,12 @@ public class RekapActivity extends AppCompatActivity {
         selectedDate = String.valueOf(defaultSelectedDate.get(Calendar.YEAR))+"-"+month;
         Log.d("selectDate",selectedDate);
         getKPISKRG();
+        listener();
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void listener() {
+
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
@@ -127,6 +127,12 @@ public class RekapActivity extends AppCompatActivity {
                 getKPISKRG();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     private String convertTime(String time) {

@@ -158,6 +158,23 @@ public class PrintActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         getDataPrint();
+        listener();
+
+    }
+
+    private void listener() {
+
+        btnScrrenShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap bitmap = takeScreenshot(scrollView,scrollView.getChildAt(0).getHeight(),scrollView.getChildAt(0).getWidth());
+                saveBitmap(bitmap);
+
+            }
+        });
+
+        namaCfa.setText(sharedPrefManager.getSPName().toUpperCase());
+        namaOutlet.setText(sharedPrefManager.getSPOutletName());
 
     }
 
@@ -762,17 +779,6 @@ public class PrintActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        btnScrrenShot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bitmap bitmap = takeScreenshot(scrollView,scrollView.getChildAt(0).getHeight(),scrollView.getChildAt(0).getWidth());
-                saveBitmap(bitmap);
-
-            }
-        });
-
-        namaCfa.setText(sharedPrefManager.getSPName().toUpperCase());
-        namaOutlet.setText(sharedPrefManager.getSPOutletName());
 
     }
 

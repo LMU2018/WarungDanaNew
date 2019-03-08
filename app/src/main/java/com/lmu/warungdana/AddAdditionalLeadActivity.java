@@ -80,12 +80,6 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
         idModul = getIntent().getIntExtra("idModul", 0);
         idData = getIntent().getIntExtra("idData", 0);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         getIndicator();
         if (idModul == 1) {
             fungsiLead();
@@ -96,6 +90,14 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
         } else if (idModul == 4) {
             fungsiDeal();
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
 
     }
 
