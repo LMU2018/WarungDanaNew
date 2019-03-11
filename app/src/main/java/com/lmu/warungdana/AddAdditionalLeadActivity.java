@@ -188,7 +188,96 @@ public class AddAdditionalLeadActivity extends AppCompatActivity {
 
     private void fungsiDeal() {
 
-    }
+        if (idIndicator == 1) {
+            final Editable isiNote = note.getText();
+            btnCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Tambah Catatan ?");
+                    alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mApiService.orderNoteCreate(idData, idUser, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    finish();
+                                    Toast.makeText(context, "Berhasil Menambah Note !", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+
+                    alert.show();
+
+                }
+            });
+            btnCheck2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Tambah Catatan ?");
+                    alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            mApiService.orderNoteCreate(idData, idUser, isiNote.toString()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    finish();
+                                    Toast.makeText(context, "Berhasil Menambah Note !", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                    alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+
+                    alert.show();
+
+                }
+            });
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Batal tambah catatan ?");
+                    alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                    });
+
+                    alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                        }
+                    });
+
+                    alert.show();
+                }
+            });
+        }
+
+
+        }
 
     private void fungsiLead() {
 

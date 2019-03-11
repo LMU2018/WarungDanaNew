@@ -75,6 +75,15 @@ import retrofit2.http.Query;
 
 public interface ApiEndPoint {
 
+    @FormUrlEncoded
+    @POST("order_note_create")
+    Call<ResponseBody> orderNoteCreate(@Field("id_order") Integer idOrder,
+                                      @Field("id_cms_users") Integer idUser,
+                                      @Field("note") String note);
+
+    @GET("order_note_listing_new")
+    Call<RespListNote> listNoteOrder(@Query("id_order") Integer id);
+
     @GET("rekap_activity")
     Call<RespRekapActivity> rekapActivity(@Query("id") Integer id,
                                           @Query("inputdate") String inputDate,

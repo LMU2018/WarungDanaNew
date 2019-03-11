@@ -3,6 +3,7 @@ package com.lmu.warungdana;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lmu.warungdana.BottomSheet.BottomSheetContact;
+import com.lmu.warungdana.BottomSheet.BottomSheetOrder;
 import com.lmu.warungdana.FragmentDetailDeal.ContactDealFragment;
 import com.lmu.warungdana.FragmentDetailDeal.DocumentDealFragment;
 import com.lmu.warungdana.FragmentDetailDeal.InfoDealFragment;
+import com.lmu.warungdana.FragmentDetailDeal.NoteDealFragment;
 import com.lmu.warungdana.Response.DetailOrder;
 import com.lmu.warungdana.Response.DetailProductUFI;
 import com.lmu.warungdana.Api.ApiEndPoint;
@@ -59,6 +63,7 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
         adapter.addFragment(new InfoDealFragment(), "info");
         adapter.addFragment(new ContactDealFragment(), "contact");
         adapter.addFragment(new DocumentDealFragment(), "document");
+        adapter.addFragment(new NoteDealFragment(),"note");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         mApiService = UtilsApi.getAPIService();
@@ -66,6 +71,14 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
         idContact = getIntent().getIntExtra("idContact", 0);
         getDetail();
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetOrder bottomSheetLead = new BottomSheetOrder();
+                bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
+            }
+        });
 
     }
 
