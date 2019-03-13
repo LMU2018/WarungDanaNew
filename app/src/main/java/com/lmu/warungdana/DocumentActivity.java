@@ -1,5 +1,6 @@
 package com.lmu.warungdana;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -252,7 +253,7 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
 
                         if (messages.equals("success")) {
 
-                            setResult(2);
+                            setResult(Activity.RESULT_OK);
                             finish();
                         }
                     }

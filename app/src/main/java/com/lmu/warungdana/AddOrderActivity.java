@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -73,7 +74,7 @@ public class AddOrderActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tvContact, tvBirthdate, tvTanggalSurvei, tvNamaOutlet, tvDP;
     private EditText tvNopol, tvNoka, tvNosin, tvNoBPKB, tvAlamatBPKB, tvOTR, tvPlafond,
-            tvAngsuran, tvTenor, tvSuretyName, tvSuretyBirthPlace, tvPerusahaan, tvLamaKerja, tvJabatan, tvPenghasilan, tvPengeluaran;
+            tvAngsuran, tvTenor, tvSuretyName, tvSuretyBirthPlace, tvPerusahaan, tvLamaKerja, tvJabatan, tvPenghasilan, tvPengeluaran, otrTaksasi,nomorTaksasi;
     private Spinner spStatus, spMerk, spYear, spModel, tvNeed, source, spJob, tvStatusKonsumen, spCabangFif, spPosFif, spStsAlamat;
     private Context context;
     private ApiEndPoint mApiService;
@@ -173,6 +174,9 @@ public class AddOrderActivity extends AppCompatActivity {
         btnCheck2 = findViewById(R.id.btnCheck2);
         scrollView = findViewById(R.id.scrollView);
 
+        otrTaksasi = findViewById(R.id.tvOTRTaksasi);
+        nomorTaksasi = findViewById(R.id.tvNomorTaksasi);
+
         tvNamaOutlet.setText(sharedPrefManager.getSPOutletName());
 
         tvPlafond.addTextChangedListener(autoTextWatcher);
@@ -183,6 +187,9 @@ public class AddOrderActivity extends AppCompatActivity {
         tvAngsuran.addTextChangedListener(new NumberTextWatcher(tvAngsuran));
         tvPenghasilan.addTextChangedListener(new NumberTextWatcher(tvPenghasilan));
         tvPengeluaran.addTextChangedListener(new NumberTextWatcher(tvPengeluaran));
+        otrTaksasi.addTextChangedListener(new NumberTextWatcher(otrTaksasi));
+        nomorTaksasi.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(17)});
+
 
         listener();
 
@@ -354,7 +361,22 @@ public class AddOrderActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Pajak STNK Harus diisi !", Toast.LENGTH_LONG).show();
                 } else if (rgOwner.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Pemilik Kend. Harus diisi !", Toast.LENGTH_LONG).show();
-                } else if (TextUtils.isEmpty(tvOTR.getText())) {
+                }
+                else if (TextUtils.isEmpty(otrTaksasi.getText())
+                        && !TextUtils.isEmpty(nomorTaksasi.getText()) ){
+
+                    otrTaksasi.setError("Jika Nomor Taksasi diisi , OTR Taksasi wajib diisi");
+
+                    return;
+
+                }else if (!TextUtils.isEmpty(otrTaksasi.getText())
+                        && TextUtils.isEmpty(nomorTaksasi.getText()) ){
+
+                    nomorTaksasi.setError("Jika OTR Taksasi diisi , Nomor Taksasi wajib diisi");
+
+                    return;
+
+                }else if (TextUtils.isEmpty(tvOTR.getText())) {
                     tvOTR.setError("Wajib Diisi !");
 
                     return;
@@ -398,7 +420,7 @@ public class AddOrderActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(tvPenghasilan.getText())) {
                     tvPenghasilan.setError("Wajib Diisi !");
                     return;*/
-                } else {
+                }  else {
                     loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
 //                    Toast.makeText(context, "Test" + idContact + idUser + idOutlet + nmrOrder + idDataSource + strStatKons + idCabangFif + tglJamSurvei, Toast.LENGTH_SHORT).show();
                     createOrder();
@@ -483,7 +505,21 @@ public class AddOrderActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Pajak STNK Harus diisi !", Toast.LENGTH_LONG).show();
                 } else if (rgOwner.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Pemilik Kend. Harus diisi !", Toast.LENGTH_LONG).show();
-                } else if (TextUtils.isEmpty(tvOTR.getText())) {
+                } else if (TextUtils.isEmpty(otrTaksasi.getText())
+                        && !TextUtils.isEmpty(nomorTaksasi.getText()) ){
+
+                    otrTaksasi.setError("Jika Nomor Taksasi diisi , OTR Taksasi wajib diisi");
+
+                    return;
+
+                }else if (!TextUtils.isEmpty(otrTaksasi.getText())
+                        && TextUtils.isEmpty(nomorTaksasi.getText()) ){
+
+                    nomorTaksasi.setError("Jika OTR Taksasi diisi , Nomor Taksasi wajib diisi");
+
+                    return;
+
+                }else if (TextUtils.isEmpty(tvOTR.getText())) {
                     tvOTR.setError("Wajib Diisi !");
 
                     return;
@@ -600,8 +636,17 @@ public class AddOrderActivity extends AppCompatActivity {
                     taxStatus = "N";
                 }
 
+                String valOtrTaksasi = "",valNomorTaksasi ="";
 
-                mApiService.orderProductUfiCreate(idOrder, idUnit, idUser, tvNopol.getText().toString(), taxStatus, rbOwner.getText().toString())
+                if (!TextUtils.isEmpty(otrTaksasi.getText())
+                        && !TextUtils.isEmpty(nomorTaksasi.getText()) ){
+
+                    valOtrTaksasi = otrTaksasi.getText().toString().replaceAll(",", "").replaceAll("\\.", "").toString();
+                    valNomorTaksasi = nomorTaksasi.getText().toString();
+
+                }
+
+                mApiService.orderProductUfiCreate(idOrder, idUnit, idUser, tvNopol.getText().toString(), taxStatus, rbOwner.getText().toString(),valOtrTaksasi,valNomorTaksasi)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

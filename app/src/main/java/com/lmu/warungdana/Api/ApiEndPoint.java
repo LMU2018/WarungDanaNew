@@ -76,6 +76,13 @@ import retrofit2.http.Query;
 public interface ApiEndPoint {
 
     @FormUrlEncoded
+    @POST("order_product_ufi_update")
+    Call<RespPost> orderProducctUfiUpdate(@Field("id") Integer id,
+                                   @Field("otr_taksasi") Integer otr_taksasi,
+                                          @Field("nomor_taksasi") String nomor_taksasi,
+                                          @Field("updated_by") Integer id_cms_users);
+
+    @FormUrlEncoded
     @POST("order_note_create")
     Call<ResponseBody> orderNoteCreate(@Field("id_order") Integer idOrder,
                                       @Field("id_cms_users") Integer idUser,
@@ -724,7 +731,9 @@ public interface ApiEndPoint {
                                              @Field("id_cms_users") Integer id_cms_users,
                                              @Field("nopol") String nopol,
                                              @Field("tax_status") String tax_status,
-                                             @Field("owner") String owner);
+                                             @Field("owner") String owner,
+                                             @Field("otr_taksasi") String otr_taksasi,
+                                             @Field("nomor_taksasi") String nomor_taksasi);
 
     @FormUrlEncoded
     @POST("order_loan_create")

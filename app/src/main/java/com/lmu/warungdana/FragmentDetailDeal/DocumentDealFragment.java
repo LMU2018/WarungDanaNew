@@ -74,6 +74,8 @@ public class DocumentDealFragment extends Fragment implements ListOrderDocumentA
         iconKosong = view.findViewById(R.id.iconKosong);
         progressBar = view.findViewById(R.id.progressBar);
 
+        btnTambahFoto.setVisibility(FloatingActionButton.GONE);
+
 
         getOrderDocList();
 

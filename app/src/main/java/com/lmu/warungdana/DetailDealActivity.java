@@ -38,7 +38,7 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
     private ViewPager viewPager;
     private Toolbar toolbar;
     private Context context;
-    public Integer idOrder, idContact;
+    public Integer idOrder, idContact,idProductUfi;
     private ApiEndPoint mApiService;
     ViewPagerAdapter adapter = null;
 
@@ -59,27 +59,17 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
         });
         tabLayout = findViewById(R.id.tabsHome);
         viewPager = findViewById(R.id.frame_container);
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new InfoDealFragment(), "info");
-        adapter.addFragment(new ContactDealFragment(), "contact");
-        adapter.addFragment(new DocumentDealFragment(), "document");
-        adapter.addFragment(new NoteDealFragment(),"note");
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        mApiService = UtilsApi.getAPIService();
-        idOrder = getIntent().getIntExtra("idOrder", 0);
-        idContact = getIntent().getIntExtra("idContact", 0);
+
         getDetail();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetOrder bottomSheetLead = new BottomSheetOrder();
-                bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
-            }
-        });
 
+
+    }
+
+    public void getTabDoc(){
+
+        getDetail();
+        viewPager.setCurrentItem(2);
     }
 
     @Override
@@ -90,7 +80,19 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
         fragmentManager.beginTransaction().replace(R.id.frame_container, dealFragment).commit();
     }
 
-    private void getDetail() {
+    public void getDetail() {
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new InfoDealFragment(), "info");
+        adapter.addFragment(new ContactDealFragment(), "contact");
+        adapter.addFragment(new DocumentDealFragment(), "document");
+        adapter.addFragment(new NoteDealFragment(),"note");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        mApiService = UtilsApi.getAPIService();
+        idOrder = getIntent().getIntExtra("idOrder", 0);
+        idContact = getIntent().getIntExtra("idContact", 0);
+
         mApiService.orderDetail(idOrder).enqueue(new Callback<DetailOrder>() {
             @Override
             public void onResponse(Call<DetailOrder> call, Response<DetailOrder> response) {
@@ -121,6 +123,30 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
                 if (response.isSuccessful()) {
                     if (response.body().getApiStatus() != 0) {
                         toolbar.setTitle(response.body().getMstUnitModel());
+
+                        idProductUfi = response.body().getId();
+                        if (response.body().getOtr_taksasi() != null || response.body().getNomor_taksasi() != null){
+
+                            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                            fab.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    BottomSheetOrder bottomSheetLead = new BottomSheetOrder(false);
+                                    bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
+                                }
+                            });
+                        }else{
+
+                            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                            fab.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    BottomSheetOrder bottomSheetLead = new BottomSheetOrder(true);
+                                    bottomSheetLead.show(getSupportFragmentManager(), bottomSheetLead.getTag());
+                                }
+                            });
+
+                        }
                     } else {
                         Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
                     }

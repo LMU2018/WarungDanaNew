@@ -38,10 +38,11 @@ public class InfoDealFragment extends Fragment {
     private ApiEndPoint mApiService;
     private Integer idOrder;
     private TextView nopol, tahun, type, vehiclecode, otr, merk, pajak, pemilik;
-    private TextView plafond, dp, angsuran, tenor, keperluan, penjamin, ttl;
+    private TextView plafond, dp, angsuran, tenor, keperluan, penjamin, ttl , otr_taksasi , nomor_taksasi;
     private TextView status, waktuPooling, sumberOrder, statusKonsumen, alasan;
     private LinearLayout llStatusKonsumen, llAlasan;
     NumberFormat formatter = new DecimalFormat("#,###");
+    LinearLayout viewOTRTaksasi , viewNomorTaksasi;
     private Context context;
 
     public InfoDealFragment() {
@@ -83,6 +84,14 @@ public class InfoDealFragment extends Fragment {
 
         penjamin = view.findViewById(R.id.tvNamaPenjamin);
         ttl = view.findViewById(R.id.tvTTLPenjamin);
+
+        otr_taksasi = view.findViewById(R.id.tvOTRTaksasi);
+        nomor_taksasi = view.findViewById(R.id.tvNomorTaksasi);
+
+        viewNomorTaksasi = view.findViewById(R.id.viewNomorTaksasi);
+       viewOTRTaksasi = view.findViewById(R.id.viewOTRTaksasi);
+
+
 
         mApiService = UtilsApi.getAPIService();
 
@@ -247,6 +256,20 @@ public class InfoDealFragment extends Fragment {
                         pemilik.setText(response.body().getOwner());
                     } else {
                         pemilik.setText("Empty");
+                    }
+
+                    if (response.body().getOtr_taksasi()!=null){
+                        otr_taksasi.setText("IDR " + formatter.format(response.body().getOtr_taksasi()));
+                    }else{
+
+                        viewOTRTaksasi.setVisibility(LinearLayout.GONE);
+                    }
+
+                    if (response.body().getNomor_taksasi()!=null){
+                        nomor_taksasi.setText(response.body().getNomor_taksasi());
+                    }else{
+
+                       viewNomorTaksasi.setVisibility(LinearLayout.GONE);
                     }
 
                     getDetailLoan();

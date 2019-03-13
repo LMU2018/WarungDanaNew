@@ -50,6 +50,12 @@ public class DetailProductUFI {
     @SerializedName("api_http")
     @Expose
     private Integer apiHttp;
+    @SerializedName("otr_taksasi")
+    @Expose
+    private Integer otr_taksasi;
+    @SerializedName("nomor_taksasi")
+    @Expose
+    private String nomor_taksasi;
 
     public Integer getApiStatus() {
         return apiStatus;
@@ -169,5 +175,21 @@ public class DetailProductUFI {
 
     public void setApiHttp(Integer apiHttp) {
         this.apiHttp = apiHttp;
+    }
+
+    public Integer getOtr_taksasi() {
+        return otr_taksasi;
+    }
+
+    public void setOtr_taksasi(Integer otr_taksasi) {
+        this.otr_taksasi = otr_taksasi;
+    }
+
+    public String getNomor_taksasi() {
+        return nomor_taksasi;
+    }
+
+    public void setNomor_taksasi(String nomor_taksasi) {
+        this.nomor_taksasi = nomor_taksasi;
     }
 }
