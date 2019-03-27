@@ -20,6 +20,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -62,7 +63,8 @@ public class PrintActivity extends AppCompatActivity {
             pPekerjaan, pStatusKaryawan, pJabatan, pLamaKerja, pPerusahaan, pPenghasilan, pPengeluaran,
             otr, plafond, dp, angsuran, tenor, keperluan,
             merk, type, vehicle, tahunKendaraan, nopol, sPajak, owner,
-            alamat, rtrw, kel, kec, kab, prov, sRumah, sAlamat;
+            alamat, rtrw, kel, kec, kab, prov, sRumah, sAlamat,tvHslOTRTaksasi,tvHslNoTaksasi;
+    LinearLayout tvOTRTaksasi,tvNoTaksasi;
     FloatingActionButton btnScrrenShot;
     String model, tahun;
     NumberFormat formatter = new DecimalFormat("#,###");
@@ -82,6 +84,10 @@ public class PrintActivity extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(this);
 
+        tvHslNoTaksasi = findViewById(R.id.tv_hsl_no_taksasi);
+        tvHslOTRTaksasi = findViewById(R.id.tv_hsl_otr_taksasi);
+        tvOTRTaksasi = findViewById(R.id.tv_otr_taksasi);
+        tvNoTaksasi = findViewById(R.id.tv_no_taksasi);
         namaCfa = findViewById(R.id.tv_hsl_nama_cfa);
         tglPooling = findViewById(R.id.tv_hsl_tgl_pooling);
         jamPooling = findViewById(R.id.tv_hsl_jam_pooling);
@@ -597,6 +603,22 @@ public class PrintActivity extends AppCompatActivity {
                             owner.setText("MILIK " + response.body().getOwner().toUpperCase());
                         } else {
                             owner.setText("Empty");
+                        }
+
+                        if (response.body().getNomor_taksasi() != null){
+
+                            tvHslNoTaksasi.setText(response.body().getNomor_taksasi().toUpperCase());
+                        }else{
+
+                            tvNoTaksasi.setVisibility(LinearLayout.GONE);
+                        }
+
+                        if (response.body().getOtr_taksasi() != null){
+
+                            tvHslOTRTaksasi.setText(formatter.format(response.body().getOtr_taksasi()));
+                        }else{
+
+                            tvOTRTaksasi.setVisibility(LinearLayout.GONE);
                         }
 
                         getOrderRoanDetail();

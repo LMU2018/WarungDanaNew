@@ -82,6 +82,8 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
 
     public void getDetail() {
 
+        idOrder = getIntent().getIntExtra("idOrder", 0);
+        idContact = getIntent().getIntExtra("idContact", 0);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new InfoDealFragment(), "info");
         adapter.addFragment(new ContactDealFragment(), "contact");
@@ -90,8 +92,6 @@ public class DetailDealActivity extends AppCompatActivity implements Toolbar.OnM
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         mApiService = UtilsApi.getAPIService();
-        idOrder = getIntent().getIntExtra("idOrder", 0);
-        idContact = getIntent().getIntExtra("idContact", 0);
 
         mApiService.orderDetail(idOrder).enqueue(new Callback<DetailOrder>() {
             @Override

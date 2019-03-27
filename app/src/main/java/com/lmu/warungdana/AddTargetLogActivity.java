@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -255,195 +256,197 @@ public class AddTargetLogActivity extends AppCompatActivity {
 
                                         //kode baru pengambilan target detail
 
-                                        mApiService.targetDetail(idData).enqueue(new Callback<DetailTarget>() {
-                                            @Override
-                                            public void onResponse(Call<DetailTarget> call, Response<DetailTarget> response) {
-                                                if (response.isSuccessful()) {
-                                                    if (response.body().getApiStatus() != 0) {
-                                                        Integer idTargetStatus, idLogStatus, idTarget;
-                                                        idTargetStatus = response.body().getIdTargetMstStatus();
-                                                        idLogStatus = response.body().getIdMstLogStatus();
-                                                        idTarget = response.body().getId();
+                                        if (response.isSuccessful()){
 
-                                                        if (idTargetStatus == 1 & idLogStatus == 1) {
-                                                            mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            mApiService.targetDetail(idData).enqueue(new Callback<DetailTarget>() {
+                                                @Override
+                                                public void onResponse(Call<DetailTarget> call, Response<DetailTarget> response) {
+                                                    if (response.isSuccessful()) {
+                                                        if (response.body().getApiStatus() != 0) {
+                                                            Integer idTargetStatus, idLogStatus, idTarget;
+                                                            idTargetStatus = response.body().getIdTargetMstStatus();
+                                                            idLogStatus = response.body().getIdMstLogStatus();
+                                                            idTarget = response.body().getId();
 
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+                                                            if (idTargetStatus == 1 & idLogStatus == 1) {
+                                                                mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
-                                                                }
+                                                                    }
 
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 1 & idLogStatus == 2) {
-                                                            mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 1 & idLogStatus == 2) {
+                                                                mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+                                                                    }
 
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 2 & idLogStatus == 1) {
-                                                            mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
-
-
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 2 & idLogStatus == 2) {
-                                                            mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 2 & idLogStatus == 1) {
+                                                                mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
 
-                                                                }
+                                                                    }
 
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 3 & idLogStatus == 1) {
-                                                            mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
-
-
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 3 & idLogStatus == 2) {
-                                                            mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
-
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 5 & idLogStatus == 1) {
-                                                            mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 2 & idLogStatus == 2) {
+                                                                mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
 
-                                                                }
+                                                                    }
 
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-                                                        } else if (idTargetStatus == 5 & idLogStatus == 2) {
-                                                            mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 3 & idLogStatus == 1) {
+                                                                mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
 
 
-                                                                }
+                                                                    }
 
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 3 & idLogStatus == 2) {
+                                                                mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 5 & idLogStatus == 1) {
+                                                                mApiService.targetUpdateStatus(idTarget, 2, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else if (idTargetStatus == 5 & idLogStatus == 2) {
+                                                                mApiService.targetUpdateStatus(idTarget, 5, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            } else {
+                                                                mApiService.targetUpdateStatus(idTarget, 3, idUser).enqueue(new Callback<ResponseBody>() {
+                                                                    @Override
+                                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                                                        loading.dismiss();
+                                                                        finish();
+                                                                        Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
+
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                                        loading.dismiss();
+                                                                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+
+                                                            }
+
+
+
                                                         } else {
-                                                            mApiService.targetUpdateStatus(idTarget, 3, idUser).enqueue(new Callback<ResponseBody>() {
-                                                                @Override
-                                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                                                                    finish();
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Berhasil menambah log call!", Toast.LENGTH_LONG).show();
-
-
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                                    loading.dismiss();
-                                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
-
+                                                            loading.dismiss();
+                                                            Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
                                                         }
-
-
-
                                                     } else {
                                                         loading.dismiss();
-                                                        Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                                     }
-                                                } else {
-                                                    loading.dismiss();
-                                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onFailure(Call<DetailTarget> call, Throwable t) {
-                                                loading.dismiss();
-                                                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                                @Override
+                                                public void onFailure(Call<DetailTarget> call, Throwable t) {
+                                                    loading.dismiss();
+                                                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+
+
                                     }
 
                                     @Override
@@ -521,6 +524,7 @@ public class AddTargetLogActivity extends AppCompatActivity {
                 break;
         }
         managedCursor.close();
+
     }
 
     private void getDetailDataLead() {

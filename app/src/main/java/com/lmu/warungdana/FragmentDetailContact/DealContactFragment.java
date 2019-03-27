@@ -50,6 +50,7 @@ public class DealContactFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deal_contact, container, false);
         DetailContactActivity activity = (DetailContactActivity) getActivity();
+        context =  getContext();
         idContact = activity.idContact;
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -77,7 +78,7 @@ public class DealContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailContact> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,7 +95,7 @@ public class DealContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListOrder> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }

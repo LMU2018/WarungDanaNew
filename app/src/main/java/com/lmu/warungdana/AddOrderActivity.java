@@ -99,6 +99,7 @@ public class AddOrderActivity extends AppCompatActivity {
     private Calendar calendar;
     NumberFormat formatter = new DecimalFormat("#,###");
     NestedScrollView scrollView;
+    TextView nomorTaksasiWajib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +177,7 @@ public class AddOrderActivity extends AppCompatActivity {
 
         otrTaksasi = findViewById(R.id.tvOTRTaksasi);
         nomorTaksasi = findViewById(R.id.tvNomorTaksasi);
+        nomorTaksasiWajib = findViewById(R.id.tvNomorTaksasiWajib);
 
         tvNamaOutlet.setText(sharedPrefManager.getSPOutletName());
 
@@ -188,7 +190,26 @@ public class AddOrderActivity extends AppCompatActivity {
         tvPenghasilan.addTextChangedListener(new NumberTextWatcher(tvPenghasilan));
         tvPengeluaran.addTextChangedListener(new NumberTextWatcher(tvPengeluaran));
         otrTaksasi.addTextChangedListener(new NumberTextWatcher(otrTaksasi));
-        nomorTaksasi.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(17)});
+        nomorTaksasi.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(20)});
+
+        nomorTaksasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+               nomorTaksasiWajib.setText("Nomor Taksasi ("+nomorTaksasi.length()+"/20)");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
         listener();
@@ -298,18 +319,18 @@ public class AddOrderActivity extends AppCompatActivity {
                 jabatan = tvJabatan.getText().toString();
 
                 if (TextUtils.isEmpty(tvPerusahaan.getText())) {
-                    lamaKerja = null;
+                    lamaKerja = 0;
                 } else {
                     lamaKerja = Integer.parseInt(tvLamaKerja.getText().toString());
                 }
                 if (TextUtils.isEmpty(tvPenghasilan.getText())) {
-                    pendapatan = null;
+                    pendapatan = 0;
                 } else {
                     pendapatan = Integer.parseInt(tvPenghasilan.getText().toString().replaceAll(",", "").replaceAll("\\.", ""));
 
                 }
                 if (TextUtils.isEmpty(tvPengeluaran.getText())) {
-                    pengeluaran = null;
+                    pengeluaran = 0;
                 } else {
                     pengeluaran = Integer.parseInt(tvPengeluaran.getText().toString().replaceAll(",", "").replaceAll("\\.", ""));
                 }

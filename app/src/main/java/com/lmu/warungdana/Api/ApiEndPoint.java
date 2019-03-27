@@ -387,6 +387,12 @@ public interface ApiEndPoint {
                              @Field("password") String password);
 
     @FormUrlEncoded
+    @POST("login")
+    Call<Login> loginawal(@Field("npm") String npm,
+                             @Field("password") String password,
+                             @Field("device_id") String device_id);
+
+    @FormUrlEncoded
     @POST("user_agreement_check")
     Call<DetailUserAgreement> eulaCheck(@Field("id_cms_users") Integer idUser);
 

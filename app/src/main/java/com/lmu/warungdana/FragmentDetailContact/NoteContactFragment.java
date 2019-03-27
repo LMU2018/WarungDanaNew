@@ -48,6 +48,7 @@ public class NoteContactFragment extends Fragment {
         idContact = activity.idContact;
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
+        context = getContext();
         return view;
     }
 
@@ -67,7 +68,7 @@ public class NoteContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListNote> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }

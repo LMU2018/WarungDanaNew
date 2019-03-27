@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,8 +68,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailDealActivity.class);
-                intent.putExtra("idOrder", listOrder.getId());
                 intent.putExtra("idContact", listOrder.getIdContact());
+                intent.putExtra("idOrder",listOrder.getId());
                 context.startActivity(intent);
             }
         });

@@ -93,7 +93,7 @@ public class AddContactActivity extends AppCompatActivity {
     ProgressDialog loading;
     private String pekerjaan, sumber, sEmail = null, sMother = null, sTanggungan = null,
             sPerusahaan = null, sJabatan = null, sLamakerja = null, sPendapatan = null, sPengeluaran = null;
-    private Integer iRumah = null, iKaryawan = null, idUser;
+    private Integer iRumah = 0, iKaryawan = 0, idUser;
     private Calendar calendar;
     private RadioGroup rgGender;
     private RadioButton rbGender, rbLaki, rbPerempuan;
@@ -103,9 +103,8 @@ public class AddContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
         setContentView(R.layout.activity_add_contact);
-
+        context = this;
         idContactIntent = getIntent().getIntExtra("idContact", 0);
 
         toolbar = findViewById(R.id.toolbar);
@@ -336,21 +335,21 @@ public class AddContactActivity extends AppCompatActivity {
                     birthdate.setError("Wajib Diisi !");
                     return;
                 } else if (rgGender.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(), "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
                 } else if (idReligion == 0) {
-                    Toast.makeText(getApplicationContext(),"Agama wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Agama wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (idmarital == 0) {
-                    Toast.makeText(getApplicationContext(),"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (idjob == 0) {
-                    Toast.makeText(getApplicationContext(),"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (idSource == 0) {
-                    Toast.makeText(getApplicationContext(),"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(mainphone.getText())) {
                     mainphone.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(mobilephone.getText())) {
                     mobilephone.setError("Wajib Diisi !");
                 } else if (idCategory== 0) {
-                    Toast.makeText(getApplicationContext(),"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(address.getText())) {
                     address.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(rt.getText())) {
@@ -362,11 +361,11 @@ public class AddContactActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(tanggungan.getText())) {
                     tanggungan.setError("Wajib Diisi !");
                 } else if (iRumah == 0) {
-                    Toast.makeText(getApplicationContext(),"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (TextUtils.isEmpty(perusahaan.getText())) {
                     perusahaan.setError("Wajib Diisi !");
                 } else if (iKaryawan == 0) {
-                    Toast.makeText(getApplicationContext(),"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(jabatan.getText())) {
                     jabatan.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(lamakerja.getText())) {
@@ -396,21 +395,21 @@ public class AddContactActivity extends AppCompatActivity {
                     birthdate.setError("Wajib Diisi !");
                     return;
                 } else if (rgGender.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(getApplicationContext(), "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Pilih Jenis Kelamin", Toast.LENGTH_LONG).show();
                 } else if (idReligion == 0) {
-                    Toast.makeText(getApplicationContext(),"Agama wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Agama wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (idmarital == 0) {
-                    Toast.makeText(getApplicationContext(),"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status kawin wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (idjob == 0) {
-                    Toast.makeText(getApplicationContext(),"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Pekerjaan wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (idSource == 0) {
-                    Toast.makeText(getApplicationContext(),"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Sumber data wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(mainphone.getText())) {
                     mainphone.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(mobilephone.getText())) {
                     mobilephone.setError("Wajib Diisi !");
                 } else if (idCategory== 0) {
-                    Toast.makeText(getApplicationContext(),"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Kategori alamat wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(address.getText())) {
                     address.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(rt.getText())) {
@@ -422,11 +421,11 @@ public class AddContactActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(tanggungan.getText())) {
                     tanggungan.setError("Wajib Diisi !");
                 } else if (iRumah == 0) {
-                    Toast.makeText(getApplicationContext(),"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status rumah wajib diisi",Toast.LENGTH_LONG).show();
                 } else if (TextUtils.isEmpty(perusahaan.getText())) {
                     perusahaan.setError("Wajib Diisi !");
                 } else if (iKaryawan == 0) {
-                    Toast.makeText(getApplicationContext(),"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Status karyawan wajib diisi",Toast.LENGTH_LONG).show();
                 }else if (TextUtils.isEmpty(jabatan.getText())) {
                     jabatan.setError("Wajib Diisi !");
                 } else if (TextUtils.isEmpty(lamakerja.getText())) {
@@ -708,7 +707,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Agama")){
 
                                     idReligion = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     idReligion = listReligions.get(position-1).getId();
@@ -765,7 +764,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Status Kawin")){
 
                                     idmarital = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     idmarital = listMaritals.get(position-1).getId();
@@ -827,7 +826,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Pekerjaan")){
 
                                     idjob = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     idjob = listJobs.get(position-1).getId();
@@ -884,7 +883,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Sumber Data")){
 
                                     idSource = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     idSource = listDataSources.get(position-1).getId();
@@ -941,7 +940,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Alamat Tinggal")){
 
                                     idCategory = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     idCategory = listCategoryAddresses.get(position-1).getId();
@@ -1136,7 +1135,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Status Rumah")){
 
                                     iRumah = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     iRumah = listPlaces.get(position-1).getId();
@@ -1192,7 +1191,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 if (parent.getItemAtPosition(position).equals("Pilih Status Karyawan")){
 
                                     iKaryawan = 0;
-//                                    Toast.makeText(getApplicationContext(),"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(context,"Silahkan Pilih Pekerjaan",Toast.LENGTH_LONG).show();
                                 }else{
 
                                     iKaryawan = listEmployees.get(position-1).getId();

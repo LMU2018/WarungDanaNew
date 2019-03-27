@@ -579,10 +579,11 @@
                     android:padding="15dp">
 
                     <TextView
+                        android:id="@+id/tvNomorTaksasiWajib"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Nomor Taksasi"
+                        android:text="Nomor Taksasi (0/20)"
                         android:textSize="12sp" />
 
                     <EditText

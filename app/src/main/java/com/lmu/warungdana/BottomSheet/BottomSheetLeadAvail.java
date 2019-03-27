@@ -2,6 +2,7 @@ package com.lmu.warungdana.BottomSheet;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -35,6 +36,7 @@ public class BottomSheetLeadAvail extends BottomSheetDialogFragment {
     Integer idLead;
     Button lewati,collab;
     SharedPrefManager sharedPrefManager;
+    Context context;
 
 
     public BottomSheetLeadAvail() {
@@ -60,6 +62,7 @@ public class BottomSheetLeadAvail extends BottomSheetDialogFragment {
         tvOwner = view.findViewById(R.id.tvOwner);
         lewati = view.findViewById(R.id.lewati);
         collab = view.findViewById(R.id.collab);
+        context = getContext();
 
         mApiService.leadDetail(idLead).enqueue(new Callback<DetailLead>() {
             @Override
@@ -80,7 +83,7 @@ public class BottomSheetLeadAvail extends BottomSheetDialogFragment {
 
             @Override
             public void onFailure(Call<DetailLead> call, Throwable t) {
-                Toast.makeText(getContext(),"Fail",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Fail",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,7 +103,7 @@ public class BottomSheetLeadAvail extends BottomSheetDialogFragment {
         collab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog loading = ProgressDialog.show(getContext(), null, "Harap Tunggu...", true, false);
+                final ProgressDialog loading = ProgressDialog.show(context, null, "Harap Tunggu...", true, false);
                 mApiService.leadCollabCheck(sharedPrefManager.getSpId(),idLead).enqueue(new Callback<RespPost>() {
                     @Override
                     public void onResponse(Call<RespPost> call, Response<RespPost> response) {
@@ -110,33 +113,34 @@ public class BottomSheetLeadAvail extends BottomSheetDialogFragment {
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     if (response.isSuccessful()){
                                         loading.dismiss();
-                                        Intent intent = new Intent(getContext(), DetailLeadActivity.class);
-                                        intent.putExtra("idLead", idLead);
-                                        getContext().startActivity(intent);
                                         dismiss();
+                                        Intent intent = new Intent(context, DetailLeadActivity.class);
+                                        intent.putExtra("idLead", idLead);
+                                        context.startActivity(intent);
+
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     loading.dismiss();
-                                    Toast.makeText(getContext(),"Periksa koneksi anda !",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,"Periksa koneksi anda !",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }else {
-                            Toast.makeText(getContext(),"Anda sudah collab dengan data ini !",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), DetailLeadActivity.class);
-                            intent.putExtra("idLead", idLead);
-                            getContext().startActivity(intent);
-                            dismiss();
                             loading.dismiss();
+                            Toast.makeText(getContext(),"Anda sudah collab dengan data ini !",Toast.LENGTH_SHORT).show();
+                            dismiss();
+                            Intent intent = new Intent(context, DetailLeadActivity.class);
+                            intent.putExtra("idLead", idLead);
+                            context.startActivity(intent);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<RespPost> call, Throwable t) {
                         loading.dismiss();
-                        Toast.makeText(getContext(),"Periksa koneksi anda !",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"Periksa koneksi anda !",Toast.LENGTH_SHORT).show();
                     }
                 });
 

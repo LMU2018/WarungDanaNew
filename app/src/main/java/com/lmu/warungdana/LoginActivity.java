@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     Integer uId, time;
     String android_id, nama, roleName, npmX, outletName;
     int roleId, outletId, branchId;
+    ImageView bcLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         eula = findViewById(R.id.cbEula);
         link = findViewById(R.id.llink);
+        bcLogin = findViewById(R.id.bcLogin);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
         sharedPrefManager = new SharedPrefManager(this);
@@ -70,7 +73,12 @@ public class LoginActivity extends AppCompatActivity {
         version = findViewById(R.id.tvVersionX);
 
         version.setText("Warung Dana Mobile versi " + BuildConfig.VERSION_NAME);
-        loading = new ProgressDialog(LoginActivity.this);
+        loading = new ProgressDialog(this);
+        loading.setMessage("Masuk ...");
+//                    loading.setIndeterminate(true);
+        loading.setCancelable(false);
+
+        bcLogin.animate().scaleX(3).scaleY(3).setDuration(30000).start();
 
     }
 
@@ -92,13 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else {
-                    loading.setMessage("Harap Tunggu...");
-//                    loading.setIndeterminate(true);
-                    loading.setCancelable(false);
-                    loading.show();
+
                     /*Calendar calendar = Calendar.getInstance();
                     time = calendar.get(Calendar.MINUTE);
                     Toast.makeText(mContext, "Time " + time, Toast.LENGTH_SHORT).show();*/
+                    loading.show();
                     callAutoLogout();
                     requestlogin();
                 }
@@ -112,14 +118,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void requestlogin() {
-        mApiService.loginrequest(npm.getText().toString(), password.getText().toString())
+        mApiService.loginawal(npm.getText().toString(), password.getText().toString(),android_id)
                 .enqueue(new Callback<Login>() {
                     @Override
                     public void onResponse(Call<Login> call, Response<Login> response) {
                         if (response.isSuccessful()) {
                             if (response.body().getApiStatus() == 1) {
-                                loading.dismiss();
                                 if (response.body().getStatus() == null || response.body().getStatus().equalsIgnoreCase("N")) {
+                                    loading.dismiss();
                                     Toast.makeText(mContext, "Username Anda Tidak Aktif !!!", Toast.LENGTH_SHORT).show();
                                 } else {
 
@@ -135,7 +141,23 @@ public class LoginActivity extends AppCompatActivity {
                                     branchId = response.body().getIdMstBranch();
                                     outletName = response.body().getMstOutletOutletName();
                                     Log.d("User ID", "" + uId);
-                                    updateAndroidID();
+//                                    updateAndroidID();
+
+                                    loading.dismiss();
+                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, uId);
+                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
+                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_ROLES, roleId);
+                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npmX);
+                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
+                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
+                                    sharedPrefManager.saveSPInt(SharedPrefManager.SP_BRANCH_ID, branchId);
+                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
+                                    sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+
+                                    startActivity(new Intent(mContext, HomeActivity.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    finish();
+
                                 }
 
                             } else {
@@ -224,58 +246,59 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateAndroidID() {
-
-        mApiService.updateAndroidID(uId, android_id).enqueue(new Callback<RespPost>() {
-            @Override
-            public void onResponse(Call<RespPost> call, Response<RespPost> response) {
-
-                if (response.isSuccessful()) {
-
-                    Log.d("Api Status", "" + response.body().getApiStatus());
-                    Log.d("Message", "" + response.body().getApiMessage());
-                    Log.d("Android ID", "" + android_id);
-
-                    if (response.body().getApiStatus() == 1) {
-
-                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, uId);
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
-                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ROLES, roleId);
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npmX);
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
-                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
-                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_BRANCH_ID, branchId);
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
-                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
-
-                        startActivity(new Intent(mContext, HomeActivity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                        finish();
-
-                    } else {
-
-                        loading.dismiss();
-                        Toast.makeText(mContext, "Gagal login", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                } else {
-
-                    loading.dismiss();
-                    Toast.makeText(mContext, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RespPost> call, Throwable t) {
-
-                loading.dismiss();
-                Toast.makeText(mContext, "Not Respond", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
+//    private void updateAndroidID() {
+//
+//        mApiService.updateAndroidID(uId, android_id).enqueue(new Callback<RespPost>() {
+//            @Override
+//            public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+//
+//                if (response.isSuccessful()) {
+//
+//                    Log.d("Api Status", "" + response.body().getApiStatus());
+//                    Log.d("Message", "" + response.body().getApiMessage());
+//                    Log.d("Android ID", "" + android_id);
+//
+//                    if (response.body().getApiStatus() == 1) {
+//
+//                        loading.dismiss();
+//                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ID, uId);
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, nama);
+//                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_ROLES, roleId);
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NPM, npmX);
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_ROLES_NAMES, roleName);
+//                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_OUTLET_ID, outletId);
+//                        sharedPrefManager.saveSPInt(SharedPrefManager.SP_BRANCH_ID, branchId);
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_OUTLET_NAME, outletName);
+//                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+//
+//                        startActivity(new Intent(mContext, HomeActivity.class)
+//                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+//                        finish();
+//
+//                    } else {
+//
+//                        loading.dismiss();
+//                        Toast.makeText(mContext, "Gagal login", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//
+//                } else {
+//
+//                    loading.dismiss();
+//                    Toast.makeText(mContext, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RespPost> call, Throwable t) {
+//
+//                loading.dismiss();
+//                Toast.makeText(mContext, "Not Respond", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//    }
 
 }

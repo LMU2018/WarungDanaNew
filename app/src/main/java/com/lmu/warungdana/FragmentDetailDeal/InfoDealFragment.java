@@ -53,7 +53,8 @@ public class InfoDealFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_info_deal, container, false);
-        DetailDealActivity activity = (DetailDealActivity) getActivity();
+        context = getContext();
+        DetailDealActivity activity = (DetailDealActivity) context;
         idOrder = activity.idOrder;
 
         llStatusKonsumen = view.findViewById(R.id.llStatusKonsumen);
@@ -90,6 +91,8 @@ public class InfoDealFragment extends Fragment {
 
         viewNomorTaksasi = view.findViewById(R.id.viewNomorTaksasi);
        viewOTRTaksasi = view.findViewById(R.id.viewOTRTaksasi);
+
+       context = getContext();
 
 
 
@@ -187,13 +190,13 @@ public class InfoDealFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailOrder> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -275,13 +278,13 @@ public class InfoDealFragment extends Fragment {
                     getDetailLoan();
 
                 } else {
-                    Toast.makeText(getActivity(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailProductUFI> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -329,13 +332,13 @@ public class InfoDealFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailOrderLoan> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -362,13 +365,13 @@ public class InfoDealFragment extends Fragment {
                         ttl.setText("Empty");
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Data Kosong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailOrderSurety> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }

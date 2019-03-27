@@ -2,6 +2,7 @@ package com.lmu.warungdana;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -66,11 +67,14 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
     String mode = "";
     ProgressDialog progressDialog;
     SharedPrefManager sharedPrefManager;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
+
+        context = this;
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -190,7 +194,7 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
 
     private void update() {
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(context);
 
         progressDialog.setMax(100);
         progressDialog.setMessage("Sedang upload file");
@@ -241,7 +245,7 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
 
     private void showDialog(final String messages) {
 
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
         builder1.setMessage(messages);
         builder1.setCancelable(true);
 
@@ -267,7 +271,7 @@ public class DocumentActivity extends AppCompatActivity implements ProgressReque
 
     private void upload() {
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(context);
 
         progressDialog.setMax(100);
         progressDialog.setMessage("Sedang upload file");

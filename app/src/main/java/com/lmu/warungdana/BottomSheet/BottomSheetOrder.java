@@ -11,7 +11,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,52 +135,145 @@ public class BottomSheetOrder extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.dialog_taksasi, null);
         final EditText tvNomorTaksasi = view.findViewById(R.id.edtNomorTaksasi);
         final EditText tvOTRTaksasi = view.findViewById(R.id.edtOTRTaksasi);
+        final TextView tvNoTaksasiX = view.findViewById(R.id.tvNoTaksasi);
+        final TextView tvOTRTaksasiX = view.findViewById(R.id.tvOTRTaksasi);
+        final TextView tvWajibOTR = view.findViewById(R.id.tvWajibOTRTaksasi);
+        final TextView tvWajibNomor = view.findViewById(R.id.tvWajibNomorTaksasi);
 
         tvOTRTaksasi.addTextChangedListener(new NumberTextWatcher(tvOTRTaksasi));
-        tvNomorTaksasi.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(17)});
+        tvNomorTaksasi.setFilters(new InputFilter[]{new InputFilter.AllCaps(),new InputFilter.LengthFilter(20)});
+        tvOTRTaksasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        alert.setTitle("Tambah Taksasi");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+                if (tvOTRTaksasi.length() >= 1){
+
+                    tvWajibOTR.setVisibility(TextView.GONE);
+                }else{
+
+                    tvWajibOTR.setVisibility(TextView.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        tvNomorTaksasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                tvNoTaksasiX.setText("Nomor Taksasi ("+tvNomorTaksasi.length()+"/20) :");
+
+                if (tvNomorTaksasi.length() >= 1){
+
+                    tvWajibNomor.setVisibility(TextView.GONE);
+                }else{
+
+                    tvWajibNomor.setVisibility(TextView.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         alert.setView(view);
 
         alert.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                progressDialog.show();
+                if (tvOTRTaksasi.getText().toString().isEmpty() || tvNomorTaksasi.getText().toString().isEmpty()){
 
-                mApiService.orderProducctUfiUpdate(idProductUfi,Integer.parseInt(tvOTRTaksasi.getText().toString().replaceAll(",", "").replaceAll("\\.", "")),tvNomorTaksasi.getText().toString(),id_cms_users).
-                        enqueue(new Callback<RespPost>() {
-                            @Override
-                            public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+                    final AlertDialog dialogKonfirmasi = new AlertDialog.Builder(context).create();
+                    dialogKonfirmasi.setMessage("Semua data wajib diisi");
+                    dialogKonfirmasi.setButton(AlertDialog.BUTTON_POSITIVE, "Oke",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-                                if (response.isSuccessful()){
-
-                                    if (response.body().getApiStatus() != 0){
-
-                                        Toast.makeText(context,"Berhasil menyimpan Taksasi",Toast.LENGTH_LONG).show();
-                                        activity.getDetail();
-                                        dismiss();
-
-                                    }else{
-
-                                        Toast.makeText(context,"Gagal menyimpan Taksasi",Toast.LENGTH_LONG).show();
-                                    }
-                                }else{
-
-                                    Toast.makeText(context,"Terjadi kesalahan , silahkan coba lagi",Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
                                 }
+                            });
+                    dialogKonfirmasi.show();
+//                    Toast.makeText(getActivity(),"OTR Taksasi wajib diisi !",Toast.LENGTH_LONG);
+//                    dismiss();
+                }else{
 
-                                progressDialog.dismiss();
-                            }
+                    final AlertDialog dialogKonfirmasi = new AlertDialog.Builder(context).create();
+                    dialogKonfirmasi.setTitle("Konfirmasi penambahan hasil Taksasi");
+                    dialogKonfirmasi.setMessage("Simpan data taksasi ?");
+                    dialogKonfirmasi.setButton(AlertDialog.BUTTON_NEUTRAL, "Batal",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            @Override
-                            public void onFailure(Call<RespPost> call, Throwable t) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    dialogKonfirmasi.setButton(AlertDialog.BUTTON_NEGATIVE, "Simpan", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
 
-                                Toast.makeText(context,"Not Responding",Toast.LENGTH_LONG).show();
+                            progressDialog.show();
 
-                                progressDialog.dismiss();
-                            }
-                        });
+                            mApiService.orderProducctUfiUpdate(idProductUfi,Integer.parseInt(tvOTRTaksasi.getText().toString().replaceAll(",", "").replaceAll("\\.", "")),tvNomorTaksasi.getText().toString(),id_cms_users).
+                                    enqueue(new Callback<RespPost>() {
+                                        @Override
+                                        public void onResponse(Call<RespPost> call, Response<RespPost> response) {
+
+                                            if (response.isSuccessful()){
+
+                                                if (response.body().getApiStatus() != 0){
+
+                                                    Toast.makeText(context,"Berhasil menyimpan Taksasi",Toast.LENGTH_LONG).show();
+                                                    activity.getDetail();
+                                                    dismiss();
+
+                                                }else{
+
+                                                    Toast.makeText(context,"Gagal menyimpan Taksasi",Toast.LENGTH_LONG).show();
+                                                }
+                                            }else{
+
+                                                Toast.makeText(context,"Terjadi kesalahan , silahkan coba lagi",Toast.LENGTH_LONG).show();
+                                            }
+
+                                            progressDialog.dismiss();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<RespPost> call, Throwable t) {
+
+                                            Toast.makeText(context,"Not Responding",Toast.LENGTH_LONG).show();
+
+                                            progressDialog.dismiss();
+                                        }
+                                    });
+
+
+                        }
+                    });
+                    dialogKonfirmasi.show();
+
+                }
+
+
 
             }
         });

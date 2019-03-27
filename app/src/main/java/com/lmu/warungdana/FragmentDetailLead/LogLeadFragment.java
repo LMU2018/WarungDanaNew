@@ -43,6 +43,7 @@ public class LogLeadFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         DetailLeadActivity activity = (DetailLeadActivity) getActivity();
+        context = getContext();
         idLead = activity.idLead;
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -65,7 +66,7 @@ public class LogLeadFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListLog> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
     }

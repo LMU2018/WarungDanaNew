@@ -70,6 +70,7 @@ public class InfoContactFragment extends Fragment {
         working = view.findViewById(R.id.tvWorkingTime);
         income = view.findViewById(R.id.tvIncome);
         outlay = view.findViewById(R.id.tvOutlay);
+        context = getContext();
 
         rvAddress = view.findViewById(R.id.rvAddress);
         rvPhone = view.findViewById(R.id.rvPhone);
@@ -123,7 +124,7 @@ public class InfoContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListPhone> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
         mApiService.listAddressContact(idContact).enqueue(new Callback<RespListAddress>() {
@@ -139,7 +140,7 @@ public class InfoContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListAddress> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -186,7 +187,7 @@ public class InfoContactFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DetailAdditionalContact> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
     }

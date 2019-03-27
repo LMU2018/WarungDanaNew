@@ -1233,6 +1233,63 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/tv_no_taksasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nomor Taksasi "
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_no_taksasi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tv_otr_taksasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffd7d7"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="OTR Taksasi"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_hsl_otr_taksasi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text=""
+                        android:textAlignment="textEnd"
+                        android:textColor="#000"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"

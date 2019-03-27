@@ -66,11 +66,11 @@ public class InfoLeadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        DetailLeadActivity activity = (DetailLeadActivity) getActivity();
+        context = getContext();
+        DetailLeadActivity activity = (DetailLeadActivity) context;
         idLead = activity.idLead;
         context = getContext();
         View view = inflater.inflate(R.layout.fragment_info_lead, container, false);
-
         rvPhone = view.findViewById(R.id.rvPhone);
         rvAddress = view.findViewById(R.id.rvAddress);
         mApiService = UtilsApi.getAPIService();
@@ -119,16 +119,16 @@ public class InfoLeadFragment extends Fragment {
                         pekerjaan = response.body().getMstJobJob();
 
                     } else {
-                        Toast.makeText(getActivity(), "Checking", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Checking", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DetailLead> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,7 +154,7 @@ public class InfoLeadFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListPhone> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -171,7 +171,7 @@ public class InfoLeadFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListUnit> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -198,7 +198,7 @@ public class InfoLeadFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListAddress> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -262,7 +262,7 @@ public class InfoLeadFragment extends Fragment {
 
                                                                 @Override
                                                                 public void onFailure(Call<RespPost> call, Throwable t) {
-                                                                    Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
                                                         }
@@ -284,7 +284,7 @@ public class InfoLeadFragment extends Fragment {
 
                                             @Override
                                             public void onFailure(Call<CheckContact> call, Throwable t) {
-                                                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                             }
                                         });
 
@@ -294,7 +294,7 @@ public class InfoLeadFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<CheckNIK> call, Throwable t) {
-                                    Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

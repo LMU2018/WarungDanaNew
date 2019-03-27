@@ -1,5 +1,6 @@
 package com.lmu.warungdana.Adapter;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.lmu.warungdana.R;
@@ -55,7 +57,15 @@ public class ListAddressAdapter extends RecyclerView.Adapter<ListAddressAdapter.
                 Uri mapsNav = Uri.parse("google.navigation:q="+ listLead.getAddress() + ", " + listLead.getMstAddressKabupaten() + "&avoid=t");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapsNav);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                context.startActivity(mapIntent);
+
+                try {
+
+                    context.startActivity(mapIntent);
+
+                }catch (ActivityNotFoundException e){
+
+                    Toast.makeText(context,"Aplikasi Google Maps tidak ada di hp anda !",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

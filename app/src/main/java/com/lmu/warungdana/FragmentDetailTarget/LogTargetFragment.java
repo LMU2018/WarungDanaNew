@@ -40,6 +40,7 @@ public class LogTargetFragment extends Fragment {
     private Context context;
     ArrayList<ListLogTarget> listTargets;
     Activity mActivity;
+    ListLogTargetAdapter listLogTargetAdapter;
 
 
     public LogTargetFragment() {
@@ -58,12 +59,21 @@ public class LogTargetFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         sharedPrefManager = new SharedPrefManager(getContext());
         listTargets = new ArrayList<>();
+        listLogTargetAdapter =  new ListLogTargetAdapter(getContext(),listTargets);
+        recyclerView.setAdapter(listLogTargetAdapter);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        if (listTargets.size() >= 1){
+
+            listTargets.clear();
+            listLogTargetAdapter.notifyDataSetChanged();
+
+        }
         mApiService.listLogTarget(idTarget,sharedPrefManager.getSpId()).enqueue(new Callback<RespListLogTarget>() {
             @Override
             public void onResponse(Call<RespListLogTarget> call, Response<RespListLogTarget> response) {
@@ -125,8 +135,8 @@ public class LogTargetFragment extends Fragment {
 //                    }
 
                     listTargets.addAll(listLeads);
-
-                    recyclerView.setAdapter(new ListLogTargetAdapter(getContext(),listTargets));
+                    listLogTargetAdapter.notifyDataSetChanged();
+//                    recyclerView.setAdapter(new ListLogTargetAdapter(getContext(),listTargets));
 
                 }
             }

@@ -4,18 +4,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-   <EditText
-       android:id="@+id/edtNomorTaksasi"
-       android:hint="Nomor Taksasi"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/edtOTRTaksasi"
-        android:inputType="numberDecimal"
-        android:maxLength="11"
-        android:hint="OTR Taksasi"
+    <TextView
+        android:background="@color/colorAccent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#FFFF"
+        android:textSize="18dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Hasil Taksasi"/>
+
+    <ImageView
+        android:src="@drawable/ic_taksasi_image"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvNoTaksasi"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nomor Taksasi (0/20):"/>
+
+        <TextView
+            android:id="@+id/tvWajibNomorTaksasi"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wajib diisi !"/>
+
+        <EditText
+            android:id="@+id/edtNomorTaksasi"
+
+            android:hint="Masukan Nomor Taksasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvOTRTaksasi"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OTR Taksasi :"/>
+        <TextView
+            android:id="@+id/tvWajibOTRTaksasi"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wajib diisi !"/>
+
+        <EditText
+            android:id="@+id/edtOTRTaksasi"
+            android:inputType="numberDecimal"
+            android:maxLength="11"
+            android:hint="Masukan OTR Taksasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

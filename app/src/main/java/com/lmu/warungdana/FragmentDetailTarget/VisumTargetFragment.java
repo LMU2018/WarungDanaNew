@@ -49,6 +49,7 @@ public class VisumTargetFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
         DetailTargetActivity activity = (DetailTargetActivity) getActivity();
+        context = getContext();
         idTarget = activity.idTarget;
         mApiService = UtilsApi.getAPIService();
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -106,7 +107,7 @@ public class VisumTargetFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RespListVisum> call, Throwable t) {
-                Toast.makeText(getActivity(), "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Not Responding", Toast.LENGTH_SHORT).show();
             }
         });
     }
