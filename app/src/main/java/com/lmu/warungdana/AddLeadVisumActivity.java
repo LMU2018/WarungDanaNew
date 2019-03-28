@@ -113,7 +113,10 @@ public class AddLeadVisumActivity extends AppCompatActivity implements ProgressR
         btnCheck = findViewById(R.id.btnCheck);
         tvPhoto = findViewById(R.id.tvPhoto);
         imageView = findViewById(R.id.imgPhoto);
-
+        loading = new ProgressDialog(context);
+        loading.setMessage("Tunggu");
+//                    loading.setIndeterminate(true);
+        loading.setCancelable(false);
         listener();
     }
 
@@ -196,9 +199,10 @@ public class AddLeadVisumActivity extends AppCompatActivity implements ProgressR
                     Toast.makeText(getApplicationContext(),"Wajib diisi semua",Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
+                    loading.show();
+//                    loading = ProgressDialog.show(context, null, "Tunggu...", true, false);
 
-                    Log.d("IDSTATUSE",""+idStatus);
+//                    Log.d("IDSTATUSE",""+idStatus);
                     mApiService.leadVisumCreate(idData, idUser, tglPilih, idStatus).enqueue(new Callback<RespPost>() {
                         @Override
                         public void onResponse(Call<RespPost> call, Response<RespPost> response) {
@@ -211,11 +215,11 @@ public class AddLeadVisumActivity extends AppCompatActivity implements ProgressR
                                     uploadPhoto(response.body().getId());
 
                                 }else{
-
+                                    loading.dismiss();
                                     Toast.makeText(context, "Gagal Menyimpan Visum", Toast.LENGTH_LONG).show();
                                 }
                             }else {
-
+                                loading.dismiss();
                                 Toast.makeText(context, "Gagal Menyimpan Visum", Toast.LENGTH_LONG).show();
 
                             }
