@@ -66,6 +66,7 @@ public class AddLeadLogActivity extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     boolean connected = false;
     DatabaseHelper databaseHelper;
+    Integer idLogStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +141,7 @@ public class AddLeadLogActivity extends AppCompatActivity {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 Integer idStatus = listLogStatuses.get(position).getId();
+                                idLogStatus = idStatus;
                                 mApiService.logDesc(idStatus).enqueue(new Callback<RespListLogDesc>() {
                                     @Override
                                     public void onResponse(Call<RespListLogDesc> call, Response<RespListLogDesc> response) {
@@ -250,6 +252,12 @@ public class AddLeadLogActivity extends AppCompatActivity {
                         loading.setMessage("Harap Tunggu...");
                         loading.setCancelable(false);
                         loading.show();
+
+                        if (idLogStatus == 6 || idLogStatus == 7 || idLogStatus == 8 || idLogStatus == 9){
+
+                            callDuration = "0";
+                        }
+
                         mApiService.leadLog(idData, callDuration, idDesc, tglPilih, idUser).enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
