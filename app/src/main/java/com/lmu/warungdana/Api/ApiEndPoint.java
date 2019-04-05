@@ -76,6 +76,26 @@ import retrofit2.http.Query;
 public interface ApiEndPoint {
 
     @FormUrlEncoded
+    @POST("lead_log_create_logic")
+    Call<ResponseBody> leadLogCreate(@Field("id_lead") Integer idLead,
+                               @Field("duration") String duration,
+                               @Field("id_mst_log_desc") Integer idDesc,
+                               @Field("recall") String recall,
+                               @Field("id_cms_users") Integer iduser,
+                               @Field("id_modul") Integer id_modul,
+                               @Field("id_data") Integer id_data,
+                               @Field("jenis") String jenis);
+
+    @FormUrlEncoded
+    @POST("target_log_create_logic")
+    Call<ResponseBody> targetLogCreate(@Field("id_target") Integer id_target,
+                                 @Field("duration") String duration,
+                                 @Field("id_mst_log_desc") Integer idDesc,
+                                 @Field("recall") String recall,
+                                 @Field("id_cms_users") Integer iduser,@Field("id_modul") Integer id_modul,
+                                       @Field("id_data") Integer id_data,@Field("jenis") String jenis);
+
+    @FormUrlEncoded
     @POST("order_product_ufi_update")
     Call<RespPost> orderProducctUfiUpdate(@Field("id") Integer id,
                                    @Field("otr_taksasi") Integer otr_taksasi,
