@@ -210,19 +210,25 @@ public class HomeActivity extends AppCompatActivity {
 
                     }else{
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                        builder.setCancelable(false);
-                        builder.setMessage("Aplikasi mendeteksi akun anda login lebih dari 1 device , silahkan login kembali")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
 
-                                        sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
-                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
-                        builder.show();
+                        AlertDialog.Builder builder = null;
+                        try {
+                            builder = new AlertDialog.Builder(HomeActivity.this);
+                            builder.setCancelable(false);
+                            builder.setMessage("Aplikasi mendeteksi akun anda login lebih dari 1 device , silahkan login kembali")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                            builder.show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 }

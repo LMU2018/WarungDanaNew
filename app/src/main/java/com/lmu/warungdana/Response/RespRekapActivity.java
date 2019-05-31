@@ -35,6 +35,17 @@ public class RespRekapActivity {
     @SerializedName("count_booking_outlet")
     @Expose
     private Integer countBookingOutlet;
+    @SerializedName("count_visumTotal")
+    @Expose
+    private Integer countVisumTotal;
+
+    public Integer getCountVisumTotal() {
+        return countVisumTotal;
+    }
+
+    public void setCountVisumTotal(Integer countVisumTotal) {
+        this.countVisumTotal = countVisumTotal;
+    }
 
     public Integer getApiStatus() {
         return apiStatus;

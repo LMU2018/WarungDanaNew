@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lmu.warungdana.Adapter.ListUserLogAdapter;
@@ -20,6 +21,8 @@ import com.lmu.warungdana.Utils.UtilsConnected;
 import com.lmu.warungdana.Api.ApiEndPoint;
 import com.lmu.warungdana.Api.SharedPrefManager;
 import com.lmu.warungdana.Api.UtilsApi;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,8 @@ public class ActivityFragment extends Fragment {
     ProgressBar progress;
     private Integer offset = 15, limit;
     private boolean itShouldLoadMore = true;
+    TextView baba;
+    View bibi;
 
     public ActivityFragment() {
         // Required empty public constructor
@@ -70,6 +75,11 @@ public class ActivityFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(listUserLogAdapter);
+
+        baba = view.findViewById(R.id.baba);
+        bibi = view.findViewById(R.id.a);
+        baba.setVisibility(TextView.VISIBLE);
+        bibi.setVisibility(View.VISIBLE);
 
        /* if (isConn) {
             progress.setVisibility(View.VISIBLE);

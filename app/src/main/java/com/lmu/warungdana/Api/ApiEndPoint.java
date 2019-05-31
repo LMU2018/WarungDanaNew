@@ -420,7 +420,8 @@ public interface ApiEndPoint {
     @POST("user_apps_logs_create")
     Call<ResponseBody> userLogs(@Field("useragent") String userAgent,
                                 @Field("description") String desc,
-                                @Field("id_cms_users") Integer idUser);
+                                @Field("id_cms_users") Integer idUser,
+                                @Field("version") String version);
 
     @FormUrlEncoded
     @POST("user_agreement_create")

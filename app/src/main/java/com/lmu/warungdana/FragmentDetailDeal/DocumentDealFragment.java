@@ -95,7 +95,11 @@ public class DocumentDealFragment extends Fragment implements ListOrderDocumentA
 
     public void getOrderDocList() {
 
-        iconKosong.setVisibility(LinearLayout.INVISIBLE);
+        try {
+            iconKosong.setVisibility(LinearLayout.INVISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(null);
 

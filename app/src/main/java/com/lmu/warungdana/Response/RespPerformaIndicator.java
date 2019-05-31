@@ -61,6 +61,39 @@ public class RespPerformaIndicator {
     @SerializedName("count_brosurBulanTotal")
     @Expose
     private Integer countBrosurBulanTotal;
+    @SerializedName("count_visum")
+    @Expose
+    private Integer countVisum;
+    @SerializedName("count_visumBlnKemarin")
+    @Expose
+    private Integer countVisumBlnKemarin;
+    @SerializedName("count_visumTotal")
+    @Expose
+    private Integer countVisumTotal;
+
+    public Integer getCountVisum() {
+        return countVisum;
+    }
+
+    public void setCountVisum(Integer countVisum) {
+        this.countVisum = countVisum;
+    }
+
+    public Integer getCountVisumBlnKemarin() {
+        return countVisumBlnKemarin;
+    }
+
+    public void setCountVisumBlnKemarin(Integer countVisumBlnKemarin) {
+        this.countVisumBlnKemarin = countVisumBlnKemarin;
+    }
+
+    public Integer getCountVisumTotal() {
+        return countVisumTotal;
+    }
+
+    public void setCountVisumTotal(Integer countVisumTotal) {
+        this.countVisumTotal = countVisumTotal;
+    }
 
     public Integer getApiStatus() {
         return apiStatus;

@@ -4,8 +4,15 @@ package com.lmu.warungdana.FragmentHome;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +61,8 @@ import retrofit2.Response;
 public class OverviewFragment extends Fragment {
 
     String greeting = null;
-    private TextView tvGreeting, tvTanggal, tvSKRG, tvKMRN, tvSEMUA, tvKPIDeskripsi, newdb, tele, brosur, order, booking, tvRekap;
+    FloatingActionButton avatar;
+    private TextView tvGreeting, tvTanggal, tvSKRG, tvKMRN, tvSEMUA, tvKPIDeskripsi, newdb, tele, brosur, order, booking, tvRekap,tvVisum;
     HorizontalCalendar horizontalCalendar;
     private Button btnGoToday;
     private RecyclerView rvJadwalAktivitas;
@@ -64,8 +73,7 @@ public class OverviewFragment extends Fragment {
     boolean isConn;
     private String dateSekarang , dateKemarin;
     int count_brosur,count_tele,count_newDB,count_order,count_booking,count_teleBlnKemarin,count_NewDBBlnKemarin,count_orderBulanKemarin,count_bookingBulanKemarin,count_teleTotal,count_newDBTotal,count_orderTotal,
-    count_bookingTotal,count_brosurBulanKemarin,count_brosurBulanTotal;
-
+    count_bookingTotal,count_brosurBulanKemarin,count_brosurBulanTotal,count_visum , count_visumBlnKemarin , count_visumTotal;
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -98,6 +106,8 @@ public class OverviewFragment extends Fragment {
         booking = view.findViewById(R.id.bookingSum);
         btnGoToday = view.findViewById(R.id.btnGoToday);
         rvJadwalAktivitas = view.findViewById(R.id.rvJadwalAktivitas);
+        tvVisum = view.findViewById(R.id.visumSum);
+        avatar = view.findViewById(R.id.fabAvatar);
 
 
         Calendar startDate = Calendar.getInstance();
@@ -145,6 +155,11 @@ public class OverviewFragment extends Fragment {
         } else {
             Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
         }
+
+//        TextDrawable drawable = TextDrawable.builder()
+//                .buildRect(""+sharedPrefManager.getSPName().charAt(0)+sharedPrefManager.getSPName().charAt(1), Color.RED);
+//        avatar.setImageDrawable(drawable);
+        avatar.setImageBitmap(textAsBitmap(""+sharedPrefManager.getSPName().charAt(0), 40, Color.WHITE));
 
         return view;
     }
@@ -228,18 +243,27 @@ public class OverviewFragment extends Fragment {
 
                         }
 
-                        count_tele = response.body().getCountTele();
-                        count_newDB = response.body().getCountNewDB();
-                        count_order = response.body().getCountOrder();
-                        count_booking = response.body().getCountBooking();
-                        count_teleBlnKemarin = response.body().getCountTeleBlnKemarin();
-                        count_NewDBBlnKemarin = response.body().getCountNewDBBlnKemarin();
-                        count_orderBulanKemarin = response.body().getCountOrderBulanKemarin();
-                        count_bookingBulanKemarin = response.body().getCountBookingBulanKemarin();
-                        count_teleTotal = response.body().getCountTeleTotal();
-                        count_newDBTotal = response.body().getCountNewDBTotal();
-                        count_orderTotal = response.body().getCountOrderTotal();
-                        count_bookingTotal = response.body().getCountBookingTotal();
+
+                        try {
+                            count_tele = response.body().getCountTele();
+                            count_newDB = response.body().getCountNewDB();
+                            count_order = response.body().getCountOrder();
+                            count_booking = response.body().getCountBooking();
+                            count_teleBlnKemarin = response.body().getCountTeleBlnKemarin();
+                            count_NewDBBlnKemarin = response.body().getCountNewDBBlnKemarin();
+                            count_orderBulanKemarin = response.body().getCountOrderBulanKemarin();
+                            count_bookingBulanKemarin = response.body().getCountBookingBulanKemarin();
+                            count_teleTotal = response.body().getCountTeleTotal();
+                            count_newDBTotal = response.body().getCountNewDBTotal();
+                            count_orderTotal = response.body().getCountOrderTotal();
+                            count_bookingTotal = response.body().getCountBookingTotal();
+                            count_visum = response.body().getCountVisum();
+                            count_visumBlnKemarin = response.body().getCountVisumBlnKemarin();
+                            count_visumTotal = response.body().getCountVisumTotal();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
 
                         getKPISKRG();
 
@@ -299,6 +323,7 @@ public class OverviewFragment extends Fragment {
         newdb.setText(String.valueOf(count_newDB));
         order.setText(String.valueOf(count_order));
         booking.setText(String.valueOf(count_booking));
+        tvVisum.setText(String.valueOf(count_visum));
 
 //        final Calendar calendar = Calendar.getInstance();
 //        final List<KpiCfa> data = new ArrayList<KpiCfa>();
@@ -485,6 +510,7 @@ public class OverviewFragment extends Fragment {
         newdb.setText(String.valueOf(count_NewDBBlnKemarin));
         order.setText(String.valueOf(count_orderBulanKemarin));
         booking.setText(String.valueOf(count_bookingBulanKemarin));
+        tvVisum.setText(String.valueOf(count_visumBlnKemarin));
 
 //        final Calendar calendar = Calendar.getInstance();
 //        final List<KpiCfa> data = new ArrayList<KpiCfa>();
@@ -716,6 +742,7 @@ public class OverviewFragment extends Fragment {
         newdb.setText(String.valueOf(count_newDBTotal));
         order.setText(String.valueOf(count_orderTotal));
         booking.setText(String.valueOf(count_bookingTotal));
+        tvVisum.setText(String.valueOf(count_visumTotal));
 //        final Calendar calendar = Calendar.getInstance();
 //        final List<KpiCfa> data = new ArrayList<KpiCfa>();
 //        Date d1 = null, d2 = null;
@@ -946,6 +973,21 @@ public class OverviewFragment extends Fragment {
         }
         tvGreeting.setText(greeting + ", " + sharedPrefManager.getSPName());
         tvTanggal.setText(hariini);
+    }
+
+    public static Bitmap textAsBitmap(String text, float textSize, int textColor) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setTextSize(textSize);
+        paint.setColor(textColor);
+        paint.setTextAlign(Paint.Align.LEFT);
+        float baseline = -paint.ascent(); // ascent() is negative
+        int width = (int) (paint.measureText(text) + 0.0f); // round
+        int height = (int) (baseline + paint.descent() + 0.0f);
+        Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(image);
+        canvas.drawText(text, 0, baseline, paint);
+        return image;
     }
 
 }

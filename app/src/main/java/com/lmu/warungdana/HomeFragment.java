@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lmu.warungdana.BottomSheet.BottomSheetHome;
@@ -71,9 +72,12 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
         mApiService = UtilsApi.getAPIService();
         tabLayout = view.findViewById(R.id.tabsHome);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_apps_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_history_black_24dp);
         userAgent = System.getProperty("http.agent");
         userId = sharedPrefManager.getSpId();
         lastLogin = sharedPrefManager.getSpLastLogin();
+
 
         return view;
 
@@ -99,7 +103,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
-                                mApiService.userLogs(userAgent, "Logout", userId).enqueue(new Callback<ResponseBody>() {
+                                mApiService.userLogs(userAgent, "Logout", userId,""+BuildConfig.VERSION_NAME).enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -149,7 +153,7 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
 
         if (hasil > 1) {
             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
-            mApiService.userLogs(userAgent, "Logout", userId).enqueue(new Callback<ResponseBody>() {
+            mApiService.userLogs(userAgent, "Logout", userId,""+BuildConfig.VERSION_NAME).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -193,7 +197,8 @@ public class HomeFragment extends Fragment implements android.support.v7.widget.
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+//            return mFragmentTitleList.get(position);
+            return  null;
         }
     }
 

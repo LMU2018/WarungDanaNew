@@ -90,6 +90,8 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
                 holder.imgList.setBackground(wadau);
                 switch (listUserLog.getJenis()) {
                     case "create":
+                        Drawable wadauH = ContextCompat.getDrawable(context, R.drawable.oval_add_data);
+                        holder.backIcon.setBackground(wadauH);
                         holder.konsumen.setText(" menambah data baru.");
                         holder.cardView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -101,6 +103,8 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
                         });
                         break;
                     case "call":
+                        Drawable wadauF = ContextCompat.getDrawable(context, R.drawable.oval_call_lead);
+                        holder.backIcon.setBackground(wadauF);
                         holder.konsumen.setText(" menghubungi data.");
                         holder.cardView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -138,6 +142,8 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
             case 3:
                 deskripsi = "Target";
                 holder.deskripsi.setText(deskripsi);
+                Drawable wadauF = ContextCompat.getDrawable(context, R.drawable.oval_call);
+                holder.backIcon.setBackground(wadauF);
                 Drawable wew = ContextCompat.getDrawable(context, R.drawable.ic_radio_button_checked_black_24dp);
                 wew.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
                 holder.imgList.setBackground(wew);
@@ -173,6 +179,8 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
             case 4:
                 deskripsi = "Contact";
                 holder.deskripsi.setText(deskripsi);
+                Drawable wadauG = ContextCompat.getDrawable(context, R.drawable.oval_add);
+                holder.backIcon.setBackground(wadauG);
                 Drawable gas = ContextCompat.getDrawable(context, R.drawable.ic_account_circle_white_24dp);
                 holder.imgList.setBackground(gas);
                 holder.konsumen.setText(" menambah contact baru.");
@@ -206,6 +214,8 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
                 break;
             case 5:
                 deskripsi = "Deal";
+                Drawable wadauE = ContextCompat.getDrawable(context, R.drawable.ovalgold);
+                holder.backIcon.setBackground(wadauE);
                 holder.deskripsi.setText(deskripsi);
                 Drawable yata = ContextCompat.getDrawable(context, R.drawable.ic_attach_money_white_24dp);
                 holder.imgList.setBackground(yata);
@@ -230,6 +240,82 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
                     }
                 });
                 break;
+
+            case 6:
+                deskripsi = "Target";
+                Drawable wadauD = ContextCompat.getDrawable(context, R.drawable.oval_visit_target);
+                holder.backIcon.setBackground(wadauD);
+                holder.deskripsi.setText(deskripsi);
+                Drawable wew1 = ContextCompat.getDrawable(context, R.drawable.ic_location_on_white_24dp);
+                wew1.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                holder.imgList.setBackground(wew1);
+                holder.konsumen.setText(" melakukan visum.");
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, DetailTargetActivity.class);
+                        intent.putExtra("idTarget", listUserLog.getIdData());
+                        context.startActivity(intent);
+                    }
+                });
+                mApiService.targetDetail(listUserLog.getIdData()).enqueue(new Callback<DetailTarget>() {
+                    @Override
+                    public void onResponse(Call<DetailTarget> call, Response<DetailTarget> response) {
+                        if (response.isSuccessful()) {
+                            String nama;
+                            if (response.body().getLastName() != null) {
+                                nama = response.body().getFirstName() + " " + response.body().getLastName();
+                            } else {
+                                nama = response.body().getFirstName();
+                            }
+                            holder.status.setText(nama);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DetailTarget> call, Throwable t) {
+                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+
+            case 7:
+                deskripsi = "Lead";
+                holder.deskripsi.setText(deskripsi);
+                Drawable wadauC = ContextCompat.getDrawable(context, R.drawable.oval_visit);
+                holder.backIcon.setBackground(wadauC);
+                Drawable wadauA = ContextCompat.getDrawable(context, R.drawable.ic_location_on_white_24dp);
+                holder.imgList.setBackground(wadauA);
+                holder.konsumen.setText(" melakukan visum.");
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, DetailLeadActivity.class);
+                        intent.putExtra("idLead", listUserLog.getIdData());
+                        context.startActivity(intent);
+                    }
+                });
+                mApiService.leadDetail(listUserLog.getIdData()).enqueue(new Callback<DetailLead>() {
+                    @Override
+                    public void onResponse(Call<DetailLead> call, Response<DetailLead> response) {
+                        if (response.isSuccessful()) {
+                            String nama;
+                            if (response.body().getLastName() != null) {
+                                nama = response.body().getFirstName() + " " + response.body().getLastName();
+                            } else {
+                                nama = response.body().getFirstName();
+                            }
+                            holder.status.setText(nama);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DetailLead> call, Throwable t) {
+                        Toast.makeText(context, "Koneksi Bermasalah", Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+
         }
 
         created = convertTime2(listUserLog.getCreatedAt());
@@ -244,7 +330,7 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
 
     public class ListUserLogHolder extends RecyclerView.ViewHolder {
         TextView deskripsi, status, created, namacfa, konsumen;
-        ImageView imgList;
+        ImageView imgList,backIcon;
         CardView cardView;
 
         public ListUserLogHolder(View itemView) {
@@ -256,6 +342,7 @@ public class ListUserLogAdapter extends RecyclerView.Adapter<ListUserLogAdapter.
             namacfa = itemView.findViewById(R.id.tvItemCFA);
             konsumen = itemView.findViewById(R.id.tvItemCustomer);
             imgList = itemView.findViewById(R.id.imgList);
+            backIcon = itemView.findViewById(R.id.backicon);
 
         }
     }

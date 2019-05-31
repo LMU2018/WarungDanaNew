@@ -22,9 +22,9 @@ android {
         applicationId "com.lmu.warungdana"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 7
+        versionCode 8
 
-        versionName "2.4.1"
+        versionName "2.4.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -71,6 +71,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.0.5'
     implementation 'com.github.mirrajabi:search-dialog:1.2.3'
     implementation 'com.github.fccaikai:AppUpdate:2.1.4'
+
 
 
 }

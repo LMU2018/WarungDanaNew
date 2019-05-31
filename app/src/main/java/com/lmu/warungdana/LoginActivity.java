@@ -214,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void userLogs() {
 
-        mApiService.userLogs(userAgent, "Login", uId).enqueue(new Callback<ResponseBody>() {
+        mApiService.userLogs(userAgent, "Login", uId,""+BuildConfig.VERSION_NAME).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 

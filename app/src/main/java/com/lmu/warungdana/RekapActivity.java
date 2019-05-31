@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.lmu.warungdana.Response.CounterBrosur;
 import com.lmu.warungdana.Response.KpiCfa;
 import com.lmu.warungdana.Response.RespCounterBrosur;
@@ -35,7 +36,7 @@ import retrofit2.Response;
 public class RekapActivity extends AppCompatActivity {
     private ApiEndPoint mApiService;
     private android.support.v7.widget.Toolbar toolbar;
-    private TextView newdb, tele, brosur, order, booking, namaOutlet, orderOutlet, bookingOutlet;
+    private TextView newdb, tele, brosur, order, booking, namaOutlet, orderOutlet, bookingOutlet,visumsum;
     HorizontalCalendar horizontalCalendar;
     View view;
     SharedPrefManager sharedPrefManager;
@@ -68,12 +69,14 @@ public class RekapActivity extends AppCompatActivity {
         booking = findViewById(R.id.bookingSum);
         orderOutlet = findViewById(R.id.jumlahOrder);
         bookingOutlet = findViewById(R.id.jumlahBooking);
+        visumsum = findViewById(R.id.visumSum);
 
 
         nama_cfa = findViewById(R.id.nama_cfa);
         outlet_cfa = findViewById(R.id.outlet_cfa);
         nama_cfa.setText(sharedPrefManager.getSPName());
         outlet_cfa.setText(sharedPrefManager.getSPOutletName());
+
 
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.YEAR, -1);
@@ -107,6 +110,8 @@ public class RekapActivity extends AppCompatActivity {
         Log.d("selectDate",selectedDate);
         getKPISKRG();
         listener();
+
+
 
     }
 
@@ -173,9 +178,7 @@ public class RekapActivity extends AppCompatActivity {
                         booking.setText(""+response.body().getCountBooking());
                         orderOutlet.setText(""+response.body().getCountOrderOutlet());
                         bookingOutlet.setText(""+response.body().getCountBookingOutlet());
-
-
-
+                        visumsum.setText(""+response.body().getCountVisumTotal());
                     }
                 }
             }
