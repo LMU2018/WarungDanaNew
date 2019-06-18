@@ -78,9 +78,6 @@ public class ActivityFragment extends Fragment {
 
         baba = view.findViewById(R.id.baba);
         bibi = view.findViewById(R.id.a);
-        baba.setVisibility(TextView.VISIBLE);
-        bibi.setVisibility(View.VISIBLE);
-
        /* if (isConn) {
             progress.setVisibility(View.VISIBLE);
             firstLoad();
